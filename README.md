@@ -38,7 +38,8 @@ Open `http://127.0.0.1:8788/`. The site must be served over HTTP because the con
 | Algorithms | 13 routines with the idea, invariant, cost, source files and failure modes. The core routines have C++/Python/Julia/Java/R sources; the dynamics, label, tree and message routines have C++/Python/Julia sources. JavaScript stays in `assets/js/engine` as the browser runtime. |
 | Code | C++20 header-only, Julia, Python, Java and R, sharing the same xoshiro128** stream and lattice edge order. Java and R cover the core sampler, DSU, lattice and Newman–Ziff; JavaScript is the browser runtime in `assets/js/engine`, not a reference edition. |
 | Data | A C++ benchmark harness, a Python analyser, and a JSON record with raw counts, seeds and fits. |
-| Checks | Four language suites, cross-language parity probes, RNG golden vectors, translation structure, prose-claim checks and a bibliography audit. |
+| Checks | Five reference suites plus browser-runtime tests, cross-language parity probes, RNG golden vectors, translation structure, prose-claim checks and a bibliography audit. |
+| Docs | [`docs/ALGORITHMS.md`](docs/ALGORITHMS.md), [`docs/EXAMPLES.md`](docs/EXAMPLES.md), [`docs/RNG.md`](docs/RNG.md), [`docs/API.md`](docs/API.md), [`docs/VERIFICATION.md`](docs/VERIFICATION.md). |
 
 ## Reproduce the checks
 

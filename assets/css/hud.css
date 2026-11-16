@@ -1573,12 +1573,6 @@ body[data-view="overview"] .topbar { border-bottom-color: rgba(79, 227, 234, 0.2
 .algo-source:hover { text-decoration: underline; }
 @media (max-width: 1050px) { .algo-reader { grid-template-columns: 1fr; } .algo-list { position: static; } .algo-cols { grid-template-columns: 1fr; } }
 @media (max-width: 620px) { .algo-article { padding: 14px; } .algo-notes { grid-template-columns: 1fr; } }
-[data-theme="light"] .file-item { color: #2a3b43; }
-[data-theme="light"] .file-item:hover { background: rgba(8,126,142,0.07); color: #14232a; }
-[data-theme="light"] .file-item.active { background: rgba(8,126,142,0.10); color: var(--cyan); }
-[data-theme="light"] .code-pane-head { background: #f7f3ea; }
-[data-theme="light"] .code-side { background: transparent; }
-[data-theme="light"] .code-body .ln { color: #8a9aa2; }
 [data-theme="light"] .algo-list { background: #fbf9f3; }
 [data-theme="light"] .algo-list a { color: #3c525c; }
 [data-theme="light"] .algo-article { background: #fdfbf7; }

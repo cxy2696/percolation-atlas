@@ -35,10 +35,11 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 |---|---|
 | 章节 | 23 章，英、简中、德三语，从 1957 年的论文写到对偶、锐性、指数、SLE、随机簇模型、网络、测量、应用、算法、有向与连续渗流、输运、证明、设计、可复现性、树与流行病。 |
 | 实验 | 16 个交互模型：格子渗流、横穿坍缩、Newman–Ziff、三维位点渗流、Cardy、有向渗流、随机簇、自举、爆炸、侵入、网络鲁棒性、耦合级联、布尔模型、Bethe 树、SIR，以及算法工坊。 |
-| 算法 | 13 条例程，给出想法、不变量、代价、源文件与常见错误：Bernoulli 采样器、并查集、键/位点 Newman–Ziff、Leath、自举、侵入、Achlioptas、k-核、Hoshen–Kopelman、Bethe 不动点、SIR 最终规模与消息传递。四种实现及其测试都索引在 `content/algorithms.json`。 |
+| 算法 | 13 条例程，给出想法、不变量、代价、源文件与常见错误：Bernoulli 采样器、并查集、键/位点 Newman–Ziff、Leath、自举、侵入、Achlioptas、k-核、Hoshen–Kopelman、Bethe 不动点、SIR 最终规模与消息传递。参考实现及其测试按语言索引在 `content/algorithms.json`。 |
 | 代码 | C++20 头文件库、Julia、Python、Java、R，共用同一条 xoshiro128** 随机流与同一套格子边序。Java 与 R 覆盖 Bernoulli 抽样、并查集、格子和 Newman–Ziff；JavaScript 只是 `assets/js/engine` 中的浏览器运行时，不是参考实现。 |
 | 数据 | C++ 基准程序、Python 分析器，以及带原始计数、种子与拟合的 JSON 记录。 |
-| 检查 | 四语言测试、跨语言一致性探针、RNG 金标、翻译结构、正文断言核对与文献审计。 |
+| 检查 | 五套参考语言测试加浏览器运行时测试、跨语言一致性探针、RNG 金标、翻译结构、正文断言核对与文献审计。 |
+| 文档 | [`docs/ALGORITHMS.md`](docs/ALGORITHMS.md)、[`docs/EXAMPLES.md`](docs/EXAMPLES.md)、[`docs/RNG.md`](docs/RNG.md)、[`docs/API.md`](docs/API.md)、[`docs/VERIFICATION.md`](docs/VERIFICATION.md)。 |
 
 ## 复现检查
 

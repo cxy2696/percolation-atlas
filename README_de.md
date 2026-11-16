@@ -35,10 +35,11 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 |---|---|
 | Kapitel | 23 Kapitel auf Englisch, vereinfachtem Chinesisch und Deutsch, von der Arbeit von 1957 über Dualität, Schärfe, Exponenten, SLE, Random-Cluster-Modelle, Netzwerke, Messung, Anwendungen, Algorithmen, gerichtete und kontinuierliche Perkolation, Transport, Beweise, Entwurf, Reproduzierbarkeit, Bäume und Epidemien. |
 | Experimente | 16 interaktive Modelle: Gitterperkolation, Durchgangskollaps, Newman–Ziff, 3D-Site-Perkolation, Cardy, gerichtete Perkolation, Random-Cluster, Bootstrap, explosiv, Invasion, Netzwerkrobustheit, gekoppelte Kaskaden, Boolesches Modell, Bethe-Baum, SIR und ein Algorithmenstudio. |
-| Algorithmen | 13 Routinen mit Idee, Invariante, Kosten, Quelldateien und Fehlerquellen: Bernoulli-Sampler, DSU, Bond- und Site-Newman–Ziff, Leath, Bootstrap, Invasion, Achlioptas, k-Kern, Hoshen–Kopelman, Bethe-Fixpunkt, SIR-Endgröße und Message Passing. Alle vier Implementierungen und ihre Tests stehen in `content/algorithms.json`. |
+| Algorithmen | 13 Routinen mit Idee, Invariante, Kosten, Quelldateien und Fehlerquellen: Bernoulli-Sampler, DSU, Bond- und Site-Newman–Ziff, Leath, Bootstrap, Invasion, Achlioptas, k-Kern, Hoshen–Kopelman, Bethe-Fixpunkt, SIR-Endgröße und Message Passing. Die Referenzimplementierungen und ihre Tests sind nach Sprache in `content/algorithms.json` indexiert. |
 | Code | C++20 header-only, Julia, Python, Java und R, mit demselben xoshiro128**-Strom und derselben Kantenordnung. Java und R decken Bernoulli-Sampling, DSU, Gitter und Newman–Ziff ab; JavaScript ist die Browser-Laufzeit in `assets/js/engine`, keine Referenzausgabe. |
 | Daten | C++-Benchmark-Harness, Python-Analysator und ein JSON-Protokoll mit Rohzählungen, Seeds und Fits. |
-| Prüfungen | Vier Sprach-Suiten, sprachübergreifende Paritätsproben, RNG-Golden-Werte, Übersetzungsstruktur, Prosa-Aussagen und Bibliographie-Audit. |
+| Prüfungen | Fünf Referenz-Suiten plus Browser-Laufzeittests, sprachübergreifende Paritätsproben, RNG-Golden-Werte, Übersetzungsstruktur, Prosa-Aussagen und Bibliographie-Audit. |
+| Dokumentation | [`docs/ALGORITHMS.md`](docs/ALGORITHMS.md), [`docs/EXAMPLES.md`](docs/EXAMPLES.md), [`docs/RNG.md`](docs/RNG.md), [`docs/API.md`](docs/API.md), [`docs/VERIFICATION.md`](docs/VERIFICATION.md). |
 
 ## Prüfungen reproduzieren
 

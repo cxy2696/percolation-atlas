@@ -292,7 +292,7 @@
      "path": "lib/java/src/atlas/Parity.java",
      "bucket": "core",
      "lines": 132,
-     "bytes": 5378
+     "bytes": 5394
     },
     {
      "path": "lib/java/src/atlas/Percolation.java",

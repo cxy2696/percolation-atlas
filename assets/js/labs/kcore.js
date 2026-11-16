@@ -80,9 +80,10 @@ export function mount(root, ctx) {
     const rng = new Rng(state.seed++);
     const deg = powerLawDegrees(N, 2.5, 2, 50, rng);
     state.graph = configurationModel(deg, rng);
-    state.node = Array.from({ length: N }, (_, v) => {
-      const a = 2 * Math.PI * v / N;
-      const r = Math.min(230, 90 + 140 * Math.sqrt(v / N));
+    const layout = new Rng(state.seed++);
+    state.node = Array.from({ length: N }, () => {
+      const a = 2 * Math.PI * layout.random();
+      const r = 240 * Math.sqrt(layout.random());
       return { x: r * Math.cos(a), y: r * Math.sin(a) };
     });
     draw();

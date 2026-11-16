@@ -1718,3 +1718,45 @@ body[data-view="overview"] .topbar { border-bottom-color: rgba(79, 227, 234, 0.2
   border-bottom: 1px solid var(--line);
 }
 [data-theme="light"] .algo-list .group { background: #f4efe4; color: #566b74; }
+
+/* Light code workbench: the file tree and tab strip must not inherit the
+   dark HUD panel. Readable ink on paper, not dark text on a dark translucent
+   layer. */
+[data-theme="light"] .code-workbench {
+  background: #f7f3ea;
+  border-color: #cfd9d5;
+}
+[data-theme="light"] .code-side {
+  background: #f2ede3;
+  border-right-color: #cfd9d5;
+}
+[data-theme="light"] .code-tabs {
+  background: #f2ede3;
+  border-bottom-color: #cfd9d5;
+}
+[data-theme="light"] .code-tabs button {
+  color: #40565f;
+  background: transparent;
+}
+[data-theme="light"] .code-tabs button:hover { color: #14232a; }
+[data-theme="light"] .code-tabs button.active {
+  color: #075b67;
+  background: #fdfbf7;
+  border-color: #cfd9d5;
+}
+[data-theme="light"] .file-group-title { color: #566b74; }
+[data-theme="light"] .file-item { color: #2a3b43; }
+[data-theme="light"] .file-item em { color: #5f737d; }
+[data-theme="light"] .file-item:hover { color: #14232a; background: #e8eee9; }
+[data-theme="light"] .file-item.active {
+  color: #075b67;
+  background: #e2efed;
+  border-left-color: #075b67;
+}
+[data-theme="light"] .code-pane-head {
+  background: #f7f3ea;
+  border-bottom-color: #cfd9d5;
+}
+[data-theme="light"] .code-pane-head b { color: #075b67; }
+[data-theme="light"] .code-pane-head span { color: #566b74; }
+[data-theme="light"] .code-body .ln { color: #5f737d; }

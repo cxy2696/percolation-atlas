@@ -1,13 +1,14 @@
 /** Source browser for the four reference libraries. */
 import { t } from '../i18n.js';
 
-const ORDER = ['javascript', 'python', 'cpp', 'julia'];
-const LABELS = { javascript: 'JavaScript', python: 'Python', cpp: 'C++', julia: 'Julia' };
+const ORDER = ['javascript', 'python', 'java', 'cpp', 'julia'];
+const LABELS = { javascript: 'JavaScript', python: 'Python', java: 'Java', cpp: 'C++', julia: 'Julia' };
 const INITIAL = {
   javascript: 'lib/js/engine/percolation.js',
   python: 'lib/python/percolation_atlas/percolation.py',
   cpp: 'lib/cpp/include/percolation_atlas/percolation.hpp',
   julia: 'lib/julia/src/percolation.jl',
+  java: 'lib/java/src/atlas/Percolation.java',
 };
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -18,7 +19,7 @@ export async function render(root, ctx) {
   root.innerHTML = `
     <div class="view-head">
       <div><div class="kicker">${T('code_kicker')}</div><h2>${T('code_title')}</h2></div>
-      <div class="meta">4 languages<br>1 RNG contract<br><a href="#/${lang}/algorithms" style="color:var(--cyan)">${T('nav_algorithms')} ↗</a></div>
+      <div class="meta">5 languages<br>1 RNG contract<br><a href="#/${lang}/algorithms" style="color:var(--cyan)">${T('nav_algorithms')} ↗</a></div>
     </div>
     <p class="muted" style="max-width:840px;line-height:1.7;margin-top:-6px">${T('code_lead')}</p>
     <div class="code-workbench">
@@ -90,6 +91,7 @@ GET  /api/openapi.json</pre>
   if (requested.includes('/python/') || requested.startsWith('lib/python/')) activeLang = 'python';
   else if (requested.includes('/cpp/') || requested.startsWith('lib/cpp/')) activeLang = 'cpp';
   else if (requested.includes('/julia/') || requested.startsWith('lib/julia/')) activeLang = 'julia';
+  else if (requested.includes('/java/') || requested.startsWith('lib/java/')) activeLang = 'java';
   let activeFile = requested || INITIAL[activeLang];
   langEl.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.lang === activeLang));
   let sourceText = '';
@@ -157,7 +159,7 @@ GET  /api/openapi.json</pre>
     activeFile = INITIAL[activeLang] || filesOf(activeLang)[0]?.path;
     const noteKeys = {
       javascript: 'code_note_javascript', python: 'code_note_python',
-      cpp: 'code_note_cpp', julia: 'code_note_julia',
+      cpp: 'code_note_cpp', julia: 'code_note_julia', java: 'code_note_java',
     };
     pathEl.dataset.note = T(noteKeys[activeLang]);
     drawTree();

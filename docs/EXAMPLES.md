@@ -1,6 +1,6 @@
-# Four-language examples
+# Core examples in five languages
 
-The same experiment in each library: draw 1000 bond configurations on a 64×64 square lattice at `p=1/2`, count left–right crossings, and print the rate. The answer is identical for the same seed; that is the parity contract.
+The same experiment in each core library: draw 1000 bond configurations on a 64×64 square lattice at `p=1/2`, count left–right crossings, and print the rate. The answer is identical for the same seed; that is the parity contract.
 
 ## JavaScript
 
@@ -63,6 +63,38 @@ println(hits / 1000)
 
 Run from the repository root with `julia --project=lib/julia`.
 
+## Java
+
+```java
+import atlas.Lattice;
+import atlas.Percolation;
+import atlas.Rng;
+
+public class Demo {
+    public static void main(String[] args) {
+        Lattice lattice = new Lattice("square", 64, false);
+        Percolation model = new Percolation(lattice, "bond");
+        Rng rng = new Rng(2024);
+        int hits = 0;
+        for (int i = 0; i < 1000; i++) {
+            if (model.sample(0.5, rng).crossesLr()) hits++;
+        }
+        System.out.println(hits / 1000.0);
+    }
+}
+```
+
+Compile and run from the repository root:
+
+```sh
+javac -d /tmp/atlas-classes lib/java/src/atlas/*.java Demo.java
+java -cp /tmp/atlas-classes Demo
+```
+
+Java implements the core sampler, DSU, lattice order and Newman–Ziff. The
+directed, tree/epidemic and v3 algorithm routines are not part of the Java
+edition; the site states that boundary explicitly.
+
 ## Directed percolation
 
 The directed probe returns a reachable mask and a crossing flag. The call is
@@ -86,15 +118,15 @@ directed_crossing(build_lattice("square", 32), 0.65, Rng(4242); mode = "bond").c
 
 ## API names
 
-| concept | JavaScript | Python | C++ | Julia |
-|---|---|---|---|---|
-| generator | `Rng` | `Rng` | `atlas::Rng` | `Rng` |
-| lattice | `buildLattice(kind, L, {torus})` | `build_lattice(kind, L, torus)` | `atlas::build_lattice(kind, L, torus)` | `build_lattice(kind, L; torus)` |
-| model | `new Percolation(lat, {mode})` | `Percolation(lat, mode)` | `atlas::Percolation(lat, mode)` | `Percolation(lat, mode)` |
-| sample | `sample(p, rng)` | `sample(p, rng)` | `sample(p, rng)` | `sample!(model, p, rng)` |
-| crossing | `crossesLR()` | `crosses_lr()` | `crosses_lr()` | `crosses_lr(model)` |
-| Newman–Ziff | `newmanZiff(lat, rng)` | `newman_ziff(lat, rng)` | `atlas::newman_ziff(lat, rng)` | `newman_ziff(lat, rng)` |
-| directed | `directedCrossing(lat, p, rng, {mode})` | `directed_crossing(lat, p, rng, mode)` | `atlas::directed_crossing(lat, p, rng, site)` | `directed_crossing(lat, p, rng; mode)` |
+| concept | JavaScript | Python | C++ | Julia | Java |
+|---|---|---|---|---|---|
+| generator | `Rng` | `Rng` | `atlas::Rng` | `Rng` | `Rng` |
+| lattice | `buildLattice(kind, L, {torus})` | `build_lattice(kind, L, torus)` | `atlas::build_lattice(kind, L, torus)` | `build_lattice(kind, L; torus)` | `new Lattice(kind, L, torus)` |
+| model | `new Percolation(lat, {mode})` | `Percolation(lat, mode)` | `atlas::Percolation(lat, mode)` | `Percolation(lat, mode)` | `new Percolation(lat, mode)` |
+| sample | `sample(p, rng)` | `sample(p, rng)` | `sample(p, rng)` | `sample!(model, p, rng)` | `sample(p, rng)` |
+| crossing | `crossesLR()` | `crosses_lr()` | `crosses_lr()` | `crosses_lr(model)` | `crossesLr()` |
+| Newman–Ziff | `newmanZiff(lat, rng)` | `newman_ziff(lat, rng)` | `atlas::newman_ziff(lat, rng)` | `newman_ziff(lat, rng)` | `newmanZiffSmax(lat, rng, cp)` |
+| directed | `directedCrossing(lat, p, rng, {mode})` | `directed_crossing(lat, p, rng, mode)` | `atlas::directed_crossing(lat, p, rng, site)` | `directed_crossing(lat, p, rng; mode)` | — |
 
 The RNG and observation order are documented in `docs/RNG.md`; the full API is in `docs/API.md`.
 

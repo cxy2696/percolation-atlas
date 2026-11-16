@@ -4,11 +4,11 @@
 
 [![CI](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/atlas-percolation?label=release)](https://github.com/cxy2696/atlas-percolation/releases)
 
-Perkolation fragt, wann zufällige Verbindungen ein Medium durchqueren: Kaffeesatz, ein Wald, ein Stromnetz, ein Kontaktnetzwerk oder eine poröse Elektrode. Dieses Repository ist eine dreisprachige Referenz zu dieser Frage. Es enthält 23 Kapitel, 16 interaktive Experimente, ein Algorithmen-Lesebuch mit 13 Einträgen, vier Referenzimplementierungen und 142 Quellen.
+Perkolation fragt, wann zufällige Verbindungen ein Medium durchqueren: Kaffeesatz, ein Wald, ein Stromnetz, ein Kontaktnetzwerk oder eine poröse Elektrode. Dieses Repository ist eine dreisprachige Referenz zu dieser Frage. Es enthält 23 Kapitel, 16 interaktive Experimente, ein Algorithmen-Lesebuch mit 13 Einträgen, fünf Referenzimplementierungen (Java deckt den Kern-Sampler ab) und 142 Quellen.
 
 Die Seite besteht aus statischem Markdown, JSON und JavaScript. Es gibt keinen Anwendungsserver und kein Laufzeit-Framework; die einzigen mitgelieferten Frontend-Dateien sind KaTeX und marked. Python-Paket, Kommandozeile und JSON-API sind dieselbe Engine in einer anderen Hülle.
 
-**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.5.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.5.0)
+**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.6.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.6.0)
 
 ## Hier beginnen
 
@@ -36,7 +36,7 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 | Kapitel | 23 Kapitel auf Englisch, vereinfachtem Chinesisch und Deutsch, von der Arbeit von 1957 über Dualität, Schärfe, Exponenten, SLE, Random-Cluster-Modelle, Netzwerke, Messung, Anwendungen, Algorithmen, gerichtete und kontinuierliche Perkolation, Transport, Beweise, Entwurf, Reproduzierbarkeit, Bäume und Epidemien. |
 | Experimente | 16 interaktive Modelle: Gitterperkolation, Durchgangskollaps, Newman–Ziff, 3D-Site-Perkolation, Cardy, gerichtete Perkolation, Random-Cluster, Bootstrap, explosiv, Invasion, Netzwerkrobustheit, gekoppelte Kaskaden, Boolesches Modell, Bethe-Baum, SIR und ein Algorithmenstudio. |
 | Algorithmen | 13 Routinen mit Idee, Invariante, Kosten, Quelldateien und Fehlerquellen: Bernoulli-Sampler, DSU, Bond- und Site-Newman–Ziff, Leath, Bootstrap, Invasion, Achlioptas, k-Kern, Hoshen–Kopelman, Bethe-Fixpunkt, SIR-Endgröße und Message Passing. Alle vier Implementierungen und ihre Tests stehen in `content/algorithms.json`. |
-| Code | C++20 header-only, Julia, Python und JavaScript, mit demselben xoshiro128**-Strom und derselben Kantenordnung. |
+| Code | C++20 header-only, Julia, Python, JavaScript und Java, mit demselben xoshiro128**-Strom und derselben Kantenordnung. Java deckt Bernoulli-Sampling, DSU, Gitter und Newman–Ziff ab; die v3-Sammlung bleibt Python + JavaScript. |
 | Daten | C++-Benchmark-Harness, Python-Analysator und ein JSON-Protokoll mit Rohzählungen, Seeds und Fits. |
 | Prüfungen | Vier Sprach-Suiten, sprachübergreifende Paritätsproben, RNG-Golden-Werte, Übersetzungsstruktur, Prosa-Aussagen und Bibliographie-Audit. |
 
@@ -114,6 +114,7 @@ lib/
   julia/                Julia-Paket + Tests
   python/               Python-Paket + Tests
   js/                   ES-Modul-Engine, die die Seite mitbenutzt
+  java/                 Java-17-Kernausgabe + Paritätssuite
 assets/
   js/views/             Übersicht, Atlas, Experimente, Code, Algorithmen, Daten, Suche, Quellen
   js/labs/              sechzehn Experimente mit handgeschriebenen Lesehilfen

@@ -11,6 +11,12 @@ WORKDIR /app
 COPY lib/python /app/lib/python
 RUN python -m pip install /app/lib/python
 
+# The static code browser reads these source trees directly.
+COPY lib/js /app/lib/js
+COPY lib/java /app/lib/java
+COPY lib/cpp /app/lib/cpp
+COPY lib/julia /app/lib/julia
+
 # Copy the static atlas and the data.
 COPY index.html manifest.webmanifest sw.js robots.txt sitemap.xml 404.html /app/
 COPY assets /app/assets

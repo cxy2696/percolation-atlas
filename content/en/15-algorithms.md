@@ -20,7 +20,7 @@ Represent each component by a rooted tree. `find(x)` walks to the root; `union(a
 - **Union by size (or rank).** The depth of a tree is at most $\lfloor\log_2 n\rfloor$, because a root of size $s$ is only attached to a root of size at least $s$.
 - **Path compression.** Every `find` rewires the nodes on its path directly to the root. A node that is expensive once becomes cheap afterwards.
 
-With both, a sequence of $m$ operations on $n$ elements costs $O(m\,\alpha(n))$, where $\alpha$ is the inverse Ackermann function; $\alpha(n)\le4$ for every $n$ that fits in the observable universe (Tarjan 1975). Path compression alone is not enough for the inverse-Ackermann bound, and union by size alone gives $O(\log n)$ per operation. The combination is what the four libraries implement.
+With both, a sequence of $m$ operations on $n$ elements costs $O(m\,\alpha(n))$, where $\alpha$ is the inverse Ackermann function; $\alpha(n)\le4$ for every $n$ that fits in the observable universe (Tarjan 1975). Path compression alone is not enough for the inverse-Ackermann bound, and union by size alone gives $O(\log n)$ per operation. The combination is what the five core libraries implement; Java covers the sampler and Newman–Ziff, not the v3 zoo.
 
 ```
 find(x):
@@ -91,7 +91,7 @@ The transfer matrix is exact for the strip, and finite-width scaling extracts $p
 | Exact strip thresholds | transfer matrix | exponential in width | small widths only |
 | Coupled networks | repeated giant-component search | $O(r(n+m))$ | number of rounds $r$ is data-dependent |
 
-The first three are implemented in all four libraries; the fourth is a research tool and is not part of the reference API. The parity probes in `data/golden/parity.json` compare integer counts for a fixed seed, which is the only way to catch a disagreement in edge order or RNG consumption before it turns into a wrong exponent.
+The first three are implemented in all four algorithm libraries; Java has the core sampler only. the fourth is a research tool and is not part of the reference API. The parity probes in `data/golden/parity.json` compare integer counts for a fixed seed, which is the only way to catch a disagreement in edge order or RNG consumption before it turns into a wrong exponent.
 
 ## 15.8 Beyond the core: bootstrap, explosive and invasion
 

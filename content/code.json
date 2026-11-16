@@ -1,6 +1,6 @@
 {
- "generated": "code-9f29ad10da5be721",
- "fingerprint": "9f29ad10da5be721",
+ "generated": "code-c22a95eb8508b2b9",
+ "fingerprint": "c22a95eb8508b2b9",
  "languages": [
   {
    "id": "javascript",
@@ -231,8 +231,8 @@
     {
      "path": "lib/python/tests/test_algorithms.py",
      "bucket": "core",
-     "lines": 208,
-     "bytes": 8041
+     "lines": 207,
+     "bytes": 8040
     },
     {
      "path": "lib/python/tests/test_engine.py",
@@ -395,6 +395,42 @@
      "bucket": "tests",
      "lines": 635,
      "bytes": 22328
+    }
+   ]
+  },
+  {
+   "id": "java",
+   "group": "lib/java",
+   "files": [
+    {
+     "path": "lib/java/src/atlas/Dsu.java",
+     "bucket": "core",
+     "lines": 51,
+     "bytes": 1202
+    },
+    {
+     "path": "lib/java/src/atlas/Lattice.java",
+     "bucket": "core",
+     "lines": 83,
+     "bytes": 2853
+    },
+    {
+     "path": "lib/java/src/atlas/Parity.java",
+     "bucket": "core",
+     "lines": 111,
+     "bytes": 4377
+    },
+    {
+     "path": "lib/java/src/atlas/Percolation.java",
+     "bucket": "core",
+     "lines": 186,
+     "bytes": 6309
+    },
+    {
+     "path": "lib/java/src/atlas/Rng.java",
+     "bucket": "core",
+     "lines": 105,
+     "bytes": 2954
     }
    ]
   }

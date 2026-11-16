@@ -5,6 +5,7 @@
 - [[Interface Guide]]
 - [[Applications]]
 - [[Algorithms]]
+- [[Java]]
 - [[Reproducibility]]
 - [[References]]
 - [[Deployment]]
@@ -15,4 +16,4 @@
 
 [Live site](https://cxy2696.github.io/atlas-percolation/)  
 [Repository](https://github.com/cxy2696/atlas-percolation)  
-[Release v4.5.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.5.0)
+[Release v4.6.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.6.0)

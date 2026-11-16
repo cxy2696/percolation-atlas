@@ -87,7 +87,7 @@ Eine belastbare Aussage hat die Form „Wir erhalten $p_c=0.5927(3)$ aus Größe
 
 Der Benchmark soll die *Form* einer Finite-Size-Studie zeigen und nicht mit spezialisierter Hochpräzisionsarbeit konkurrieren. Das Durchgangsexperiment verwendet freie Ränder und $L\in\{32,64,128\}$; das Torus-Experiment verwendet $L\le128$; das Einarm-Experiment verwendet $L\le512$ und fittet nur $L\ge64$; das Cardy-Experiment verwendet ein $96\times H$-Rechteck mit $H/W$ von $0.25$ bis $4$. Der Kollaps-Fit in der Kopfzeile hält $\nu=4/3$ fest und fittet nur $p_c$; der freie Zwei-Parameter-Fit wird als Diagnose berichtet, weil er bei diesen Größen schlecht konditioniert ist. Jede Zeile trägt ihre eigene Stichprobenzahl. Die Datenansicht auf der Website liest dieselbe Datei; fehlt die Datei, sagt die Seite das, statt eine Kurve zu erfinden.
 
-Die wichtige Prüfung ist nicht, ob der angepasste Wert von $p_c$ auf vier Nachkommastellen genau bei $0.5$ landet. Entscheidend ist, ob die Durchgangsrate bei $p=1/2$ dem Finite-Size-Trend gegen $1/2$ folgt, ob die Kurven mit $L$ schärfer werden und ob derselbe Seed in C++, Julia, Python und JavaScript dieselben ganzzahligen Zählwerte erzeugt. Das sind die Prüfungen, die die Fehler fangen, auf die es ankommt.
+Die wichtige Prüfung ist nicht, ob der angepasste Wert von $p_c$ auf vier Nachkommastellen genau bei $0.5$ landet. Entscheidend ist, ob die Durchgangsrate bei $p=1/2$ dem Finite-Size-Trend gegen $1/2$ folgt, ob die Kurven mit $L$ schärfer werden und ob derselbe Seed in C++, Julia, Python, JavaScript und dem Java-Kern dieselben ganzzahligen Zählwerte erzeugt. Das sind die Prüfungen, die die Fehler fangen, auf die es ankommt.
 
 ## 11.7 Fallstricke, in der Reihenfolge, in der sie gewöhnlich auftreten
 

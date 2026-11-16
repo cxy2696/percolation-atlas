@@ -26,6 +26,7 @@ node --test tests/js/*.test.js
 PYTHONPATH=lib/python python3 -m unittest discover -s lib/python/tests -v
 make -C lib/cpp test
 julia --startup-file=no --project=lib/julia lib/julia/test/runtests.jl
+make test-java
 ```
 
 ## What is checked
@@ -33,7 +34,7 @@ julia --startup-file=no --project=lib/julia lib/julia/test/runtests.jl
 | Area | Check | Where |
 |---|---|---|
 | Random stream | seed-42 vectors, 10 000-draw sum and FNV hash | `data/golden/rng-seed42.json` |
-| Core parity | crossing counts, NZ checkpoint, configuration model, coupled cascade, directed | `data/golden/parity.json`, C++ and Julia suites |
+| Core parity | crossing counts, NZ checkpoint, configuration model, coupled cascade, directed | `data/golden/parity.json`; C++ and Julia suites; Java checks the crossing and NZ subset |
 | Algorithm parity | bootstrap, invasion, Leath, Achlioptas, labels, Bethe, configuration/SIR, site NZ, message passing | `data/golden/algorithms-v3.json`; per-routine test map in `content/algorithms.json` |
 | Exact small-box counts | 2×2 = 3/4, 3×3 = 43/64, 4×4 = 82623/131072 | `scripts/verify_claims.py` (independent enumeration) |
 | Cardy formula | π(1), π(0.1), π(10), symmetry, high-precision reference values | `scripts/verify_claims.py`; all four suites |

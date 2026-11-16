@@ -11,7 +11,7 @@ The site is a hash-routed static application. The default route is the start gui
 | Atlas | `#/en/atlas` | 23 chapters, grouped by part, with a rail and a table of contents |
 | Experiments | `#/en/labs` | 16 interactive experiments, grouped by purpose |
 | Algorithms | `#/en/algorithms` | 13 routines, grouped into core, dynamics, labels/trees/messages |
-| Code | `#/en/code` | Four-language source browser with deep links (`?file=...`) |
+| Code | `#/en/code` | Five-language source browser: JavaScript, Python, Java, C++, Julia |
 | Data | `#/en/data` | Benchmark record: sample sizes, seeds, dates, fits |
 | Sources | `#/en/sources` | Bibliography, audit badges, chapter cross-links |
 | Library | `#/en/library` | Full-text search and the complete section index |

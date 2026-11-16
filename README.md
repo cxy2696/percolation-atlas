@@ -4,11 +4,11 @@
 
 [![CI](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/atlas-percolation?label=release)](https://github.com/cxy2696/atlas-percolation/releases)
 
-Percolation asks when random connections form a path across a medium: through coffee grounds, a forest, a power grid, a contact network, or a porous electrode. This repository is a trilingual reference on that question. It has 23 chapters, 16 interactive experiments, a 13-part algorithm reader, four reference implementations and 142 sourced references.
+Percolation asks when random connections form a path across a medium: through coffee grounds, a forest, a power grid, a contact network, or a porous electrode. This repository is a trilingual reference on that question. It has 23 chapters, 16 interactive experiments, a 13-part algorithm reader, five reference implementations (Java covers the core sampler) and 142 sourced references.
 
 The site is a static directory of Markdown, JSON and JavaScript. There is no application server and no runtime framework; the only vendored front-end files are KaTeX and marked. The Python package, command-line tool and JSON API are the same engine in a different wrapper.
 
-**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.5.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.5.0)
+**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.6.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.6.0)
 
 ## Start here
 
@@ -18,7 +18,7 @@ The site is a static directory of Markdown, JSON and JavaScript. There is no app
 
 ## Quick start
 
-Requirements: Python 3.10+, Node.js 20+ and a C++20 compiler. Julia 1.9+ is needed only for the Julia suite.
+Requirements: Python 3.10+, Node.js 20+ and a C++20 compiler. Julia 1.9+ is needed for the Julia suite; Java 17+ is needed for the Java core suite.
 
 ```sh
 git clone https://github.com/cxy2696/atlas-percolation.git
@@ -36,7 +36,7 @@ Open `http://127.0.0.1:8788/`. The site must be served over HTTP because the con
 | Chapters | 23 chapters in English, Simplified Chinese and German, from the 1957 paper through duality, sharpness, exponents, SLE, random-cluster models, networks, measurement, applications, algorithms, directed and continuum percolation, transport, proofs, design, reproducibility, trees and epidemics. |
 | Experiments | 16 interactive models: lattice percolation, crossing collapse, Newman–Ziff, 3D site percolation, Cardy, directed, random-cluster, bootstrap, explosive, invasion, network robustness, coupled cascades, Boolean model, Bethe tree, SIR, and an algorithm studio. |
 | Algorithms | 13 routines with the idea, invariant, cost, source files and failure modes: Bernoulli sampler, DSU, bond and site Newman–Ziff, Leath, bootstrap, invasion, Achlioptas, k-core, Hoshen–Kopelman, Bethe fixed point, SIR final size and message passing. All four implementations and their tests are indexed in `content/algorithms.json`. |
-| Code | C++20 header-only, Julia, Python and JavaScript, sharing the same xoshiro128** stream and lattice edge order. |
+| Code | C++20 header-only, Julia, Python, JavaScript and Java, sharing the same xoshiro128** stream and lattice edge order. Java covers the Bernoulli sampler, DSU, lattice and Newman–Ziff; the v3 zoo remains Python + JavaScript. |
 | Data | A C++ benchmark harness, a Python analyser, and a JSON record with raw counts, seeds and fits. |
 | Checks | Four language suites, cross-language parity probes, RNG golden vectors, translation structure, prose-claim checks and a bibliography audit. |
 
@@ -114,6 +114,7 @@ lib/
   julia/                Julia package + tests
   python/               Python package + tests
   js/                   ES-module engine shared with the site
+  java/                 Java 17 core edition + parity suite
 assets/
   js/views/             overview, atlas reader, experiments, code, algorithms, data, library, sources
   js/labs/              sixteen experiments, with authored guides

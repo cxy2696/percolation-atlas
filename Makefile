@@ -7,18 +7,20 @@
 #   make site      content + data checks (no bundle step; the site is static)
 #   make serve     local preview on :8788
 #
-# Requirements: Python 3.10+, Node 20+, a C++20 compiler, and Julia 1.9+
-# for the Julia suite. The site itself has no build step.
+# Requirements: Python 3.10+, Node 20+, a C++20 compiler, Julia 1.9+ for
+# the Julia suite, and Java 17+ for the Java core suite. The site itself has no build step.
 
 PYTHON ?= python3
 NODE   ?= node
 JULIA  ?= julia
+JAVA   ?= java
+JAVAC  ?= javac
 CXX    ?= c++
 PORT   ?= 8788
 
-.PHONY: test test-js test-py test-cpp test-julia parity parity-check parity-alg check-translations check-claims check-consistency check-algorithms check-style algorithms verify audit bench analyse content site serve package api clean
+.PHONY: test test-js test-py test-cpp test-julia test-java parity parity-check parity-alg check-translations check-claims check-consistency check-algorithms check-style algorithms verify audit bench analyse content site serve package api clean
 
-test: test-js test-py test-cpp test-julia parity-check parity-alg check-translations check-claims check-consistency check-algorithms check-style
+test: test-js test-py test-cpp test-julia test-java parity-check parity-alg check-translations check-claims check-consistency check-algorithms check-style
 
 test-js:
 	$(NODE) --test tests/js/*.test.js
@@ -32,7 +34,10 @@ test-cpp:
 test-julia:
 	$(JULIA) --startup-file=no --project=lib/julia lib/julia/test/runtests.jl
 
-parity: test-js test-py test-cpp test-julia parity-check parity-alg
+test-java:
+	$(MAKE) -C lib/java test JAVA=$(JAVA) JAVAC=$(JAVAC)
+
+parity: test-js test-py test-cpp test-julia test-java parity-check parity-alg
 
 parity-check:
 	PYTHONPATH=lib/python $(PYTHON) scripts/parity.py

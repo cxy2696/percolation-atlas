@@ -26,7 +26,7 @@ No. Pages serves the static site. Use `atlas-perc serve` or the Docker image for
 
 ### Why are only some algorithms in C++ and Julia?
 
-The Bernoulli core, the v3 algorithm zoo (bootstrap, invasion, Leath, Achlioptas, random-graph baseline), the labelling routine and the tree/epidemic solvers are four-language. Their golden probes are in `data/golden/parity.json` and `data/golden/algorithms-v3.json`.
+The Bernoulli core has four full implementations (C++, Julia, Python, JavaScript) plus a Java 17 core implementation. The v3 algorithm zoo (bootstrap, invasion, Leath, Achlioptas, random-graph baseline), the labelling routine and the tree/epidemic solvers remain a four-language contract. Java is checked on the RNG, square bond, triangular site and Newman–Ziff probes in `data/golden/parity.json`; the v3 zoo is in `data/golden/algorithms-v3.json`.
 
 ### Why do timings differ between runs?
 
@@ -34,7 +34,7 @@ Browser wall-clock timings include JIT, cache and scheduling noise. The algorith
 
 ### I changed the theme and the page still looks old.
 
-The service worker caches the shell. It is versioned (`atlas-v4.5.0`); refresh once, or hard-refresh with `Cmd/Ctrl + Shift + R`.
+The service worker caches the shell. It is versioned (`atlas-v4.6.0`); refresh once, or hard-refresh with `Cmd/Ctrl + Shift + R`.
 
 ### Where do I start?
 

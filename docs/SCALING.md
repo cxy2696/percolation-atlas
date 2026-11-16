@@ -4,7 +4,7 @@ This note records what each routine costs, where the implementation stops scalin
 
 ## Percolation on a lattice
 
-Let `n = L²` be the number of sites and `m` the number of edges (`2L(L−1)` on an open square lattice, `3n` on a triangular torus). The three-dimensional simple cubic generator has `n = L³` and `m = 3L²(L−1)`; it is JavaScript-only for the browser laboratory, and it is not part of the four-language parity contract.
+Let `n = L²` be the number of sites and `m` the number of edges (`2L(L−1)` on an open square lattice, `3n` on a triangular torus). The three-dimensional simple cubic generator has `n = L³` and `m = 3L²(L−1)`; it is JavaScript-only for the browser laboratory, and it is not part of the four full parity suites; Java is a core subset.
 
 | Operation | Time | Memory | Notes |
 |---|---|---|---|

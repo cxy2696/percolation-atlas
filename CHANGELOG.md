@@ -1,5 +1,41 @@
 # Changelog
 
+## 4.6.0 — 2026-11-17
+
+A Java and legibility release. The core engine gains a fifth language, and the
+source browser gets a proper light-theme contrast pass.
+
+**Java**
+
+- Added `lib/java`, a dependency-free Java 17 implementation of `Rng`, `Dsu`,
+  `Lattice` and `Percolation`, plus a `Parity` suite.
+- Java reproduces the shared RNG stream, square bond crossing, triangular site
+  crossing and the Newman–Ziff checkpoints from `data/golden/parity.json`.
+- `Percolation.analyze` uses an int array keyed by root instead of a boxed
+  `HashMap`; it is both faster and easier to audit. No algorithm's result
+  changed.
+- Scope is stated honestly: Java covers the core sampler, DSU, lattice and
+  Newman–Ziff, not the v3 bootstrap/invasion/Achlioptas zoo. The v3 zoo keeps
+  its Python + JavaScript contract; C++ and Julia retain their regression
+  ports.
+
+**Source browser**
+
+- Added Java to the language tabs, file tree and code inventory.
+- Fixed the light-theme code workbench: the file tree, tabs and pane header
+  no longer inherit the dark HUD layer. File names, line numbers and metadata
+  now use readable ink on paper.
+- Dark theme is unchanged.
+
+**Verification and plumbing**
+
+- `make test` now runs `test-java`; CI sets up Temurin 17 and runs the Java
+  suite.
+- The Docker image copies `lib/js`, `lib/java`, `lib/cpp` and `lib/julia`, so
+  the source browser works in the container as well as on Pages.
+- Updated README, translated READMEs, RNG/EXAMPLES/SCALING docs, meta tags,
+  PWA cache and wiki counts.
+
 ## 4.5.0 — 2026-11-16
 
 An algorithm-framework and visualization edition. The algorithm reader now has

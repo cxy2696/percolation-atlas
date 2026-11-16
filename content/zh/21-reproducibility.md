@@ -14,8 +14,8 @@ reading: 18 min
 仓库就是制品。五类东西一起版本化。
 
 1. **源。** Markdown 章节、JSON 文献库、引用映射。
-2. **引擎。** Bernoulli 核心、v3 算法库、标号例程与树/流行病求解器都有 C++20、Julia、Python 与 JavaScript 实现。
-3. **金标。** `data/golden/parity.json` 对应四语言核心，`data/golden/rng-seed42.json` 对应随机流，`data/golden/algorithms-v3.json` 对应新算法。
+2. **引擎。** Bernoulli 核心、v3 算法库、标号例程与树/流行病求解器都有 C++20、Julia、Python 与 JavaScript 实现。Java 另有一份独立的核心实现：抽样、并查集、格子与 Newman–Ziff。
+3. **金标。** `data/golden/parity.json` 对应四套完整核心与 Java 核心子集，`data/golden/rng-seed42.json` 对应随机流，`data/golden/algorithms-v3.json` 对应新算法。
 4. **数据。** 原始基准计数、分析后的记录，以及产生它们的工具。
 5. **构建与部署。** 内容构建器、静态服务器、Python 包、API、Dockerfile 与 CI 工作流。
 
@@ -35,7 +35,7 @@ reading: 18 min
 
 ## 21.3 一致性测试
 
-核心契约是四语言的。`scripts/parity.py` 计算 Python 探针，运行 `scripts/parity_probe.mjs` 得到 JavaScript 结果，并与 `data/golden/parity.json` 比较；C++ 与 Julia 套件从同一文件断言相同值。
+核心契约有四套完整实现；Java 复现抽样、横穿与 Newman–Ziff 子集。`scripts/parity.py` 计算 Python 探针，运行 `scripts/parity_probe.mjs` 得到 JavaScript 结果，并与 `data/golden/parity.json` 比较；C++ 与 Julia 套件从同一文件断言相同值。
 
 算法库是四语言契约。`scripts/parity_algorithms.py` 比较 Python 与 JavaScript 的自举激活时间、侵入顺序、Leath 团簇大小与 Achlioptas 轨迹；C++ 与 Julia 套件断言同一份 `data/golden/algorithms-v3.json` 的值，并覆盖确定性的 Hoshen–Kopelman、Bethe 与 SIR 探针。
 
@@ -82,7 +82,7 @@ Data 视图中的每张图都标明源记录与产生它的命令。顺序是：
 make content       # 重新生成 manifest、搜索索引、代码清单
 make bench         # C++ 工具 -> data/raw_bench.json
 make analyse       # 原始计数 -> data/benchmarks.json
-make test          # 四语言套件 + 一致性
+make test          # 五语言套件 + 一致性
 make serve         # http://127.0.0.1:8788/
 ```
 

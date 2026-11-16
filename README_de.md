@@ -10,7 +10,7 @@ Er enthält 23 Kapitel auf Englisch, Chinesisch und Deutsch, 17 interaktive Expe
 
 Die Seite besteht aus statischem Markdown, JSON und JavaScript, ohne Anwendungsserver und Laufzeit-Framework. Ein Python-Paket und eine kleine JSON-API machen dieselben Algorithmen außerhalb des Browsers nutzbar.
 
-**Live-Seite:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **Release:** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
+**Live-Seite:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/wiki> · **Release:** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
 
 ## Hier beginnen
 

@@ -10,7 +10,7 @@
 
 站点是纯静态的 Markdown、JSON 和 JavaScript，没有应用服务器，也没有运行时框架。Python 包和一个小的 JSON API 让同一套算法可以在浏览器之外使用。
 
-**在线站点：** <https://cxy2696.github.io/percolation-atlas/> · **Wiki：** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **发布：** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
+**在线站点：** <https://cxy2696.github.io/percolation-atlas/> · **Wiki：** <https://github.com/cxy2696/percolation-atlas/wiki> · **发布：** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
 
 ## 从这里开始
 

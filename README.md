@@ -10,7 +10,7 @@ It has 23 chapters in English, Chinese and German, 17 interactive experiments, 1
 
 The site is plain Markdown, JSON and JavaScript, with no application server or runtime framework. A Python package and a small JSON API expose the same algorithms outside the browser.
 
-**Live site:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **Release:** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
+**Live site:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/wiki> · **Release:** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
 
 ## Start here
 

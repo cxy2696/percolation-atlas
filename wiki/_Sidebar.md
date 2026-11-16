@@ -6,6 +6,7 @@
 - [[Applications]]
 - [[Algorithms]]
 - [[Java]]
+- [[R]]
 - [[Reproducibility]]
 - [[References]]
 - [[Deployment]]

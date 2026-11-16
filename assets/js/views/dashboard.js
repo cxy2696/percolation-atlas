@@ -1,5 +1,5 @@
 /** Control-room overview: live isometric lattice, exact thresholds, lab status. */
-import { Rng, buildLattice, Percolation } from '../../engine/index.js';
+import { Rng, buildLattice, Percolation } from '../engine/index.js';
 import { t } from '../i18n.js';
 import { LABS } from '../labs/index.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';

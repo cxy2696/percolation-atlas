@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.7 — 2026-11-17
+
+Version and release consolidation. The project version is renumbered from
+4.7.0 to 1.4.7 at the owner's request. No algorithm, chapter, reference or
+interactive behaviour changed. Only the v1.4.7 tag and release are retained;
+older tags and releases are removed so there is one current release.
+
 ## 4.7.0 — 2026-11-17
 
 A reference-boundary release. The algorithm sources now live only in the five

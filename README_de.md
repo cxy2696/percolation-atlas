@@ -8,7 +8,7 @@ Perkolation fragt, wann zufällige Verbindungen ein Medium durchqueren: Kaffeesa
 
 Die Seite besteht aus statischem Markdown, JSON und JavaScript. Es gibt keinen Anwendungsserver und kein Laufzeit-Framework; die einzigen mitgelieferten Frontend-Dateien sind KaTeX und marked. Python-Paket, Kommandozeile und JSON-API sind dieselbe Engine in einer anderen Hülle.
 
-**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.7.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.7.0)
+**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
 
 ## Hier beginnen
 

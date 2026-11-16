@@ -8,7 +8,7 @@ Percolation asks when random connections form a path across a medium: through co
 
 The site is a static directory of Markdown, JSON and JavaScript. There is no application server and no runtime framework; the only vendored front-end files are KaTeX and marked. The Python package, command-line tool and JSON API are the same engine in a different wrapper.
 
-**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.7.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.7.0)
+**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
 
 ## Start here
 

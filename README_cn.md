@@ -8,7 +8,7 @@
 
 站点是纯静态的 Markdown、JSON 和 JavaScript，没有应用服务器，也没有运行时框架；唯一的外部前端文件是随仓库附带的 KaTeX 与 marked。Python 包、命令行工具和 JSON API 只是同一套引擎的不同外壳。
 
-**在线站点：** <https://cxy2696.github.io/atlas-percolation/> · **Wiki：** <https://github.com/cxy2696/atlas-percolation/wiki> · **发布：** [v4.7.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.7.0)
+**在线站点：** <https://cxy2696.github.io/atlas-percolation/> · **Wiki：** <https://github.com/cxy2696/atlas-percolation/wiki> · **发布：** [v1.4.7](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
 
 ## 从这里开始
 

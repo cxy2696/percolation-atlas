@@ -1,6 +1,6 @@
 # The shared random number generator
 
-Every core implementation in `lib/` (C++, Julia, JavaScript, Python, Java) must produce
+Every core implementation in `lib/` (C++, Julia, Python, Java, R) must produce
 the **same** random stream for the same seed.  That is what makes the
 cross-language parity tests meaningful: a Monte Carlo estimate computed in
 Julia, in C++ and in Java is not merely statistically compatible, it is the same

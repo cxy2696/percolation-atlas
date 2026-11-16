@@ -119,12 +119,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 5,
    "code": [
-    {
-     "path": "lib/js/engine/percolation.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/percolation.py",
      "label": "Python"
@@ -136,14 +132,23 @@
     {
      "path": "lib/julia/src/percolation.jl",
      "label": "Julia"
+    },
+    {
+     "path": "lib/java/src/atlas/Percolation.java",
+     "label": "Java"
+    },
+    {
+     "path": "lib/r/R/percolation.R",
+     "label": "R"
     }
    ],
    "tests": [
-    "tests/js/engine.test.js",
     "lib/python/tests/test_engine.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
-    "data/golden/rng-seed42.json"
+    "data/golden/rng-seed42.json",
+    "lib/java/src/atlas/Parity.java",
+    "lib/r/tests/test-parity.R"
    ]
   },
   "dsu": {
@@ -219,12 +224,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 5,
    "code": [
-    {
-     "path": "lib/js/engine/dsu.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/percolation.py",
      "label": "Python"
@@ -236,13 +237,22 @@
     {
      "path": "lib/julia/src/percolation.jl",
      "label": "Julia"
+    },
+    {
+     "path": "lib/java/src/atlas/Dsu.java",
+     "label": "Java"
+    },
+    {
+     "path": "lib/r/R/percolation.R",
+     "label": "R"
     }
    ],
    "tests": [
-    "tests/js/engine.test.js",
     "lib/python/tests/test_engine.py",
     "lib/cpp/tests/test_main.cpp",
-    "lib/julia/test/runtests.jl"
+    "lib/julia/test/runtests.jl",
+    "lib/java/src/atlas/Parity.java",
+    "lib/r/tests/test-parity.R"
    ]
   },
   "nz": {
@@ -306,12 +316,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 5,
    "code": [
-    {
-     "path": "lib/js/engine/percolation.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/percolation.py",
      "label": "Python"
@@ -323,15 +329,24 @@
     {
      "path": "lib/julia/src/percolation.jl",
      "label": "Julia"
+    },
+    {
+     "path": "lib/java/src/atlas/Percolation.java",
+     "label": "Java"
+    },
+    {
+     "path": "lib/r/R/percolation.R",
+     "label": "R"
     }
    ],
    "tests": [
-    "tests/js/engine.test.js",
     "lib/python/tests/test_engine.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
     "data/golden/parity.json",
-    "data/golden/rng-seed42.json"
+    "data/golden/rng-seed42.json",
+    "lib/java/src/atlas/Parity.java",
+    "lib/r/tests/test-parity.R"
    ]
   },
   "nz-site": {
@@ -395,12 +410,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 5,
    "code": [
-    {
-     "path": "lib/js/engine/percolation.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/percolation.py",
      "label": "Python"
@@ -412,14 +423,23 @@
     {
      "path": "lib/julia/src/percolation.jl",
      "label": "Julia"
+    },
+    {
+     "path": "lib/java/src/atlas/Percolation.java",
+     "label": "Java"
+    },
+    {
+     "path": "lib/r/R/percolation.R",
+     "label": "R"
     }
    ],
    "tests": [
-    "tests/js/message.test.js",
     "lib/python/tests/test_message.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
-    "data/golden/algorithms-v3.json"
+    "data/golden/algorithms-v3.json",
+    "lib/java/src/atlas/Parity.java",
+    "lib/r/tests/test-parity.R"
    ]
   },
   "leath": {
@@ -483,12 +503,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/algorithms.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/algorithms.py",
      "label": "Python"
@@ -503,7 +519,6 @@
     }
    ],
    "tests": [
-    "tests/js/algorithms.test.js",
     "lib/python/tests/test_algorithms.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -571,12 +586,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/algorithms.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/algorithms.py",
      "label": "Python"
@@ -591,7 +602,6 @@
     }
    ],
    "tests": [
-    "tests/js/algorithms.test.js",
     "lib/python/tests/test_algorithms.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -659,12 +669,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/algorithms.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/algorithms.py",
      "label": "Python"
@@ -679,7 +685,6 @@
     }
    ],
    "tests": [
-    "tests/js/algorithms.test.js",
     "lib/python/tests/test_algorithms.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -735,12 +740,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/algorithms.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/algorithms.py",
      "label": "Python"
@@ -755,7 +756,6 @@
     }
    ],
    "tests": [
-    "tests/js/algorithms.test.js",
     "lib/python/tests/test_algorithms.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -823,12 +823,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/network.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/network.py",
      "label": "Python"
@@ -843,7 +839,6 @@
     }
    ],
    "tests": [
-    "tests/js/engine.test.js",
     "lib/python/tests/test_engine.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl"
@@ -922,12 +917,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/algorithms.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/algorithms.py",
      "label": "Python"
@@ -942,7 +933,6 @@
     }
    ],
    "tests": [
-    "tests/js/trees.test.js",
     "lib/python/tests/test_trees.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -1010,12 +1000,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/trees.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/trees.py",
      "label": "Python"
@@ -1030,7 +1016,6 @@
     }
    ],
    "tests": [
-    "tests/js/trees.test.js",
     "lib/python/tests/test_trees.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -1098,12 +1083,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/trees.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/trees.py",
      "label": "Python"
@@ -1118,7 +1099,6 @@
     }
    ],
    "tests": [
-    "tests/js/trees.test.js",
     "lib/python/tests/test_trees.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",
@@ -1186,12 +1166,8 @@
      ]
     ]
    },
-   "implementations": 4,
+   "implementations": 3,
    "code": [
-    {
-     "path": "lib/js/engine/message.js",
-     "label": "JavaScript"
-    },
     {
      "path": "lib/python/percolation_atlas/message.py",
      "label": "Python"
@@ -1206,7 +1182,6 @@
     }
    ],
    "tests": [
-    "tests/js/message.test.js",
     "lib/python/tests/test_message.py",
     "lib/cpp/tests/test_main.cpp",
     "lib/julia/test/runtests.jl",

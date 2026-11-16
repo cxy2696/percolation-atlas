@@ -62,7 +62,7 @@ $$
 
 *数值。* $\pi(0.1)=4.0392840613\times10^{-5}$，$\pi(0.25)=0.0216300291$，$\pi(0.5)=0.1756468938$，$\pi(1)=0.5$，$\pi(2)=0.8243531062$，$\pi(4)=0.9783699709$，$\pi(10)=0.9999596072$。曲线确实很陡；这正是固定窄宽度模拟需要很大纵横比才能看到渐近曲线的原因。
 
-**数值计算。** 在 $m\in[0,1/2]$ 上用二分法求模数，$K$ 用算术–几何平均计算。由于只评估 $m\le1/2$，超几何级数收敛很快。`lib/js/engine/cardy.js`、`lib/python/percolation_atlas/cardy.py`、`lib/cpp/include/percolation_atlas/cardy.hpp` 与 `lib/julia/src/cardy.jl` 都走这条路线；上面的回归值已写入四套测试。
+**数值计算。** 在 $m\in[0,1/2]$ 上用二分法求模数，$K$ 用算术–几何平均计算。由于只评估 $m\le1/2$，超几何级数收敛很快。`lib/python/percolation_atlas/cardy.py`、`lib/cpp/include/percolation_atlas/cardy.hpp` 与 `lib/julia/src/cardy.jl` 都走这条路线；`assets/js/engine/cardy.js` 只是交互视图的浏览器运行时镜像。上面的回归值已写入参考测试。
 
 **注 7.2。** 文献中有两种约定。有人取 $\ell=W/H$ 与竖直横穿，这会把 $\pi(\ell)$ 换成 $1-\pi(1/\ell)$；也有人使用交比或 nome 而不是模数。上面的公式在 $\ell=H/W$、左右横穿的约定下给出 $\pi(1)=1/2$ 与 $\pi(\infty)=1$。与论文比较时先确认约定，再判断是否差了一个因子。
 

@@ -1,4 +1,4 @@
-import { Rng, buildLattice, directedCrossing } from '../../../lib/js/index.js';
+import { Rng, buildLattice, directedCrossing } from '../engine/index.js';
 import { labHead, control, select, readout, panel, canvasBox, fmt, setText } from './ui.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';
 import { t } from '../i18n.js';

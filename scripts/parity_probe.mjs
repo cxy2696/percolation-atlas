@@ -3,7 +3,7 @@ import {
   Rng, buildLattice, Percolation, newmanZiff,
   poissonDegrees, configurationModel, components, allActive,
   interdependentER, cardyCrossing, directedCrossing,
-} from '../lib/js/index.js';
+} from '../assets/js/engine/index.js';
 
 function crossing(lat, mode, p, seed, n) {
   const model = new Percolation(lat, { mode });

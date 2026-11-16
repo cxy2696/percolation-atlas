@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { Rng, buildLattice, newmanZiffSite, messagePassingPercolation } from '../../lib/js/index.js';
+import { Rng, buildLattice, newmanZiffSite, messagePassingPercolation } from '../../assets/js/engine/index.js';
 
 const golden = JSON.parse(readFileSync(new URL('../../data/golden/algorithms-v3.json', import.meta.url)));
 const expected = Object.fromEntries(golden.probes.map((p) => [p.id, p.value]));

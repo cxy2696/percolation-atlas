@@ -1,4 +1,4 @@
-import { Rng, buildLattice3D, Percolation } from '../../../lib/js/index.js';
+import { Rng, buildLattice3D, Percolation } from '../engine/index.js';
 import { labHead, control, select, readout, panel, canvasBox, fmt, setText } from './ui.js';
 import { palette, onTheme } from '../theme.js';
 

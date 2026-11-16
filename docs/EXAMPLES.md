@@ -1,18 +1,6 @@
-# Core examples in five languages
+# Reference examples in five languages
 
-The same experiment in each core library: draw 1000 bond configurations on a 64×64 square lattice at `p=1/2`, count left–right crossings, and print the rate. The answer is identical for the same seed; that is the parity contract.
-
-## JavaScript
-
-```js
-import { Rng, buildLattice, Percolation } from './lib/js/index.js';
-
-const model = new Percolation(buildLattice('square', 64), { mode: 'bond' });
-const rng = new Rng(2024);
-let hits = 0;
-for (let i = 0; i < 1000; i++) hits += model.sample(0.5, rng).crossesLR() ? 1 : 0;
-console.log(hits / 1000);
-```
+The same experiment in each reference edition. The browser runtime in `assets/js/engine` is not a reference edition; it is not shown here. draw 1000 bond configurations on a 64×64 square lattice at `p=1/2`, count left–right crossings, and print the rate. The answer is identical for the same seed; that is the parity contract.
 
 ## Python
 
@@ -95,14 +83,30 @@ Java implements the core sampler, DSU, lattice order and Newman–Ziff. The
 directed, tree/epidemic and v3 algorithm routines are not part of the Java
 edition; the site states that boundary explicitly.
 
+## R
+
+```r
+source("lib/r/R/rng.R")
+source("lib/r/R/lattice.R")
+source("lib/r/R/percolation.R")
+
+lat <- build_lattice("square", 64)
+rng <- new_rng(2024)
+hits <- 0L
+for (i in 1:1000) {
+  s <- percolation_sample(lat, 0.5, rng, "bond")
+  if (crosses_lr(lat, s)) hits <- hits + 1L
+}
+cat(hits / 1000, "\n")
+```
+
+R covers the core sampler, lattice and Newman–Ziff. The v3 zoo and the tree/
+message solvers are not ported to R; the site states that boundary.
+
 ## Directed percolation
 
 The directed probe returns a reachable mask and a crossing flag. The call is
-the same in all four languages; the mode is `"bond"` or `"site"`.
-
-```js
-directedCrossing(buildLattice('square', 32), 0.65, new Rng(4242), { mode: 'bond' }).cross
-```
+the same in Python, C++ and Julia; the browser runtime mirrors it for the interactive view. The mode is `"bond"` or `"site"`.
 
 ```python
 directed_crossing(build_lattice("square", 32), 0.65, Rng(4242), "bond")["cross"]
@@ -118,21 +122,22 @@ directed_crossing(build_lattice("square", 32), 0.65, Rng(4242); mode = "bond").c
 
 ## API names
 
-| concept | JavaScript | Python | C++ | Julia | Java |
-|---|---|---|---|---|---|
-| generator | `Rng` | `Rng` | `atlas::Rng` | `Rng` | `Rng` |
-| lattice | `buildLattice(kind, L, {torus})` | `build_lattice(kind, L, torus)` | `atlas::build_lattice(kind, L, torus)` | `build_lattice(kind, L; torus)` | `new Lattice(kind, L, torus)` |
-| model | `new Percolation(lat, {mode})` | `Percolation(lat, mode)` | `atlas::Percolation(lat, mode)` | `Percolation(lat, mode)` | `new Percolation(lat, mode)` |
-| sample | `sample(p, rng)` | `sample(p, rng)` | `sample(p, rng)` | `sample!(model, p, rng)` | `sample(p, rng)` |
-| crossing | `crossesLR()` | `crosses_lr()` | `crosses_lr()` | `crosses_lr(model)` | `crossesLr()` |
-| Newman–Ziff | `newmanZiff(lat, rng)` | `newman_ziff(lat, rng)` | `atlas::newman_ziff(lat, rng)` | `newman_ziff(lat, rng)` | `newmanZiffSmax(lat, rng, cp)` |
-| directed | `directedCrossing(lat, p, rng, {mode})` | `directed_crossing(lat, p, rng, mode)` | `atlas::directed_crossing(lat, p, rng, site)` | `directed_crossing(lat, p, rng; mode)` | — |
+| concept | Python | C++ | Julia | Java |
+|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
+| generator | `Rng` | `atlas::Rng` | `Rng` | `Rng` |
+| lattice | `build_lattice(kind, L, torus)` | `atlas::build_lattice(kind, L, torus)` | `build_lattice(kind, L; torus)` | `new Lattice(kind, L, torus)` |
+| model | `Percolation(lat, mode)` | `atlas::Percolation(lat, mode)` | `Percolation(lat, mode)` | `new Percolation(lat, mode)` |
+| sample | `sample(p, rng)` | `sample(p, rng)` | `sample!(model, p, rng)` | `sample(p, rng)` |
+| crossing | `crosses_lr()` | `crosses_lr()` | `crosses_lr(model)` | `crossesLr()` |
+| Newman–Ziff | `newman_ziff(lat, rng)` | `atlas::newman_ziff(lat, rng)` | `newman_ziff(lat, rng)` | `newmanZiffSmax(lat, rng, cp)` |
+| directed | `directed_crossing(lat, p, rng, mode)` | `atlas::directed_crossing(lat, p, rng, site)` | `directed_crossing(lat, p, rng; mode)` | — |
 
 The RNG and observation order are documented in `docs/RNG.md`; the full API is in `docs/API.md`.
 
 ## Algorithm zoo: bootstrap, invasion and the Achlioptas process
 
-The zoo and the v4 solvers are exposed in all four languages. They share the Dsu and
+The zoo and the v4 solvers are exposed in Python, C++ and Julia; the browser runtime mirrors them for the laboratories. They share the Dsu and
 Rng types with the core, and their parity file is
 `data/golden/algorithms-v3.json`.
 
@@ -155,25 +160,6 @@ ex = explosive_random_graph(2000, rule="product", seed=7)
 print(ex.points[-1]["smax"], ex.max_jump)
 ```
 
-```javascript
-import {
-  Rng, buildLattice, bootstrapLattice,
-  invasionPercolation, explosiveRandomGraph,
-} from "./lib/js/index.js";
-
-const lat = buildLattice("square", 64);
-const rng = new Rng(11);
-const occupied = new Uint8Array(lat.n);
-for (let v = 0; v < lat.n; v++) occupied[v] = rng.random() < 0.55 ? 1 : 0;
-const boot = bootstrapLattice(lat, occupied, 3);
-console.log(boot.fraction, boot.rounds.length);
-
-const inv = invasionPercolation(lat.n, lat.eu, lat.ev, { seed: 0, rngSeed: 5 });
-console.log(inv.size, inv.lastThreshold, inv.loops);
-
-const ex = explosiveRandomGraph(2000, { rule: "product", seed: 7 });
-console.log(ex.points.at(-1).smax, ex.maxJump);
-```
 
 The CLI produces the same numbers:
 
@@ -185,14 +171,8 @@ atlas-perc explosive --n 2000 --rule product --seed 7
 
 ## Trees and the SIR final size
 
-The same fixed point in four languages. The values are the golden probes in
+The same fixed point in Python, C++ and Julia. The values are the golden probes in
 `data/golden/algorithms-v3.json`.
-
-```js
-import { bethePercolation, poissonPmf, sirFinalSize } from './lib/js/index.js';
-console.log(bethePercolation(3, 0.6).theta);          // 0.7037037037...
-console.log(sirFinalSize(poissonPmf(2), 1).finalSize); // 0.7968121300...
-```
 
 ```python
 from percolation_atlas import bethe_percolation, poisson_pmf, sir_final_size
@@ -216,16 +196,6 @@ println(sir_final_size(poisson_pmf(2), 1.0).final_size)
 ```
 
 ## Site Newman–Ziff and message passing
-
-```js
-import { Rng, buildLattice, newmanZiffSite, messagePassingPercolation } from './lib/js/index.js';
-const z = newmanZiffSite(buildLattice('square', 8), new Rng(5), { checkpoints: 16 });
-console.log(z.smax[z.smax.length - 1]);                 // 64
-const eu = [];
-const ev = [];
-for (let i = 0; i < 5; i++) for (let j = i + 1; j < 5; j++) { eu.push(i); ev.push(j); }
-console.log(messagePassingPercolation(5, eu, ev, 0.4).S); // 0.5415026221...
-```
 
 ```python
 from percolation_atlas import Rng, build_lattice, newman_ziff_site, message_passing_percolation

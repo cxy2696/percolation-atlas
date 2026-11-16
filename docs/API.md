@@ -108,9 +108,9 @@ for seed 11. The lab and the C++ benchmark use the same update.
 ## Algorithm zoo
 
 These routines live in all four libraries: `lib/python/percolation_atlas/algorithms.py`,
-`lib/js/engine/algorithms.js`, `lib/cpp/include/percolation_atlas/algorithms.hpp`
+`lib/python/percolation_atlas/algorithms.py`, `lib/cpp/include/percolation_atlas/algorithms.hpp`
 and `lib/julia/src/algorithms.jl`. They share the `Dsu` and `Rng` types with
-the Bernoulli core and have their own four-language parity contract
+the Bernoulli core and have their own reference parity contract
 (`data/golden/algorithms-v3.json`).
 
 - `neighbours_from_edges(n, eu, ev)` → `(start, adj, edge_of, degree)` CSR.
@@ -201,7 +201,7 @@ Deterministic fixed-point routines; no random stream is consumed.
 
 The algorithm zoo (`bootstrap_activation`, `invasion_cluster`,
 `leath_cluster`, `explosive_*`, `neighbours_from_edges`) is implemented in all
-four languages; its golden probes are in `data/golden/algorithms-v3.json`.
+the reference language editions; its golden probes are in `data/golden/algorithms-v3.json`.
 
 ## Errors and validation
 

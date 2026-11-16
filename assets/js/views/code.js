@@ -1,14 +1,14 @@
 /** Source browser for the four reference libraries. */
 import { t } from '../i18n.js';
 
-const ORDER = ['javascript', 'python', 'java', 'cpp', 'julia'];
-const LABELS = { javascript: 'JavaScript', python: 'Python', java: 'Java', cpp: 'C++', julia: 'Julia' };
+const ORDER = ['python', 'cpp', 'julia', 'java', 'r'];
+const LABELS = { python: 'Python', cpp: 'C++', julia: 'Julia', java: 'Java', r: 'R' };
 const INITIAL = {
-  javascript: 'lib/js/engine/percolation.js',
   python: 'lib/python/percolation_atlas/percolation.py',
   cpp: 'lib/cpp/include/percolation_atlas/percolation.hpp',
   julia: 'lib/julia/src/percolation.jl',
   java: 'lib/java/src/atlas/Percolation.java',
+  r: 'lib/r/R/percolation.R',
 };
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -87,11 +87,12 @@ GET  /api/openapi.json</pre>
   const langEl = root.querySelector('#code-langs');
   let inventory = null;
   const requested = query && query.file ? decodeURIComponent(query.file) : '';
-  let activeLang = 'javascript';
+  let activeLang = 'python';
   if (requested.includes('/python/') || requested.startsWith('lib/python/')) activeLang = 'python';
   else if (requested.includes('/cpp/') || requested.startsWith('lib/cpp/')) activeLang = 'cpp';
   else if (requested.includes('/julia/') || requested.startsWith('lib/julia/')) activeLang = 'julia';
   else if (requested.includes('/java/') || requested.startsWith('lib/java/')) activeLang = 'java';
+  else if (requested.includes('/r/') || requested.startsWith('lib/r/')) activeLang = 'r';
   let activeFile = requested || INITIAL[activeLang];
   langEl.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.lang === activeLang));
   let sourceText = '';
@@ -158,8 +159,8 @@ GET  /api/openapi.json</pre>
     langEl.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
     activeFile = INITIAL[activeLang] || filesOf(activeLang)[0]?.path;
     const noteKeys = {
-      javascript: 'code_note_javascript', python: 'code_note_python',
-      cpp: 'code_note_cpp', julia: 'code_note_julia', java: 'code_note_java',
+      python: 'code_note_python', cpp: 'code_note_cpp',
+      julia: 'code_note_julia', java: 'code_note_java', r: 'code_note_r',
     };
     pathEl.dataset.note = T(noteKeys[activeLang]);
     drawTree();

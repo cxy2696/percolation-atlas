@@ -1,4 +1,4 @@
-import { bethePercolation, betheThreshold } from '../../../lib/js/index.js';
+import { bethePercolation, betheThreshold } from '../engine/index.js';
 import { labHead, control, select, readout, panel, canvasBox, fmt, setText } from './ui.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';
 import { palette, onTheme, withAlpha } from '../theme.js';

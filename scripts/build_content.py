@@ -98,11 +98,11 @@ def plain(md: str) -> str:
 def code_manifest() -> dict:
     """Inventory the five reference libraries plus their tests and harness."""
     groups = [
-        ("javascript", "lib/js", ["lib/js/**/*.js"], ["tests/js/*.test.js"]),
         ("python", "lib/python", ["lib/python/**/*.py"], ["lib/python/tests/*.py"]),
         ("cpp", "lib/cpp", ["lib/cpp/**/*.hpp", "lib/cpp/**/*.cpp", "scripts/bench.cpp"], []),
         ("julia", "lib/julia", ["lib/julia/src/*.jl"], ["lib/julia/test/*.jl"]),
         ("java", "lib/java", ["lib/java/src/**/*.java"], []),
+        ("r", "lib/r", ["lib/r/R/**/*.R"], ["lib/r/tests/*.R"]),
     ]
     languages = []
     for lang_id, group, core_globs, test_globs in groups:

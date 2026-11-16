@@ -1,4 +1,4 @@
-import { Rng, booleanModel } from '../../../lib/js/index.js';
+import { Rng, booleanModel } from '../engine/index.js';
 import { labHead, panel, canvasBox, readout, fmt, setText } from './ui.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';
 import { t } from '../i18n.js';

@@ -1,4 +1,4 @@
-import { Rng, poissonPmf, sirFinalSize } from '../../../lib/js/index.js';
+import { Rng, poissonPmf, sirFinalSize } from '../engine/index.js';
 import { labHead, control, readout, canvasBox, fmt, setText } from './ui.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';
 import { palette, onTheme, withAlpha } from '../theme.js';

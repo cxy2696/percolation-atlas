@@ -1,4 +1,4 @@
-import { Rng, buildLattice, invasionPercolation } from '../../../lib/js/index.js';
+import { Rng, buildLattice, invasionPercolation } from '../engine/index.js';
 import { labHead, select, readout, panel, canvasBox, fmt, setText, control } from './ui.js';
 import { drawPlot } from '../lib/plot.js';
 import { palette, onTheme } from '../theme.js';

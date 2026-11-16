@@ -64,7 +64,7 @@ export function runRecord({
     route,
     capturedAt: new Date().toISOString(),
     app: { version, commit: commit || null },
-    engine: 'assets/js + lib/js',
+    engine: 'assets/js',
     rng: 'xoshiro128**',
     seed: seed ?? null,
     params: Object.fromEntries(

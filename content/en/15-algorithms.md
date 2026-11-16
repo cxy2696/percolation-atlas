@@ -95,7 +95,7 @@ The first three are implemented in all four algorithm libraries; Java has the co
 
 ## 15.8 Beyond the core: bootstrap, explosive and invasion
 
-Three further algorithms are implemented in all four reference libraries and exposed in the laboratories. They answer different questions and should not be mixed with the Bernoulli sampler.
+Three further algorithms are implemented in the C++, Python and Julia reference libraries and exposed in the laboratories. They answer different questions and should not be mixed with the Bernoulli sampler.
 
 **Bootstrap percolation.** Occupied sites are active at time zero; an empty site activates when at least $r$ of its neighbours are active. The update is a monotone closure, so the final set is the least fixed point and is independent of the update order. The queue implementation activates each site at the first round in which its active-neighbour count reaches $r$, in $O(n+m)$ time. For $r=2$ the infinite-lattice threshold is zero, but a finite box fills above a crossover that depends on $L$; for $r=3$ and $r=4$ the threshold is positive. The distinction is visible in experiment 08.
 
@@ -103,12 +103,12 @@ Three further algorithms are implemented in all four reference libraries and exp
 
 **Achlioptas process.** At each step two candidate edges are drawn and the product (or sum) rule keeps the one whose endpoint components are smaller. On the complete graph this delays the giant component and produces a sharp finite-size jump. The jump is not a thermodynamic discontinuity: the product rule is continuous in the limit, as the scaling check in experiment 09 shows. The implementation uses the same DSU and reports the trajectory as an exact function of the candidate sequence.
 
-The three algorithms share the four-language parity contract recorded in `data/golden/algorithms-v3.json`: Python and JavaScript generate the probes, and the C++ and Julia suites assert the same file. The Bernoulli core keeps its own contract in `data/golden/parity.json`. The correctness arguments are in Chapter 19, the experiments are 08–10, and the algorithm reader links each invariant to its source files and tests.
+The three algorithms share the parity probes recorded in `data/golden/algorithms-v3.json`: Python generates the reference probes, the C++ and Julia suites assert the same file, and the browser runtime is checked separately for UI parity. The Bernoulli core keeps its own contract in `data/golden/parity.json`. The correctness arguments are in Chapter 19, the experiments are 08–10, and the algorithm reader links each invariant to its source files and tests.
 
 Six further routines were added in the 4.x releases: Hoshen–Kopelman labelling, the Bethe fixed point, the configuration-model giant component, the SIR final size, the site-mode Newman–Ziff sweep and message passing. Of these, Hoshen–Kopelman, the Bethe fixed point, the configuration giant component, the SIR final size and message passing are deterministic; the site sweep consumes one random site order. The first four are described in Chapters 22–23, the site sweep is the site counterpart of §15.5, and message passing is the finite-graph form of the Bethe recursion in §22.5. All six have golden probes in the same `algorithms-v3.json` file.
 
 ## 15.9 Reading the implementations
 
-The JavaScript engine is the one the browser runs; the Python package is the readable reference; the C++ headers are the fast path; the Julia package is the typed path with the same public conventions. The edge order is fixed by `build_lattice`, the random stream by `docs/RNG.md`, and the DSU by the pseudocode above. A change to any of the three is a breaking change: regenerate the goldens, bump the version, and record the correction in Chapter 14.
+The browser runtime in `assets/js/engine` is the one the browser runs; the Python package is the readable reference; the C++ headers are the fast path; the Julia package is the typed path with the same public conventions. The edge order is fixed by `build_lattice`, the random stream by `docs/RNG.md`, and the DSU by the pseudocode above. A change to any of the three is a breaking change: regenerate the goldens, bump the version, and record the correction in Chapter 14.
 
 The algorithms in this chapter are also the reason the atlas can show a live curve in a browser at all. A 128×128 lattice has 32 512 open-boundary edges; a Newman–Ziff sweep over that lattice is a few million DSU operations, which is well inside a frame budget when the sweep is chunked. The laboratories use the same code path as the libraries; there is no separate "demo" implementation to drift out of sync.

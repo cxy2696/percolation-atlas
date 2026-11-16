@@ -4,7 +4,7 @@ This note records what each routine costs, where the implementation stops scalin
 
 ## Percolation on a lattice
 
-Let `n = L²` be the number of sites and `m` the number of edges (`2L(L−1)` on an open square lattice, `3n` on a triangular torus). The three-dimensional simple cubic generator has `n = L³` and `m = 3L²(L−1)`; it is JavaScript-only for the browser laboratory, and it is not part of the four full parity suites; Java is a core subset.
+Let `n = L²` be the number of sites and `m` the number of edges (`2L(L−1)` on an open square lattice, `3n` on a triangular torus). The three-dimensional simple cubic generator has `n = L³` and `m = 3L²(L−1)`; it is JavaScript-only for the browser laboratory, and it is not part of the reference parity suites; Java and R are core subsets.
 
 | Operation | Time | Memory | Notes |
 |---|---|---|---|
@@ -17,7 +17,7 @@ Let `n = L²` be the number of sites and `m` the number of edges (`2L(L−1)` on
 | directed crossing | O(L²) | O(n + m) | row-major reachability DP after the sample |
 | Newman–Ziff sweep | O(m α(n)) | O(m + n) | one edge order; whole p-grid |
 
-The JavaScript engine is the fastest way to explore a single configuration up to `L≈1024` in a browser. The C++ and Julia versions are appropriate when the same configuration must be repeated many times, or when `L` is large enough that allocation and garbage collection dominate. Python is the readable reference; it is roughly one to two orders of magnitude slower than C++ for the same `m`.
+The browser runtime in `assets/js/engine` is the fastest way to explore a single configuration up to `L≈1024`; it is a presentation layer, not a reference edition. The C++ and Julia versions are appropriate when the same configuration must be repeated many times, or when `L` is large enough that allocation and garbage collection dominate. Python is the readable reference; it is roughly one to two orders of magnitude slower than C++ for the same `m`.
 
 At `L=4096` a square lattice has 16.7 million sites and 33.5 million edges. A single `Int32Array` of edges is 134 MB before the union-find arrays and cluster bookkeeping. That is near the practical limit of a browser tab; use C++ or Julia for larger systems, and expect the union-find arrays alone to be several hundred megabytes.
 

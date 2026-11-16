@@ -87,7 +87,7 @@ A defensible statement has the form "we obtain $p_c=0.5927(3)$ from sizes $L=64$
 
 The benchmark is designed to show the *shape* of a finite-size study, not to compete with dedicated high-precision work. The crossing experiment uses free boundaries and $L\in\{32,64,128\}$; the torus experiment uses $L\le128$; the one-arm experiment uses $L\le512$ and fits only $L\ge64$; the Cardy experiment uses a $96\times H$ rectangle with $H/W$ from $0.25$ to $4$. The headline collapse fixes $\nu=4/3$ and fits $p_c$ alone; the unconstrained two-parameter fit is reported as a diagnostic because it is ill-conditioned at these sizes. Every row carries its own sample count. The data view on the website reads the same file; if the file is missing, the page says so rather than inventing a curve.
 
-The important test is not whether the fitted $p_c$ lands on $0.5$ to four decimals. It is whether the crossing rate at $p=1/2$ follows the finite-size trend towards $1/2$, whether the curves sharpen with $L$, and whether the same seed produces the same integer counts in C++, Julia, Python, JavaScript and the Java core. Those are the checks that catch the errors which matter.
+The important test is not whether the fitted $p_c$ lands on $0.5$ to four decimals. It is whether the crossing rate at $p=1/2$ follows the finite-size trend towards $1/2$, whether the curves sharpen with $L$, and whether the same seed produces the same integer counts in C++, Julia, Python, Java and R reference cores. Those are the checks that catch the errors which matter.
 
 ## 11.7 Traps, in the order they usually appear
 

@@ -1,5 +1,42 @@
 # Changelog
 
+## 4.7.0 — 2026-11-17
+
+A reference-boundary release. The algorithm sources now live only in the five
+requested editions, and the browser runtime is explicitly separated from them.
+
+**Reference languages**
+
+- `lib/` now contains C++20, Python, Julia, Java and R only.
+- Added a base-R core edition (`lib/r`): xoshiro128** with SplitMix32, DSU,
+  lattice generators, site/bond sampling, cluster statistics, crossing and
+  Newman–Ziff. Its parity suite covers the same RNG, square bond, triangular
+  site and Newman–Ziff values as the other editions.
+- Java now covers the same core surface; `Percolation.analyze()` uses an
+  int-array root table instead of a boxed `HashMap`.
+- JavaScript was moved out of `lib/` to `assets/js/engine`. It is the browser
+  runtime that keeps the static page interactive; it is not a reference
+  edition and is not listed in the code browser's language tabs.
+- The code browser now has five reference tabs: Python, C++, Julia, Java, R.
+  Java and R source links are included for the core routines; the dynamics and
+  tree/message routines point to their C++/Python/Julia sources.
+
+**Correctness and traceability**
+
+- R parity: RNG seed 42, square bond 244/500, triangular site 151/300,
+  Newman–Ziff [10, 109, 256].
+- Java parity: the same four checks, plus full/empty site cluster statistics.
+- Algorithm index no longer links to JavaScript as a reference source; tests
+  and source paths were updated accordingly.
+- `make test` now runs five reference suites plus the browser runtime tests.
+- CI installs Java 17 and R 4.4; the Docker image copies the five source trees.
+
+**Presentation**
+
+- Light-theme code workbench: file tree, tab strip and pane header now use a
+  paper palette; line numbers and metadata were darkened.
+- The code browser lead states the JavaScript boundary explicitly.
+
 ## 4.6.0 — 2026-11-17
 
 A Java and legibility release. The core engine gains a fifth language, and the

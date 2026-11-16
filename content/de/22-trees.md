@@ -162,7 +162,7 @@ $$
 
 **Poisson-Baum, $c=2$, $p=0.6$.** Hier ist $p_c=1/2$, der Baum also superkritisch; die von null verschiedene Lösung von $u=e^{-cp(1-u)}=e^{-1.2(1-u)}$ liefert $\theta=1-u=0.313698\ldots$. Dies ist genau die Erdős–Rényi-Riesenkomponente bei $cT=1.2$, denn eine Poisson-Gradverteilung ist unter Ausdünnung stabil: Die Wurzel hat $\mathrm{Poisson}(2p)=\mathrm{Poisson}(1.2)$ offene Kinder, dieselbe Verteilung wie jeder Vorwärtszweig. Die Übereinstimmung ist eine nützliche Kontrolle beider Rechnungen und eine Besonderheit der Poisson-Grade.
 
-Die Bibliotheken in vier Sprachen implementieren diese drei Kontrollen als `bethePercolation`, `configurationGiantComponent` und den Fixpunktlöser zu (22.9); die Regressionswerte stehen in den Testsuiten.
+Die C++-, Julia- und Python-Bibliotheken implementieren diese drei Kontrollen als `bethePercolation`, `configurationGiantComponent` und den Fixpunktlöser zu (22.9); die Regressionswerte stehen in den Testsuiten.
 
 ## 22.8 Was davon mitzunehmen ist
 

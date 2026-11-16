@@ -13,11 +13,11 @@ The shared conventions are:
 - a parity test compares integers and exact component sizes, not statistical
   summaries.
 
-Every routine below has a JavaScript, Python, C++ and Julia implementation; the exact source and test paths for each one are in `content/algorithms.json` and are printed by `atlas-perc algorithms <id>`.
+The core sampler, DSU and Newman–Ziff routines have C++, Python, Julia, Java and R implementations. The dynamics, labels, tree and message routines have C++, Python and Julia implementations. JavaScript is the browser runtime under `assets/js/engine`, not a reference edition; it is not listed as an algorithm source. The exact source and test paths are in `content/algorithms.json`.
 
 ## 1. Bernoulli sampler
 
-`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
+`lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl` · `lib/java/src/atlas/Percolation.java` · `lib/r/R/percolation.R`
 
 The sampler walks sites (site mode) or edges (bond mode) in a fixed order and
 draws one uniform per element. Closed elements still consume a draw. That is
@@ -33,7 +33,7 @@ Each changes the number while leaving the picture plausible.
 
 ## 2. Union–find
 
-`lib/js/engine/dsu.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
+`lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl` · `lib/java/src/atlas/Dsu.java` · `lib/r/R/percolation.R`
 
 `find` walks to the root and compresses the path. `union` attaches the smaller
 root under the larger and updates `size`, `count` and `maxSize`. The depth is
@@ -46,7 +46,7 @@ hot loop.
 
 ## 3. Newman–Ziff
 
-`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
+`lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl` · `lib/java/src/atlas/Percolation.java` · `lib/r/R/percolation.R`
 
 Shuffle the edge indices once. Add them one at a time. After `k` edges the open
 set is a uniform `k`-subset, so it is a sample of bond percolation at
@@ -63,7 +63,7 @@ and do not treat the `m` plotted points as `m` independent samples.
 
 ## 4. Site Newman–Ziff
 
-`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
+`lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl` · `lib/java/src/atlas/Percolation.java` · `lib/r/R/percolation.R`
 
 The site sweep adds vertices rather than edges. Draw one random order of the
 `n` sites, occupy them one at a time, and union each new site with the
@@ -74,7 +74,7 @@ reported `chi2` uses `M₂/n` so the curve is comparable with the bond sweep.
 
 ## 5. Leath growth
 
-`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Start at a seed. Test each edge incident to a visited site exactly once. An open
 edge to an unvisited site is explored; a closed edge is perimeter. The visited
@@ -87,7 +87,7 @@ truncates the tail. That is a bias, not a neutral optimisation.
 
 ## 6. Bootstrap closure
 
-`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 The update rule is monotone, so the final set is the least fixed point and is
 independent of the order in which sites are considered. The queue version
@@ -103,7 +103,7 @@ finite-size onset as a material constant.
 
 ## 7. Invasion percolation
 
-`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Each edge has an i.i.d. threshold. A min-heap holds the boundary. Popping the
 smallest key and accepting the edge when it reaches an unvisited site is the
@@ -118,7 +118,7 @@ loop rejection, not the trapping variant used for defending clusters.
 
 ## 8. Achlioptas process
 
-`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Two candidates are drawn; the product rule keeps the one whose endpoint
 component sizes have the smaller product (the sum rule is the weaker control).
@@ -132,7 +132,7 @@ Duplicate candidate pairs count as additions but do not merge components, and
 
 ## 9. k-core peeling
 
-`lib/js/engine/network.js` · `lib/python/percolation_atlas/network.py` · `lib/cpp/include/percolation_atlas/network.hpp` · `lib/julia/src/network.jl`
+`lib/python/percolation_atlas/network.py` · `lib/cpp/include/percolation_atlas/network.hpp` · `lib/julia/src/network.jl`
 
 The k-core is the largest induced subgraph with minimum degree at least k. It
 is obtained by repeatedly deleting vertices whose current degree is below k.
@@ -146,7 +146,7 @@ first edition. The cost is `O(n + m)` time; the queue can hold more than `n` ent
 
 ## 10. Hoshen–Kopelman labelling
 
-`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 The scan visits the edge list once and unions an open edge whose two endpoints
 are present. Labels are compressed in a final pass: a vertex's label is its
@@ -160,7 +160,7 @@ disagree on which vertices belong together.
 
 ## 11. Bethe fixed point
 
-`lib/js/engine/trees.js` · `lib/python/percolation_atlas/trees.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/trees.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 On the z-regular tree, `u = (1 - p + pu)^(z-1)` and
 `θ = 1 - (1 - p + pu)^z`. The physical solution is the smallest fixed point;
@@ -171,7 +171,7 @@ from the subcritical formula.
 
 ## 12. SIR final size
 
-`lib/js/engine/trees.js` · `lib/python/percolation_atlas/trees.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/trees.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 The final size is the configuration-model fixed point
 `S = 1 - G0(1 - T + Tu)`, `u = G1(1 - T + Tu)`. The solver takes the smallest
@@ -183,7 +183,7 @@ transmissibility interpretation of Chapter 23.
 
 ## 13. Message passing
 
-`lib/js/engine/message.js` · `lib/python/percolation_atlas/message.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/message.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Cavity messages solve `u[i→j] = Π_{k≠j}(1 − T + T u[k→i])`. On a tree the
 factorisation is exact; on a graph with cycles it is the Bethe approximation,
@@ -200,9 +200,9 @@ mate reverses every message — the classic sign error.
 | RNG stream | `data/golden/rng-seed42.json` |
 | core parity | `data/golden/parity.json`, `scripts/parity.py` |
 | algorithm zoo, v4 solvers, site sweep, message passing | `data/golden/algorithms-v3.json`; the exact suite for each probe is listed in `content/algorithms.json` |
-| least fixed point | `tests/js/algorithms.test.js` (naive closure comparison) |
-| invasion tree | `tests/js/algorithms.test.js` (spanning-tree count) |
-| Leath extremes | `tests/js/algorithms.test.js` (`p = 0`, `p = 1`) |
+| least fixed point | `lib/python/tests/test_algorithms.py` (naive closure comparison) |
+| invasion tree | `lib/python/tests/test_algorithms.py` (spanning-tree count) |
+| Leath extremes | `lib/python/tests/test_algorithms.py` (`p = 0`, `p = 1`) |
 
 If you change an algorithm, change the golden file and the version, and say in
 the changelog what moved. A change that "looks harmless" in the random order

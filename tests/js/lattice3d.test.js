@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { Rng, Percolation, buildLattice3D } from '../../lib/js/index.js';
+import { Rng, Percolation, buildLattice3D } from '../../assets/js/engine/index.js';
 
 test('3D cubic lattice has the right size, edge count and degree', () => {
   for (const L of [2, 4, 8]) {

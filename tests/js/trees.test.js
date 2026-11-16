@@ -11,7 +11,7 @@ import {
   configurationGiantComponent,
   sirFinalSize,
   labelClusters,
-} from '../../lib/js/index.js';
+} from '../../assets/js/engine/index.js';
 
 const golden = JSON.parse(readFileSync(new URL('../../data/golden/algorithms-v3.json', import.meta.url)));
 const expected = Object.fromEntries(golden.probes.map((p) => [p.id, p.value]));

@@ -16,6 +16,7 @@ COPY lib/js /app/lib/js
 COPY lib/java /app/lib/java
 COPY lib/cpp /app/lib/cpp
 COPY lib/julia /app/lib/julia
+COPY lib/r /app/lib/r
 
 # Copy the static atlas and the data.
 COPY index.html manifest.webmanifest sw.js robots.txt sitemap.xml 404.html /app/

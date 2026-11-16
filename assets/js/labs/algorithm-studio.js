@@ -1,7 +1,7 @@
 import {
   Rng, buildLattice, Percolation, newmanZiff, leathCluster,
   bootstrapLattice, invasionPercolation, Dsu,
-} from '../../../lib/js/index.js';
+} from '../engine/index.js';
 import { labHead, select, control, readout, panel, canvasBox, fmt, setText } from './ui.js';
 import { drawPlot } from '../lib/plot.js';
 import { palette, onTheme } from '../theme.js';

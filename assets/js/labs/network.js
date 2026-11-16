@@ -5,7 +5,7 @@ import {
   configurationModel,
   components,
   molloyReed,
-} from '../../../lib/js/index.js';
+} from '../engine/index.js';
 import { labHead, panel, canvasBox, readout, fmt, setText, bindRange } from './ui.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';
 import { t } from '../i18n.js';

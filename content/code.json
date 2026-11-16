@@ -1,145 +1,7 @@
 {
- "generated": "code-c22a95eb8508b2b9",
- "fingerprint": "c22a95eb8508b2b9",
+ "generated": "code-bea3d2a459ce0423",
+ "fingerprint": "bea3d2a459ce0423",
  "languages": [
-  {
-   "id": "javascript",
-   "group": "lib/js",
-   "files": [
-    {
-     "path": "lib/js/engine/algorithms.js",
-     "bucket": "core",
-     "lines": 510,
-     "bytes": 16549
-    },
-    {
-     "path": "lib/js/engine/cardy.js",
-     "bucket": "core",
-     "lines": 93,
-     "bytes": 2926
-    },
-    {
-     "path": "lib/js/engine/continuum.js",
-     "bucket": "core",
-     "lines": 76,
-     "bytes": 2214
-    },
-    {
-     "path": "lib/js/engine/directed.js",
-     "bucket": "core",
-     "lines": 84,
-     "bytes": 3196
-    },
-    {
-     "path": "lib/js/engine/dsu.js",
-     "bucket": "core",
-     "lines": 61,
-     "bytes": 1288
-    },
-    {
-     "path": "lib/js/engine/lattice.js",
-     "bucket": "core",
-     "lines": 98,
-     "bytes": 3148
-    },
-    {
-     "path": "lib/js/engine/lattice3d.js",
-     "bucket": "core",
-     "lines": 51,
-     "bytes": 1465
-    },
-    {
-     "path": "lib/js/engine/message.js",
-     "bucket": "core",
-     "lines": 100,
-     "bytes": 3383
-    },
-    {
-     "path": "lib/js/engine/network.js",
-     "bucket": "core",
-     "lines": 323,
-     "bytes": 10026
-    },
-    {
-     "path": "lib/js/engine/percolation.js",
-     "bucket": "core",
-     "lines": 311,
-     "bytes": 8963
-    },
-    {
-     "path": "lib/js/engine/rng.js",
-     "bucket": "core",
-     "lines": 128,
-     "bytes": 3243
-    },
-    {
-     "path": "lib/js/engine/stats.js",
-     "bucket": "core",
-     "lines": 65,
-     "bytes": 1735
-    },
-    {
-     "path": "lib/js/engine/trees.js",
-     "bucket": "core",
-     "lines": 145,
-     "bytes": 4715
-    },
-    {
-     "path": "lib/js/index.js",
-     "bucket": "core",
-     "lines": 42,
-     "bytes": 1355
-    },
-    {
-     "path": "tests/js/algorithm-guide.test.js",
-     "bucket": "tests",
-     "lines": 56,
-     "bytes": 2494
-    },
-    {
-     "path": "tests/js/algorithms.test.js",
-     "bucket": "tests",
-     "lines": 183,
-     "bytes": 7543
-    },
-    {
-     "path": "tests/js/engine.test.js",
-     "bucket": "tests",
-     "lines": 222,
-     "bytes": 8787
-    },
-    {
-     "path": "tests/js/experiment.test.js",
-     "bucket": "tests",
-     "lines": 53,
-     "bytes": 1837
-    },
-    {
-     "path": "tests/js/guides.test.js",
-     "bucket": "tests",
-     "lines": 60,
-     "bytes": 2403
-    },
-    {
-     "path": "tests/js/lattice3d.test.js",
-     "bucket": "tests",
-     "lines": 45,
-     "bytes": 1558
-    },
-    {
-     "path": "tests/js/message.test.js",
-     "bucket": "tests",
-     "lines": 55,
-     "bytes": 2261
-    },
-    {
-     "path": "tests/js/trees.test.js",
-     "bucket": "tests",
-     "lines": 120,
-     "bytes": 4396
-    }
-   ]
-  },
   {
    "id": "python",
    "group": "lib/python",
@@ -431,6 +293,42 @@
      "bucket": "core",
      "lines": 105,
      "bytes": 2954
+    }
+   ]
+  },
+  {
+   "id": "r",
+   "group": "lib/r",
+   "files": [
+    {
+     "path": "lib/r/R/lattice.R",
+     "bucket": "core",
+     "lines": 35,
+     "bytes": 1295
+    },
+    {
+     "path": "lib/r/R/percolation.R",
+     "bucket": "core",
+     "lines": 100,
+     "bytes": 2752
+    },
+    {
+     "path": "lib/r/R/rng.R",
+     "bucket": "core",
+     "lines": 92,
+     "bytes": 2276
+    },
+    {
+     "path": "lib/r/tests/test-parity.R",
+     "bucket": "tests",
+     "lines": 33,
+     "bytes": 1250
+    },
+    {
+     "path": "lib/r/tests/test-rng.R",
+     "bucket": "tests",
+     "lines": 8,
+     "bytes": 430
     }
    ]
   }

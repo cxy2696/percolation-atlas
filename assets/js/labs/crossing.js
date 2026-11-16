@@ -1,4 +1,4 @@
-import { Rng, buildLattice, Percolation } from '../../../lib/js/index.js';
+import { Rng, buildLattice, Percolation } from '../engine/index.js';
 import { labHead, panel, canvasBox, readout, fmt, setText, bindRange, queryNumber } from './ui.js';
 import { wilsonInterval } from '../lib/experiment.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';

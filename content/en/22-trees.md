@@ -162,7 +162,7 @@ $$
 
 **Poisson tree, $c=2$, $p=0.6$.** Here $p_c=1/2$, so the tree is supercritical; the nonzero solution of $u=e^{-cp(1-u)}=e^{-1.2(1-u)}$ gives $\theta=1-u=0.313698\ldots$. This is exactly the Erdős–Rényi giant component at $cT=1.2$, because a Poisson degree distribution is stable under thinning: the root has $\mathrm{Poisson}(2p)=\mathrm{Poisson}(1.2)$ open children, the same law as every forward branch. The agreement is a useful check on both calculations, and it is special to Poisson degrees.
 
-The four-language libraries implement these three checks as `bethePercolation`, `configurationGiantComponent` and the fixed-point solver behind (22.9); the regression values are in the test suites.
+The C++, Julia and Python libraries implement these three checks as `bethePercolation`, `configurationGiantComponent` and the fixed-point solver behind (22.9); the browser runtime mirrors them for the laboratory. The regression values are in the test suites.
 
 ## 22.8 What to carry away
 

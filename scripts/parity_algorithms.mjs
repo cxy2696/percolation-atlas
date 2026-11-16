@@ -4,7 +4,7 @@ import {
   invasionCluster, leathCluster, explosiveRandomGraph, explosivePercolation,
   labelClusters, bethePercolation, configurationGiantComponent, poissonPmf, sirFinalSize,
   newmanZiffSite, messagePassingPercolation,
-} from '../lib/js/index.js';
+} from '../assets/js/engine/index.js';
 
 function bootstrapProbe(kind, L, p, r, seed) {
   const lat = buildLattice(kind, L);

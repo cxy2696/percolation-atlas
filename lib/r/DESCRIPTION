@@ -1,0 +1,11 @@
+Package: atlaspercolation
+Type: Package
+Title: Reference Core for the Percolation Atlas
+Version: 4.7.0
+Authors@R: person("Atlas Percolation contributors", role = c("aut", "cre"))
+Description: Base-R implementation of the Bernoulli core and Newman-Ziff
+    sweep used by the Percolation Atlas. The same random stream, lattice edge
+    order and crossing definitions are used by the C++, Julia, Python and Java
+    editions.
+License: MIT
+Encoding: UTF-8

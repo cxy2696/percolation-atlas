@@ -1,4 +1,4 @@
-import { Rng, buildLattice, bootstrapLattice, Dsu } from '../../../lib/js/index.js';
+import { Rng, buildLattice, bootstrapLattice, Dsu } from '../engine/index.js';
 import { labHead, control, select, readout, panel, canvasBox, fmt, setText } from './ui.js';
 import { drawPlot } from '../lib/plot.js';
 import { palette, onTheme } from '../theme.js';
@@ -22,7 +22,7 @@ const LABELS = {
     run: 'Run cascade',
     step: 'One round',
     reset: 'Reset',
-    note: 'Square lattice, open boundaries. The final set is computed by the least-fixed-point algorithm in lib/js/engine/algorithms.js; the animation replays its rounds.',
+    note: 'Square lattice, open boundaries. The final set is computed by the least-fixed-point algorithm in assets/js/engine/algorithms.js; the animation replays its rounds.',
     legendActive: 'initially active',
     legendNew: 'activated later',
     legendEmpty: 'never active',
@@ -46,7 +46,7 @@ const LABELS = {
     run: '运行级联',
     step: '单轮',
     reset: '重置',
-    note: '方格、开边界。最终集合由 lib/js/engine/algorithms.js 的最小不动点算法计算；动画重放其轮次。',
+    note: '方格、开边界。最终集合由 assets/js/engine/algorithms.js 的最小不动点算法计算；动画重放其轮次。',
     legendActive: '初始活跃',
     legendNew: '后来激活',
     legendEmpty: '始终未激活',
@@ -70,7 +70,7 @@ const LABELS = {
     run: 'Kaskade starten',
     step: 'Eine Runde',
     reset: 'Zurück',
-    note: 'Quadratgitter, offene Ränder. Die Endmenge berechnet der Kleinste-Fixpunkt-Algorithmus in lib/js/engine/algorithms.js; die Animation spielt die Runden ab.',
+    note: 'Quadratgitter, offene Ränder. Die Endmenge berechnet der Kleinste-Fixpunkt-Algorithmus in assets/js/engine/algorithms.js; die Animation spielt die Runden ab.',
     legendActive: 'anfangs aktiv',
     legendNew: 'später aktiviert',
     legendEmpty: 'nie aktiv',

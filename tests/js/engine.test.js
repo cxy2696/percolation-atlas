@@ -10,7 +10,7 @@ import {
   targetedRemoval, kcore, interdependentER, molloyReed, booleanModel,
   cardyCrossing, cardyCrossingVertical, cardyHypergeom, CARDY_CONSTANT,
   directedCrossing,
-} from '../../lib/js/index.js';
+} from '../../assets/js/engine/index.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const rngGolden = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/golden/rng-seed42.json'), 'utf8'));

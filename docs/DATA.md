@@ -20,7 +20,7 @@ make bench
 make analyse
 ```
 
-The C++ harness is self-contained so that the published record does not depend on the library build. It uses the same xoshiro128** generator and the same lattice edge order as `lib/cpp`, `lib/js`, `lib/python` and `lib/julia`.
+The C++ harness is self-contained so that the published record does not depend on the library build. It uses the same xoshiro128** generator and the same lattice edge order as `lib/cpp`, `lib/python`, `lib/julia`, `lib/java` and `lib/r`.
 
 ## What each experiment measures
 

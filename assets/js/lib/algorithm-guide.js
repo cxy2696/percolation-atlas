@@ -154,10 +154,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/percolation.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/percolation.py",
         "label": "Python"
       },
@@ -168,6 +164,14 @@ export const ALGORITHM_GUIDE = {
       {
         "path": "lib/julia/src/percolation.jl",
         "label": "Julia"
+      },
+      {
+        "path": "lib/java/src/atlas/Percolation.java",
+        "label": "Java"
+      },
+      {
+        "path": "lib/r/R/percolation.R",
+        "label": "R"
       }
     ],
     "notes": {
@@ -232,13 +236,14 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/engine.test.js",
       "lib/python/tests/test_engine.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
-      "data/golden/rng-seed42.json"
+      "data/golden/rng-seed42.json",
+      "lib/java/src/atlas/Parity.java",
+      "lib/r/tests/test-parity.R"
     ],
-    "implementations": 4,
+    "implementations": 5,
     "doc_title": "Bernoulli sampler",
     "summary": {
       "en": "Draw one independent Bernoulli configuration in a fixed order.",
@@ -351,10 +356,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/dsu.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/percolation.py",
         "label": "Python"
       },
@@ -365,6 +366,14 @@ export const ALGORITHM_GUIDE = {
       {
         "path": "lib/julia/src/percolation.jl",
         "label": "Julia"
+      },
+      {
+        "path": "lib/java/src/atlas/Dsu.java",
+        "label": "Java"
+      },
+      {
+        "path": "lib/r/R/percolation.R",
+        "label": "R"
       }
     ],
     "notes": {
@@ -429,12 +438,13 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/engine.test.js",
       "lib/python/tests/test_engine.py",
       "lib/cpp/tests/test_main.cpp",
-      "lib/julia/test/runtests.jl"
+      "lib/julia/test/runtests.jl",
+      "lib/java/src/atlas/Parity.java",
+      "lib/r/tests/test-parity.R"
     ],
-    "implementations": 4,
+    "implementations": 5,
     "doc_title": "Union–find",
     "summary": {
       "en": "Maintain connected components under edge insertions.",
@@ -535,10 +545,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/percolation.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/percolation.py",
         "label": "Python"
       },
@@ -549,6 +555,14 @@ export const ALGORITHM_GUIDE = {
       {
         "path": "lib/julia/src/percolation.jl",
         "label": "Julia"
+      },
+      {
+        "path": "lib/java/src/atlas/Percolation.java",
+        "label": "Java"
+      },
+      {
+        "path": "lib/r/R/percolation.R",
+        "label": "R"
       }
     ],
     "notes": {
@@ -613,14 +627,15 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/engine.test.js",
       "lib/python/tests/test_engine.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/parity.json",
-      "data/golden/rng-seed42.json"
+      "data/golden/rng-seed42.json",
+      "lib/java/src/atlas/Parity.java",
+      "lib/r/tests/test-parity.R"
     ],
-    "implementations": 4,
+    "implementations": 5,
     "doc_title": "Newman–Ziff",
     "summary": {
       "en": "Turn one random edge order into the full S_max(p) and χ(p) curves.",
@@ -721,10 +736,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/percolation.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/percolation.py",
         "label": "Python"
       },
@@ -735,6 +746,14 @@ export const ALGORITHM_GUIDE = {
       {
         "path": "lib/julia/src/percolation.jl",
         "label": "Julia"
+      },
+      {
+        "path": "lib/java/src/atlas/Percolation.java",
+        "label": "Java"
+      },
+      {
+        "path": "lib/r/R/percolation.R",
+        "label": "R"
       }
     ],
     "notes": {
@@ -799,13 +818,14 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/message.test.js",
       "lib/python/tests/test_message.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
-      "data/golden/algorithms-v3.json"
+      "data/golden/algorithms-v3.json",
+      "lib/java/src/atlas/Parity.java",
+      "lib/r/tests/test-parity.R"
     ],
-    "implementations": 4,
+    "implementations": 5,
     "doc_title": "Site Newman–Ziff",
     "summary": {
       "en": "Turn one random site order into the full site-percolation curve.",
@@ -906,10 +926,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/algorithms.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/algorithms.py",
         "label": "Python"
       },
@@ -984,13 +1000,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/algorithms.test.js",
       "lib/python/tests/test_algorithms.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Leath growth",
     "summary": {
       "en": "Grow the single cluster attached to a chosen seed.",
@@ -1091,10 +1106,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/algorithms.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/algorithms.py",
         "label": "Python"
       },
@@ -1169,13 +1180,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/algorithms.test.js",
       "lib/python/tests/test_algorithms.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Bootstrap closure",
     "summary": {
       "en": "Apply a monotone r-neighbour closure to its least fixed point.",
@@ -1276,10 +1286,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/algorithms.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/algorithms.py",
         "label": "Python"
       },
@@ -1354,13 +1360,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/algorithms.test.js",
       "lib/python/tests/test_algorithms.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Invasion percolation",
     "summary": {
       "en": "Grow a cluster along the cheapest boundary edge.",
@@ -1449,10 +1454,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/algorithms.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/algorithms.py",
         "label": "Python"
       },
@@ -1527,13 +1528,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/algorithms.test.js",
       "lib/python/tests/test_algorithms.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Achlioptas process",
     "summary": {
       "en": "Choose between two candidate edges to delay the giant component.",
@@ -1634,10 +1634,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/network.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/network.py",
         "label": "Python"
       },
@@ -1712,12 +1708,11 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/engine.test.js",
       "lib/python/tests/test_engine.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "k-core peeling",
     "summary": {
       "en": "Peel vertices until every survivor has degree at least k.",
@@ -1830,10 +1825,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/algorithms.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/algorithms.py",
         "label": "Python"
       },
@@ -1908,13 +1899,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/trees.test.js",
       "lib/python/tests/test_trees.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Hoshen–Kopelman labelling",
     "summary": {
       "en": "Label every cluster in one scan with a union-find table.",
@@ -2015,10 +2005,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/trees.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/trees.py",
         "label": "Python"
       },
@@ -2093,13 +2079,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/trees.test.js",
       "lib/python/tests/test_trees.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Bethe fixed point",
     "summary": {
       "en": "Solve the exact branching recursion on a z-regular tree.",
@@ -2200,10 +2185,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/trees.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/trees.py",
         "label": "Python"
       },
@@ -2278,13 +2259,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/trees.test.js",
       "lib/python/tests/test_trees.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "SIR final size",
     "summary": {
       "en": "Solve the final-size fixed point of an SIR epidemic.",
@@ -2388,10 +2368,6 @@ export const ALGORITHM_GUIDE = {
     },
     "code": [
       {
-        "path": "lib/js/engine/message.js",
-        "label": "JavaScript"
-      },
-      {
         "path": "lib/python/percolation_atlas/message.py",
         "label": "Python"
       },
@@ -2466,13 +2442,12 @@ export const ALGORITHM_GUIDE = {
       ]
     },
     "tests": [
-      "tests/js/message.test.js",
       "lib/python/tests/test_message.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
       "data/golden/algorithms-v3.json"
     ],
-    "implementations": 4,
+    "implementations": 3,
     "doc_title": "Message passing",
     "summary": {
       "en": "Approximate the giant component from cavity messages on a fixed graph.",

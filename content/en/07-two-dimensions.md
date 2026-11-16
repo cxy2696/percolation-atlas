@@ -62,7 +62,7 @@ Three checks fix the constants and the orientation.
 
 *Values.* $\pi(0.1)=4.0392840613\times10^{-5}$, $\pi(0.25)=0.0216300291$, $\pi(0.5)=0.1756468938$, $\pi(1)=0.5$, $\pi(2)=0.8243531062$, $\pi(4)=0.9783699709$, $\pi(10)=0.9999596072$. The steepness is real; it is why a simulation at a fixed narrow width needs large aspect ratios before the asymptotic curve is visible.
 
-**Numerical evaluation.** The modulus is found by bisection on $m\in[0,1/2]$ using the arithmetic–geometric mean for $K$. Because the evaluation only needs $m\le1/2$, the hypergeometric series converges rapidly. The code in `lib/js/engine/cardy.js`, `lib/python/percolation_atlas/cardy.py`, `lib/cpp/include/percolation_atlas/cardy.hpp` and `lib/julia/src/cardy.jl` follows this route; the regression values above are part of the four test suites.
+**Numerical evaluation.** The modulus is found by bisection on $m\in[0,1/2]$ using the arithmetic–geometric mean for $K$. Because the evaluation only needs $m\le1/2$, the hypergeometric series converges rapidly. The code in `lib/python/percolation_atlas/cardy.py`, `lib/cpp/include/percolation_atlas/cardy.hpp` and `lib/julia/src/cardy.jl` follows this route; the browser runtime in `assets/js/engine/cardy.js` mirrors it for the interactive view. The regression values above are part of the reference test suites.
 
 **Remark 7.2.** Two conventions circulate in the literature. Some authors take $\ell=W/H$ and the vertical crossing, which replaces $\pi(\ell)$ by $1-\pi(1/\ell)$; others use a cross-ratio or a nome instead of the modulus. The formula above gives $\pi(1)=1/2$ and $\pi(\infty)=1$ with $\ell=H/W$ and a left–right crossing. When comparing with a paper, check which convention is used before concluding that a factor is wrong.
 

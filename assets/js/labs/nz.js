@@ -1,4 +1,4 @@
-import { Rng, buildLattice, newmanZiff } from '../../../lib/js/index.js';
+import { Rng, buildLattice, newmanZiff } from '../engine/index.js';
 import { labHead, panel, canvasBox, readout, fmt, setText, queryChoice, select } from './ui.js';
 import { csv, downloadText } from '../lib/experiment.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';

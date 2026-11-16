@@ -8,7 +8,7 @@ Percolation asks when random connections form a path across a medium: through co
 
 The site is a static directory of Markdown, JSON and JavaScript. There is no application server and no runtime framework; the only vendored front-end files are KaTeX and marked. The Python package, command-line tool and JSON API are the same engine in a different wrapper.
 
-**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.6.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.6.0)
+**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.7.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.7.0)
 
 ## Start here
 
@@ -18,7 +18,7 @@ The site is a static directory of Markdown, JSON and JavaScript. There is no app
 
 ## Quick start
 
-Requirements: Python 3.10+, Node.js 20+ and a C++20 compiler. Julia 1.9+ is needed for the Julia suite; Java 17+ is needed for the Java core suite.
+Requirements: Python 3.10+, Node.js 20+ and a C++20 compiler. Julia 1.9+ is needed for the Julia suite; Java 17+ is needed for the Java core suite; R 4.2+ for the R core suite.
 
 ```sh
 git clone https://github.com/cxy2696/atlas-percolation.git
@@ -35,8 +35,8 @@ Open `http://127.0.0.1:8788/`. The site must be served over HTTP because the con
 |---|---|
 | Chapters | 23 chapters in English, Simplified Chinese and German, from the 1957 paper through duality, sharpness, exponents, SLE, random-cluster models, networks, measurement, applications, algorithms, directed and continuum percolation, transport, proofs, design, reproducibility, trees and epidemics. |
 | Experiments | 16 interactive models: lattice percolation, crossing collapse, Newman–Ziff, 3D site percolation, Cardy, directed, random-cluster, bootstrap, explosive, invasion, network robustness, coupled cascades, Boolean model, Bethe tree, SIR, and an algorithm studio. |
-| Algorithms | 13 routines with the idea, invariant, cost, source files and failure modes: Bernoulli sampler, DSU, bond and site Newman–Ziff, Leath, bootstrap, invasion, Achlioptas, k-core, Hoshen–Kopelman, Bethe fixed point, SIR final size and message passing. All four implementations and their tests are indexed in `content/algorithms.json`. |
-| Code | C++20 header-only, Julia, Python, JavaScript and Java, sharing the same xoshiro128** stream and lattice edge order. Java covers the Bernoulli sampler, DSU, lattice and Newman–Ziff; the v3 zoo remains Python + JavaScript. |
+| Algorithms | 13 routines with the idea, invariant, cost, source files and failure modes. The core routines have C++/Python/Julia/Java/R sources; the dynamics, label, tree and message routines have C++/Python/Julia sources. JavaScript stays in `assets/js/engine` as the browser runtime. |
+| Code | C++20 header-only, Julia, Python, Java and R, sharing the same xoshiro128** stream and lattice edge order. Java and R cover the core sampler, DSU, lattice and Newman–Ziff; JavaScript is the browser runtime in `assets/js/engine`, not a reference edition. |
 | Data | A C++ benchmark harness, a Python analyser, and a JSON record with raw counts, seeds and fits. |
 | Checks | Four language suites, cross-language parity probes, RNG golden vectors, translation structure, prose-claim checks and a bibliography audit. |
 
@@ -116,6 +116,7 @@ lib/
   js/                   ES-module engine shared with the site
   java/                 Java 17 core edition + parity suite
 assets/
+  js/engine/            browser runtime: RNG, lattice, sampler, labs; not a reference edition
   js/views/             overview, atlas reader, experiments, code, algorithms, data, library, sources
   js/labs/              sixteen experiments, with authored guides
   js/lib/               plot, statistics, run-record and notebook helpers

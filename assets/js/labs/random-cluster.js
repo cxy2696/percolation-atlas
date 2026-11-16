@@ -1,4 +1,4 @@
-import { Rng, Dsu, buildLattice } from '../../../lib/js/index.js';
+import { Rng, Dsu, buildLattice } from '../engine/index.js';
 import { labHead, control, select, readout, panel, canvasBox, fmt, setText } from './ui.js';
 import { t } from '../i18n.js';
 import { palette, onTheme, withAlpha } from '../theme.js';

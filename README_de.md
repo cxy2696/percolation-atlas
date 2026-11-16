@@ -6,11 +6,11 @@
 
 Perkolation stellt eine scheinbar einfache Frage: Wann bilden zufällige Verbindungen einen Pfad durch ein Medium? Die Antwort reicht von Kaffeesatz und porösen Elektroden über Wälder und Stromnetze bis zu Kontaktnetzwerken. Dieser Atlas sammelt Theorie, Simulation und Belege und markiert, wo jede Aussage endet.
 
-Er enthält 23 Kapitel auf Englisch, Chinesisch und Deutsch, 16 interaktive Experimente, 13 Algorithmen-Rundgänge, fünf Referenzausgaben (C++, Python, Julia, Java, R) und 142 Quellen. JavaScript dient nur der Browser-Oberfläche; die Referenzalgorithmen liegen in `lib/`.
+Er enthält 23 Kapitel auf Englisch, Chinesisch und Deutsch, 17 interaktive Experimente, 13 Algorithmen-Rundgänge, fünf Referenzausgaben (C++, Python, Julia, Java, R) und 144 Quellen. JavaScript dient nur der Browser-Oberfläche; die Referenzalgorithmen liegen in `lib/`.
 
 Die Seite besteht aus statischem Markdown, JSON und JavaScript, ohne Anwendungsserver und Laufzeit-Framework. Ein Python-Paket und eine kleine JSON-API machen dieselben Algorithmen außerhalb des Browsers nutzbar.
 
-**Live-Seite:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
+**Live-Seite:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **Release:** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
 
 ## Hier beginnen
 
@@ -36,7 +36,7 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 | Ebene | Inhalt |
 |---|---|
 | Kapitel | 23 Kapitel auf Englisch, vereinfachtem Chinesisch und Deutsch, von der Arbeit von 1957 über Dualität, Schärfe, Exponenten, SLE, Random-Cluster-Modelle, Netzwerke, Messung, Anwendungen, Algorithmen, gerichtete und kontinuierliche Perkolation, Transport, Beweise, Entwurf, Reproduzierbarkeit, Bäume und Epidemien. |
-| Experimente | 16 interaktive Modelle: Gitterperkolation, Durchgangskollaps, Newman–Ziff, 3D-Site-Perkolation, Cardy, gerichtete Perkolation, Random-Cluster, Bootstrap, explosiv, Invasion, Netzwerkrobustheit, gekoppelte Kaskaden, Boolesches Modell, Bethe-Baum, SIR und ein Algorithmenstudio. |
+| Experimente | 17 interaktive Modelle: Gitterperkolation, Durchgangskollaps, Newman–Ziff, 3D-Site-Perkolation, Cardy, gerichtete Perkolation, Random-Cluster, Bootstrap, explosiv, Invasion, Netzwerkrobustheit, gekoppelte Kaskaden, Boolesches Modell, Bethe-Baum, SIR, k-Kern-Schälen und ein Algorithmenstudio. |
 | Algorithmen | 13 Routinen mit Idee, Invariante, Kosten, Quelldateien und Fehlerquellen: Bernoulli-Sampler, DSU, Bond- und Site-Newman–Ziff, Leath, Bootstrap, Invasion, Achlioptas, k-Kern, Hoshen–Kopelman, Bethe-Fixpunkt, SIR-Endgröße und Message Passing. Die Referenzimplementierungen und ihre Tests sind nach Sprache in `content/algorithms.json` indexiert. |
 | Code | C++20 header-only, Julia, Python, Java und R, mit demselben xoshiro128**-Strom und derselben Kantenordnung. Java und R decken Bernoulli-Sampling, DSU, Gitter und Newman–Ziff ab; JavaScript ist die Browser-Laufzeit in `assets/js/engine`, keine Referenzausgabe. |
 | Daten | C++-Benchmark-Harness, Python-Analysator und ein JSON-Protokoll mit Rohzählungen, Seeds und Fits. |
@@ -120,7 +120,7 @@ lib/
   java/                 Java-17-Kernausgabe + Paritätssuite
 assets/
   js/views/             Übersicht, Atlas, Experimente, Code, Algorithmen, Daten, Suche, Quellen
-  js/labs/              sechzehn Experimente mit handgeschriebenen Lesehilfen
+  js/labs/              siebzehn Experimente mit handgeschriebenen Lesehilfen
   js/lib/               Plot-, Statistik-, Laufprotokoll- und Notizbuch-Helfer
   css/hud.css           Shell-Stile
   css/reading.css       Leseschicht: Schrift, Zeilenmaß, Farbe und Responsive-Regeln

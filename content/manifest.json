@@ -1,13 +1,13 @@
 {
- "generated": "content-bea3d2a459ce0423",
- "fingerprint": "bea3d2a459ce0423",
- "version": "1.4.7",
+ "generated": "content-c47a4d0718807087",
+ "fingerprint": "c47a4d0718807087",
+ "version": "1.5.0",
  "languages": [
   "en",
   "zh",
   "de"
  ],
- "references": 142,
+ "references": 144,
  "chapters": [
   {
    "id": "01-foundations",

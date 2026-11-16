@@ -1,5 +1,40 @@
 # Changelog
 
+## 1.5.0 — 2026-11-17
+
+A content and verification release. It adds deterministic algorithms that were
+missing from two reference editions, one new laboratory, two traceable k-core
+references, and a written uniqueness proof.
+
+**Algorithms**
+
+- Java gains `Labeling` (Hoshen–Kopelman graph form) and `KCore`.
+- R gains `label_clusters` and `kcore`.
+- The label probe reproduces square-6 bond labels at `p=0.5`, seed 42:
+  six components, largest 30.
+- The k-core probe uses K4 plus a pendant vertex: k=2 and k=3 keep four
+  vertices, k=4 keeps none.
+
+**Experiment**
+
+- Added the **k-core peeling** experiment (lab 16): a 400-vertex
+  configuration model, a k slider, and a visual distinction between the core
+  and the peeled vertices. The algorithm studio is now lab 17.
+
+**Content and sources**
+
+- Chapter 10 now contains a uniqueness proof for the k-core and an explicit
+  complexity/queue argument.
+- Added Seidman (1983) and Pittel–Spencer–Wormald (1996); the bibliography is
+  now 144 entries, 142 verified and 2 explanatory notes.
+- Rewrote the README openings in English, Chinese and German to be shorter and
+  less list-like; kept the technical claims unchanged.
+
+**Housekeeping**
+
+- Updated counts, tests, algorithm index, wiki pages and release assets.
+- Only the current tag/release is kept.
+
 ## 1.4.7 — 2026-11-17
 
 Version and release consolidation. The project version is renumbered from

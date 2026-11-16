@@ -4,7 +4,7 @@
  * assets are stale-while-revalidate.  Content JSON is network-first so a new
  * chapter is visible immediately, while the shell still works offline.
  */
-const VERSION = 'atlas-v1.4.7';
+const VERSION = 'atlas-v1.5.0';
 const SHELL = [
   './',
   'index.html',

@@ -2573,6 +2573,44 @@
     "exponents",
     "high-dimensions"
    ]
+  },
+  {
+   "id": "seidman1983",
+   "authors": [
+    "Seidman, S. B."
+   ],
+   "year": 1983,
+   "title": "Network structure and minimum degree",
+   "venue": "Social Networks",
+   "volume": "5",
+   "pages": "269–287",
+   "doi": "10.1016/0378-8733(83)90028-X",
+   "type": "article",
+   "topics": [
+    "networks",
+    "k-core",
+    "applications"
+   ]
+  },
+  {
+   "id": "pittel1996",
+   "authors": [
+    "Pittel, B.",
+    "Spencer, J.",
+    "Wormald, N."
+   ],
+   "year": 1996,
+   "title": "Sudden emergence of a giant k-core in a random graph",
+   "venue": "Journal of Combinatorial Theory, Series B",
+   "volume": "67",
+   "pages": "111–151",
+   "doi": "10.1006/jctb.1996.0036",
+   "type": "article",
+   "topics": [
+    "networks",
+    "k-core",
+    "thresholds"
+   ]
   }
  ]
 }

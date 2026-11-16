@@ -6,11 +6,11 @@
 
 渗流问的是一个看似简单的问题：随机连接什么时候会贯穿介质？答案可能藏在咖啡渣、多孔电极、森林、电网或接触网络里。这份图册把理论、模拟与证据放在一起，并标出每条结论的边界。
 
-它包括 23 章中英德正文、16 个交互实验、13 条算法精读、五种参考实现（C++、Python、Julia、Java、R）和 142 条带来源的文献。JavaScript 只负责浏览器界面；参考算法在 `lib/`。
+它包括 23 章中英德正文、17 个交互实验、13 条算法精读、五种参考实现（C++、Python、Julia、Java、R）和 144 条带来源的文献。JavaScript 只负责浏览器界面；参考算法在 `lib/`。
 
 站点是纯静态的 Markdown、JSON 和 JavaScript，没有应用服务器，也没有运行时框架。Python 包和一个小的 JSON API 让同一套算法可以在浏览器之外使用。
 
-**在线站点：** <https://cxy2696.github.io/percolation-atlas/> · **Wiki：** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **发布：** [v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
+**在线站点：** <https://cxy2696.github.io/percolation-atlas/> · **Wiki：** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **发布：** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
 
 ## 从这里开始
 
@@ -36,7 +36,7 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 | 层 | 内容 |
 |---|---|
 | 章节 | 23 章，英、简中、德三语，从 1957 年的论文写到对偶、锐性、指数、SLE、随机簇模型、网络、测量、应用、算法、有向与连续渗流、输运、证明、设计、可复现性、树与流行病。 |
-| 实验 | 16 个交互模型：格子渗流、横穿坍缩、Newman–Ziff、三维位点渗流、Cardy、有向渗流、随机簇、自举、爆炸、侵入、网络鲁棒性、耦合级联、布尔模型、Bethe 树、SIR，以及算法工坊。 |
+| 实验 | 17 个交互模型：格子渗流、横穿坍缩、Newman–Ziff、三维位点渗流、Cardy、有向渗流、随机簇、自举、爆炸、侵入、网络鲁棒性、耦合级联、布尔模型、Bethe 树、SIR、k-核剥离，以及算法工坊。 |
 | 算法 | 13 条例程，给出想法、不变量、代价、源文件与常见错误：Bernoulli 采样器、并查集、键/位点 Newman–Ziff、Leath、自举、侵入、Achlioptas、k-核、Hoshen–Kopelman、Bethe 不动点、SIR 最终规模与消息传递。参考实现及其测试按语言索引在 `content/algorithms.json`。 |
 | 代码 | C++20 头文件库、Julia、Python、Java、R，共用同一条 xoshiro128** 随机流与同一套格子边序。Java 与 R 覆盖 Bernoulli 抽样、并查集、格子和 Newman–Ziff；JavaScript 只是 `assets/js/engine` 中的浏览器运行时，不是参考实现。 |
 | 数据 | C++ 基准程序、Python 分析器，以及带原始计数、种子与拟合的 JSON 记录。 |
@@ -120,7 +120,7 @@ lib/
   java/                 Java 17 核心版 + 一致性测试
 assets/
   js/views/             总览、图册、实验、代码、算法、数据、检索、文献
-  js/labs/              16 个实验与人工撰写的读图指南
+  js/labs/              17 个实验与人工撰写的读图指南
   js/lib/               绘图、统计、运行记录与实验记录本
   css/hud.css           外壳样式
   css/reading.css       阅读层：字体、行宽、颜色与响应式规则

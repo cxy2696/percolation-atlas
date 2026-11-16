@@ -132,7 +132,7 @@ Duplicate candidate pairs count as additions but do not merge components, and
 
 ## 9. k-core peeling
 
-`lib/python/percolation_atlas/network.py` · `lib/cpp/include/percolation_atlas/network.hpp` · `lib/julia/src/network.jl`
+`lib/python/percolation_atlas/network.py` · `lib/cpp/include/percolation_atlas/network.hpp` · `lib/julia/src/network.jl` · `lib/java/src/atlas/KCore.java` · `lib/r/R/kcore.R`
 
 The k-core is the largest induced subgraph with minimum degree at least k. It
 is obtained by repeatedly deleting vertices whose current degree is below k.
@@ -146,7 +146,7 @@ first edition. The cost is `O(n + m)` time; the queue can hold more than `n` ent
 
 ## 10. Hoshen–Kopelman labelling
 
-`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
+`lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl` · `lib/java/src/atlas/Labeling.java` · `lib/r/R/labeling.R`
 
 The scan visits the edge list once and unions an open edge whose two endpoints
 are present. Labels are compressed in a final pass: a vertex's label is its

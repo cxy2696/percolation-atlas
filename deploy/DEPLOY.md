@@ -22,8 +22,8 @@ every push to `main` and on manual dispatch.
 ## Docker
 
 ```sh
-docker build -t percolation-atlas:1.4.7 .
-docker run --rm -p 8080:8080 percolation-atlas:1.4.7
+docker build -t percolation-atlas:1.5.0 .
+docker run --rm -p 8080:8080 percolation-atlas:1.5.0
 # site: http://127.0.0.1:8080/
 # api:  http://127.0.0.1:8080/api/health
 ```

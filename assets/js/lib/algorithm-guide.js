@@ -1644,6 +1644,14 @@ export const ALGORITHM_GUIDE = {
       {
         "path": "lib/julia/src/network.jl",
         "label": "Julia"
+      },
+      {
+        "path": "lib/java/src/atlas/KCore.java",
+        "label": "Java"
+      },
+      {
+        "path": "lib/r/R/kcore.R",
+        "label": "R"
       }
     ],
     "notes": {
@@ -1710,9 +1718,11 @@ export const ALGORITHM_GUIDE = {
     "tests": [
       "lib/python/tests/test_engine.py",
       "lib/cpp/tests/test_main.cpp",
-      "lib/julia/test/runtests.jl"
+      "lib/julia/test/runtests.jl",
+      "lib/java/src/atlas/Parity.java",
+      "lib/r/tests/test-parity.R"
     ],
-    "implementations": 3,
+    "implementations": 5,
     "doc_title": "k-core peeling",
     "summary": {
       "en": "Peel vertices until every survivor has degree at least k.",
@@ -1835,6 +1845,14 @@ export const ALGORITHM_GUIDE = {
       {
         "path": "lib/julia/src/algorithms.jl",
         "label": "Julia"
+      },
+      {
+        "path": "lib/java/src/atlas/Labeling.java",
+        "label": "Java"
+      },
+      {
+        "path": "lib/r/R/labeling.R",
+        "label": "R"
       }
     ],
     "notes": {
@@ -1902,9 +1920,11 @@ export const ALGORITHM_GUIDE = {
       "lib/python/tests/test_trees.py",
       "lib/cpp/tests/test_main.cpp",
       "lib/julia/test/runtests.jl",
-      "data/golden/algorithms-v3.json"
+      "data/golden/algorithms-v3.json",
+      "lib/java/src/atlas/Parity.java",
+      "lib/r/tests/test-parity.R"
     ],
-    "implementations": 3,
+    "implementations": 5,
     "doc_title": "Hoshen–Kopelman labelling",
     "summary": {
       "en": "Label every cluster in one scan with a union-find table.",

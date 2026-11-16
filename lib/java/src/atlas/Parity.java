@@ -18,11 +18,13 @@ public final class Parity {
         testTriangularSite();
         testNewmanZiff();
         testClusterStats();
+        testLabeling();
+        testKCore();
         if (failures > 0) {
             System.err.println("java parity: " + failures + " failure(s)");
             System.exit(1);
         }
-        System.out.println("java parity: RNG, square bond, triangular site, Newman-Ziff ok");
+        System.out.println("java parity: RNG, square bond, triangular site, Newman-Ziff, labels, k-core ok");
     }
 
     private static void testRng() {
@@ -98,6 +100,25 @@ public final class Parity {
         Percolation.Stats empty = model.sample(0.0, new Rng(7)).analyze();
         check(empty.count == 0, "empty site sample count=" + empty.count + " want 0");
         check(empty.maxSize == 0, "empty site sample maxSize=" + empty.maxSize + " want 0");
+    }
+
+    private static void testLabeling() {
+        Lattice lattice = new Lattice("square", 6, false);
+        Percolation model = new Percolation(lattice, "bond");
+        model.sample(0.5, new Rng(42));
+        Labeling result = Labeling.label(lattice.n, lattice.eu, lattice.ev, null, model.open);
+        check(result.count == 6, "label count=" + result.count + " want 6");
+        check(result.maxSize == 30, "label maxSize=" + result.maxSize + " want 30");
+    }
+
+    private static void testKCore() {
+        // K4 plus a pendant vertex: k=2 and k=3 leave the K4, k=4 leaves nothing.
+        int[] eu = {0, 0, 0, 1, 1, 2, 3};
+        int[] ev = {1, 2, 3, 2, 3, 3, 4};
+        boolean[] active = {true, true, true, true, true};
+        check(KCore.peel(5, eu, ev, 2, active).size == 4, "k-core k=2");
+        check(KCore.peel(5, eu, ev, 3, active).size == 4, "k-core k=3");
+        check(KCore.peel(5, eu, ev, 4, active).size == 0, "k-core k=4");
     }
 
     private static void check(boolean ok, String message) {

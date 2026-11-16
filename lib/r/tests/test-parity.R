@@ -1,6 +1,8 @@
 source(file.path("R", "rng.R"))
 source(file.path("R", "lattice.R"))
 source(file.path("R", "percolation.R"))
+source(file.path("R", "labeling.R"))
+source(file.path("R", "kcore.R"))
 
 # seed-42 RNG
 r <- new_rng(42)
@@ -30,4 +32,17 @@ z <- newman_ziff(lat, new_rng(5), 64)
 idx <- c(length(z) %/% 4 + 1L, length(z) %/% 2 + 1L, length(z))
 stopifnot(identical(as.integer(z[idx]), c(10L, 109L, 256L)))
 
-cat("R parity: RNG, square bond, triangular site, Newman-Ziff ok\n")
+# Hoshen–Kopelman labels, square 6 bond p=0.5 seed 42
+lat <- build_lattice("square", 6)
+s <- percolation_sample(lat, 0.5, new_rng(42), "bond")
+lab <- label_clusters(lat$n, lat$eu, lat$ev, open_edges = s$open)
+stopifnot(lab$count == 6L, lab$max_size == 30L)
+
+# K4 plus a pendant vertex: k=2 and k=3 keep the K4, k=4 removes it.
+eu <- c(1, 1, 1, 2, 2, 3, 4)
+ev <- c(2, 3, 4, 3, 4, 4, 5)
+stopifnot(kcore(5, eu, ev, 2)$size == 4L)
+stopifnot(kcore(5, eu, ev, 3)$size == 4L)
+stopifnot(kcore(5, eu, ev, 4)$size == 0L)
+
+cat("R parity: RNG, square bond, triangular site, Newman-Ziff, labels, k-core ok\n")

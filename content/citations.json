@@ -118,7 +118,9 @@
   "boccaletti2006",
   "grimmett2006",
   "newman2005",
-  "benjamini2001"
+  "benjamini2001",
+  "seidman1983",
+  "pittel1996"
  ],
  "11-measurement": [
   "newman2000",
@@ -192,7 +194,9 @@
   "newman2000",
   "newman2001",
   "grassberger1999",
-  "grimmett1999"
+  "grimmett1999",
+  "seidman1983",
+  "pittel1996"
  ],
  "16-directed": [
   "hinrichsen2000",

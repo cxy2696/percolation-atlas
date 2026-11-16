@@ -17,4 +17,4 @@
 
 [Live site](https://cxy2696.github.io/percolation-atlas/)  
 [Repository](https://github.com/cxy2696/percolation-atlas)  
-[Release v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
+[Release v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)

@@ -183,6 +183,17 @@ export const LABS = [
   },
 
   {
+    id: 'kcore',
+    group: 'networks',
+    title: { en: 'k-core peeling', zh: 'k-核剥离', de: 'k-Kern-Schälen' },
+    blurb: {
+      en: 'Delete every vertex below degree k and watch the unique core remain.',
+      zh: '反复删除当前度低于 k 的顶点，看唯一的核心留下。',
+      de: 'Löscht jeden Knoten unter Grad k und zeigt den eindeutigen Kern.',
+    },
+    mount: (el, ctx) => import('./kcore.js').then((m) => m.mount(el, ctx)),
+  },
+  {
     id: 'algorithm-studio',
     group: 'methods',
     title: { en: 'Algorithm studio', zh: '算法工坊', de: 'Algorithmen-Studio' },

@@ -4,7 +4,7 @@
 
 It is the default for a first visit. A saved language/theme choice wins; `?theme=light` and `?theme=dark` override the theme for a link. The storage keys are versioned so an old preference does not silently override the new default.
 
-### Are all 142 references verified?
+### Are all 144 references verified?
 
 140 are verified against Crossref (title, year, first author) or an HTTP fetch. Two carry explanatory notes: Menshikov (1986) has no DOI for the translation; Stauffer & Aharony is the 1994 edition while the DOI identifies a later reissue. The audit record lists every result.
 
@@ -34,7 +34,7 @@ Browser wall-clock timings include JIT, cache and scheduling noise. The algorith
 
 ### I changed the theme and the page still looks old.
 
-The service worker caches the shell. It is versioned (`atlas-v1.4.7`); refresh once, or hard-refresh with `Cmd/Ctrl + Shift + R`.
+The service worker caches the shell. It is versioned (`atlas-v1.5.0`); refresh once, or hard-refresh with `Cmd/Ctrl + Shift + R`.
 
 ### Where do I start?
 

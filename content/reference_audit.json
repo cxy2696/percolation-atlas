@@ -1,9 +1,9 @@
 {
- "checked_at": "2026-11-14 21:25",
+ "checked_at": "2026-11-17 04:20",
  "method": "crossref-doi+http-url",
- "total": 142,
+ "total": 144,
  "counts": {
-  "ok": 140,
+  "ok": 142,
   "ok-note": 2
  },
  "results": [
@@ -1568,6 +1568,20 @@
   {
    "status": "ok",
    "http": 200,
+   "resolved_title": "Sudden Emergence of a Giantk-Core in a Random Graph",
+   "resolved_year": 1996,
+   "resolved_first_author": "Pittel",
+   "similarity": 0.99,
+   "title_ok": true,
+   "year_ok": true,
+   "author_ok": true,
+   "id": "pittel1996",
+   "source": "doi",
+   "problems": []
+  },
+  {
+   "status": "ok",
+   "http": 200,
    "resolved_title": "A Guide to First-Passage Processes",
    "resolved_year": 2001,
    "resolved_first_author": "Redner",
@@ -1674,6 +1688,20 @@
    "year_ok": true,
    "author_ok": true,
    "id": "schramm2000",
+   "source": "doi",
+   "problems": []
+  },
+  {
+   "status": "ok",
+   "http": 200,
+   "resolved_title": "Network structure and minimum degree",
+   "resolved_year": 1983,
+   "resolved_first_author": "Seidman",
+   "similarity": 1.0,
+   "title_ok": true,
+   "year_ok": true,
+   "author_ok": true,
+   "id": "seidman1983",
    "source": "doi",
    "problems": []
   },

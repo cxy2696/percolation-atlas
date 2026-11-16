@@ -769,6 +769,30 @@ export const GUIDES = {
     },
   },
 
+  kcore: {
+    en: {
+      read: `<p>Each dot is a vertex; cyan survives the k-core, grey has been peeled. The graph is fixed while you change k, so the difference is entirely the definition of the core, not a new sample.</p>`,
+      params: `<dl class="guide-key"><dt>Minimum degree k</dt><dd>Delete every vertex whose current degree is below k. k = 1 keeps every non-isolated vertex; k = 2 keeps chains and loops; higher k keeps denser cores.</dd><dt>New network</dt><dd>Redraws the 400-vertex configuration model with the same degree law. The core will change; the algorithm will not.</dd></dl>`,
+      dynamics: `<p>Peeling is monotone: degrees only fall, so one queue pass is enough. The final set is independent of the order in which low-degree vertices are removed. Raising k can remove a whole dense-looking region once its boundary is peeled.</p>`,
+      try: `<div class="guide-try"><b>1.</b> Start at k = 2 and step to k = 4. Note that the core can shrink discontinuously even though the graph is unchanged.</div><div class="guide-try"><b>2.</b> Press “New network” at fixed k. The core size changes, but it is still the unique maximal subgraph with minimum degree k.</div>`,
+      caveat: `<p>This is a configuration-model graph, not a real network. A k-core is a structural filter, not a community detector; a dense core can be an artefact of the degree sequence.</p>`,
+    },
+    zh: {
+      read: `<p>每个点是一个顶点；青色在 k-核中存活，灰色已被剥掉。改变 k 时图本身不变，所以差异完全来自核心的定义，而不是新样本。</p>`,
+      params: `<dl class="guide-key"><dt>最小度 k</dt><dd>删除当前度小于 k 的顶点。k=1 保留所有非孤立点；k=2 保留链和环；更大的 k 保留更密的核心。</dd><dt>新网络</dt><dd>用同一条度分布重新生成 400 顶点配置模型。核心会变，算法不会变。</dd></dl>`,
+      dynamics: `<p>剥离是单调的：度只降不升，所以一次队列扫描足够。最终集合与删除顺序无关。提高 k 可能在边界被剥掉后一次性移除一大片看似很密的区域。</p>`,
+      try: `<div class="guide-try"><b>1.</b> 从 k=2 走到 k=4，注意图不变但核心可以非连续地缩小。</div><div class="guide-try"><b>2.</b> 固定 k，点“新网络”。核心大小会变，但它仍是唯一的最大最小度 k 子图。</div>`,
+      caveat: `<p>这是配置模型图，不是真实网络。k-核是结构过滤器，不是社区检测；稠密核心也可能只是度序列的产物。</p>`,
+    },
+    de: {
+      read: `<p>Jeder Punkt ist ein Knoten; cyan überlebt den k-Kern, grau wurde geschält. Der Graph bleibt beim Ändern von k fest, der Unterschied kommt also allein aus der Definition des Kerns.</p>`,
+      params: `<dl class="guide-key"><dt>Mindestgrad k</dt><dd>Löscht jeden Knoten mit aktuellem Grad unter k. k=1 behält alle nicht-isolierten Knoten; k=2 Ketten und Schleifen; größere k dichtere Kerne.</dd><dt>Neues Netz</dt><dd>Zieht das 400-Knoten-Konfigurationsmodell mit derselben Gradverteilung neu. Der Kern ändert sich, der Algorithmus nicht.</dd></dl>`,
+      dynamics: `<p>Das Schälen ist monoton: Grade fallen nur, eine Queue-Runde genügt. Die Endmenge hängt nicht von der Reihenfolge ab. Ein größeres k kann eine dichte Region auf einmal entfernen, sobald ihr Rand geschält ist.</p>`,
+      try: `<div class="guide-try"><b>1.</b> Von k=2 auf k=4 gehen. Der Kern kann springen, obwohl der Graph fest bleibt.</div><div class="guide-try"><b>2.</b> Bei festem k „Neues Netz“ drücken. Die Größe ändert sich, die Eindeutigkeit nicht.</div>`,
+      caveat: `<p>Das ist ein Konfigurationsmodell, kein reales Netz. Ein k-Kern ist ein Strukturfilter, keine Community-Erkennung; ein dichter Kern kann ein Artefakt der Gradfolge sein.</p>`,
+    },
+  },
+
 };
 
 export function guideHTML(id, lang) {

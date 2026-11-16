@@ -44,7 +44,7 @@ make test-r
 | ER / SIR | S = 0.796812…, κ = 3, T_c = 1/2, R0 = 2 | `scripts/verify_claims.py` |
 | Threshold relations | triangular = 2 sin(π/18), honeycomb = 1 − that, kagome site = honeycomb bond | `scripts/verify_claims.py` |
 | Benchmark record | L=32/64/128 rates at p=1/2 equal the stored raw counts | `scripts/verify_claims.py` |
-| Bibliography | 142 entries, 140 verified, 2 notes, 0 unresolved | `content/reference_audit.json` |
+| Bibliography | 144 entries, 142 verified, 2 notes, 0 unresolved | `content/reference_audit.json` |
 | Translation structure | 23 chapters × 3 editions agree on section numbers, tags and display blocks | `scripts/check_translations.py` |
 | Edition metadata | version and counts agree across `package.json`, README files, site JSON, service worker and docs | `scripts/check_consistency.py` |
 | Algorithm framework | 13 ids, groups, three-language prose, source paths, test paths and docs order | `scripts/build_algorithms.mjs --check`, `scripts/check_algorithms.py` |
@@ -74,7 +74,7 @@ make test-r
 chapters: 23 (en, zh, de)
 experiments: 16
 algorithm reader: 13
-references: 142 (140 ok, 2 explanatory notes)
+references: 144 (142 ok, 2 explanatory notes)
 ```
 
 The exact test counts are printed by the commands above; they are not a

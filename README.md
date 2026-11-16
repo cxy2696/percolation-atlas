@@ -6,11 +6,11 @@
 
 Percolation asks a deceptively simple question: when do random connections form a path across a medium? The answers run from coffee grounds and porous electrodes to forests, power grids and contact networks. This atlas collects the theory, the simulations and the evidence, and marks where each claim stops.
 
-It has 23 chapters in English, Chinese and German, 16 interactive experiments, 13 algorithm walkthroughs, five reference editions (C++, Python, Julia, Java, R) and 142 sourced references. JavaScript is used only for the browser interface; the reference algorithms live in `lib/`.
+It has 23 chapters in English, Chinese and German, 17 interactive experiments, 13 algorithm walkthroughs, five reference editions (C++, Python, Julia, Java, R) and 144 sourced references. JavaScript is used only for the browser interface; the reference algorithms live in `lib/`.
 
 The site is plain Markdown, JSON and JavaScript, with no application server or runtime framework. A Python package and a small JSON API expose the same algorithms outside the browser.
 
-**Live site:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
+**Live site:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/tree/main/wiki> · **Release:** [v1.5.0](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.5.0)
 
 ## Start here
 
@@ -36,7 +36,7 @@ Open `http://127.0.0.1:8788/`. The site must be served over HTTP because the con
 | Layer | Contents |
 |---|---|
 | Chapters | 23 chapters in English, Simplified Chinese and German, from the 1957 paper through duality, sharpness, exponents, SLE, random-cluster models, networks, measurement, applications, algorithms, directed and continuum percolation, transport, proofs, design, reproducibility, trees and epidemics. |
-| Experiments | 16 interactive models: lattice percolation, crossing collapse, Newman–Ziff, 3D site percolation, Cardy, directed, random-cluster, bootstrap, explosive, invasion, network robustness, coupled cascades, Boolean model, Bethe tree, SIR, and an algorithm studio. |
+| Experiments | 17 interactive models: lattice percolation, crossing collapse, Newman–Ziff, 3D site percolation, Cardy, directed, random-cluster, bootstrap, explosive, invasion, network robustness, coupled cascades, Boolean model, Bethe tree, SIR, k-core peeling and an algorithm studio. |
 | Algorithms | 13 routines with the idea, invariant, cost, source files and failure modes. The core routines have C++/Python/Julia/Java/R sources; the dynamics, label, tree and message routines have C++/Python/Julia sources. JavaScript stays in `assets/js/engine` as the browser runtime. |
 | Code | C++20 header-only, Julia, Python, Java and R, sharing the same xoshiro128** stream and lattice edge order. Java and R cover the core sampler, DSU, lattice and Newman–Ziff; JavaScript is the browser runtime in `assets/js/engine`, not a reference edition. |
 | Data | A C++ benchmark harness, a Python analyser, and a JSON record with raw counts, seeds and fits. |
@@ -121,7 +121,7 @@ lib/
 assets/
   js/engine/            browser runtime: RNG, lattice, sampler, labs; not a reference edition
   js/views/             overview, atlas reader, experiments, code, algorithms, data, library, sources
-  js/labs/              sixteen experiments, with authored guides
+  js/labs/              seventeen experiments, with authored guides
   js/lib/               plot, statistics, run-record and notebook helpers
   css/hud.css           shell styles
   css/reading.css       reading layer: type, measure, colour and responsive rules

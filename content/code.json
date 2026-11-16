@@ -1,6 +1,6 @@
 {
- "generated": "code-bea3d2a459ce0423",
- "fingerprint": "bea3d2a459ce0423",
+ "generated": "code-c47a4d0718807087",
+ "fingerprint": "c47a4d0718807087",
  "languages": [
   {
    "id": "python",
@@ -271,6 +271,18 @@
      "bytes": 1202
     },
     {
+     "path": "lib/java/src/atlas/KCore.java",
+     "bucket": "core",
+     "lines": 70,
+     "bytes": 2306
+    },
+    {
+     "path": "lib/java/src/atlas/Labeling.java",
+     "bucket": "core",
+     "lines": 41,
+     "bytes": 1448
+    },
+    {
      "path": "lib/java/src/atlas/Lattice.java",
      "bucket": "core",
      "lines": 83,
@@ -279,8 +291,8 @@
     {
      "path": "lib/java/src/atlas/Parity.java",
      "bucket": "core",
-     "lines": 111,
-     "bytes": 4377
+     "lines": 132,
+     "bytes": 5378
     },
     {
      "path": "lib/java/src/atlas/Percolation.java",
@@ -300,6 +312,18 @@
    "id": "r",
    "group": "lib/r",
    "files": [
+    {
+     "path": "lib/r/R/kcore.R",
+     "bucket": "core",
+     "lines": 28,
+     "bytes": 827
+    },
+    {
+     "path": "lib/r/R/labeling.R",
+     "bucket": "core",
+     "lines": 24,
+     "bytes": 840
+    },
     {
      "path": "lib/r/R/lattice.R",
      "bucket": "core",
@@ -321,8 +345,8 @@
     {
      "path": "lib/r/tests/test-parity.R",
      "bucket": "tests",
-     "lines": 33,
-     "bytes": 1250
+     "lines": 48,
+     "bytes": 1851
     },
     {
      "path": "lib/r/tests/test-rng.R",

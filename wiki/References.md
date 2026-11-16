@@ -1,6 +1,6 @@
 # References
 
-The bibliography is in [`content/references.json`](https://github.com/cxy2696/atlas-percolation/blob/main/content/references.json); the audit record is [`content/reference_audit.json`](https://github.com/cxy2696/atlas-percolation/blob/main/content/reference_audit.json).
+The bibliography is in [`content/references.json`](https://github.com/cxy2696/percolation-atlas/blob/main/content/references.json); the audit record is [`content/reference_audit.json`](https://github.com/cxy2696/percolation-atlas/blob/main/content/reference_audit.json).
 
 ## Current state
 

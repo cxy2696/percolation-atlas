@@ -67,7 +67,7 @@ def main() -> None:
         print(f"cannot bind port {PORT}: {exc}")
         raise SystemExit(1)
     host = socket.gethostname()
-    print(f"atlas-percolation serving {ROOT}")
+    print(f"percolation-atlas serving {ROOT}")
     print(f"  http://127.0.0.1:{PORT}/")
     print(f"  http://{host}.local:{PORT}/  (may need firewall permission)")
     try:

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://cxy2696.github.io/atlas-percolation/</loc><priority>1.0</priority></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/guide</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/overview</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/atlas</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/labs</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/labs/tree</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/labs/epidemic</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/code</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/algorithms</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/data</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/library</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/en/sources</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/zh/overview</loc></url>
-  <url><loc>https://cxy2696.github.io/atlas-percolation/#/de/overview</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/</loc><priority>1.0</priority></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/guide</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/overview</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/atlas</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/labs</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/labs/tree</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/labs/epidemic</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/code</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/algorithms</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/data</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/library</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/en/sources</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/zh/overview</loc></url>
+  <url><loc>https://cxy2696.github.io/percolation-atlas/#/de/overview</loc></url>
 </urlset>

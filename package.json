@@ -1,5 +1,5 @@
 {
-  "name": "atlas-percolation",
+  "name": "percolation-atlas",
   "version": "1.4.7",
   "description": "Trilingual percolation atlas: 23 chapters, 16 interactive experiments, 13 algorithm walkthroughs, 142 audited references and a reproducible Python package",
   "type": "module",

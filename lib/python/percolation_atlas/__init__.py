@@ -1,4 +1,4 @@
-"""atlas-percolation: reference algorithms for percolation theory.
+"""percolation-atlas: reference algorithms for percolation theory.
 
 The package deliberately keeps the numerical core small and explicit.  It is
 the Python member of a four-language library (C++, Julia, JavaScript) which

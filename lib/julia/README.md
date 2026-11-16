@@ -1,6 +1,6 @@
 # PercolationAtlas (Julia)
 
-Julia edition of the four-language atlas-percolation library.  No external
+Julia edition of the five-language reference core of percolation-atlas.  No external
 dependencies; `Test` (stdlib) is used by the suite.  Julia >= 1.9.
 
 ## Install / load

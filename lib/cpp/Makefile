@@ -1,4 +1,4 @@
-# C++ edition of atlas-percolation.
+# C++ edition of percolation-atlas.
 #
 #   make test   build and run the self-contained test harness
 #   make bench  build and run the benchmark (JSON on stdout)

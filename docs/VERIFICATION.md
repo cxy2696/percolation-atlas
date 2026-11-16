@@ -8,7 +8,7 @@ the audit record, not in a claim of correctness.
 
 ```sh
 make verify        # translation structure + prose claims + reference audit
-make test          # four language suites + both parity contracts + the checks above
+make test          # five reference suites + browser tests + both parity contracts + the checks above
 make check-consistency  # version and count statements in README/docs/site agree
 ```
 

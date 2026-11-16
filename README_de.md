@@ -2,27 +2,29 @@
 
 [English](README.md) · [简体中文](README_cn.md) · **Deutsch**
 
-[![CI](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/atlas-percolation?label=release)](https://github.com/cxy2696/atlas-percolation/releases)
+[![CI](https://github.com/cxy2696/percolation-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/percolation-atlas/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/percolation-atlas/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/percolation-atlas/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/percolation-atlas?label=release)](https://github.com/cxy2696/percolation-atlas/releases)
 
-Perkolation fragt, wann zufällige Verbindungen ein Medium durchqueren: Kaffeesatz, ein Wald, ein Stromnetz, ein Kontaktnetzwerk oder eine poröse Elektrode. Dieses Repository ist eine dreisprachige Referenz zu dieser Frage. Es enthält 23 Kapitel, 16 interaktive Experimente, ein Algorithmen-Lesebuch mit 13 Einträgen, fünf Referenzimplementierungen (Java deckt den Kern-Sampler ab) und 142 Quellen.
+Perkolation stellt eine scheinbar einfache Frage: Wann bilden zufällige Verbindungen einen Pfad durch ein Medium? Die Antwort reicht von Kaffeesatz und porösen Elektroden über Wälder und Stromnetze bis zu Kontaktnetzwerken. Dieser Atlas sammelt Theorie, Simulation und Belege und markiert, wo jede Aussage endet.
 
-Die Seite besteht aus statischem Markdown, JSON und JavaScript. Es gibt keinen Anwendungsserver und kein Laufzeit-Framework; die einzigen mitgelieferten Frontend-Dateien sind KaTeX und marked. Python-Paket, Kommandozeile und JSON-API sind dieselbe Engine in einer anderen Hülle.
+Er enthält 23 Kapitel auf Englisch, Chinesisch und Deutsch, 16 interaktive Experimente, 13 Algorithmen-Rundgänge, fünf Referenzausgaben (C++, Python, Julia, Java, R) und 142 Quellen. JavaScript dient nur der Browser-Oberfläche; die Referenzalgorithmen liegen in `lib/`.
 
-**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
+Die Seite besteht aus statischem Markdown, JSON und JavaScript, ohne Anwendungsserver und Laufzeit-Framework. Ein Python-Paket und eine kleine JSON-API machen dieselben Algorithmen außerhalb des Browsers nutzbar.
+
+**Live-Seite:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
 
 ## Hier beginnen
 
-- **Das Argument lesen.** Mit [Kapitel 1](https://cxy2696.github.io/atlas-percolation/#/de/atlas/01-foundations) beginnen, dann Kapitel 3–7 für den strengen Kern. Der Kapitelindex steht [hier](https://cxy2696.github.io/atlas-percolation/#/de/atlas).
-- **Ein Experiment laufen lassen.** Der [Experimentindex](https://cxy2696.github.io/atlas-percolation/#/de/labs) beginnt mit drei geführten Läufen: die Durchgangswahrscheinlichkeit bei `p = 1/2` messen, drei Gittergrößen kollabieren lassen und das Suszeptibilitätsmaximum finden. Jedes Experiment hat eine Lesehilfe, ein Laufprotokoll und Links zu den geprüften Kapiteln.
-- **Eine Zahl prüfen.** [Quellen](https://cxy2696.github.io/atlas-percolation/#/de/sources) listet jede Referenz mit DOI oder stabiler URL und ihrem Audit-Status. Exakte, numerische und vermutete Aussagen sind unterschiedlich gekennzeichnet; die Konvention steht auf der [Startseite](https://cxy2696.github.io/atlas-percolation/#/de/guide).
+- **Das Argument lesen.** Mit [Kapitel 1](https://cxy2696.github.io/percolation-atlas/#/de/atlas/01-foundations) beginnen, dann Kapitel 3–7 für den strengen Kern. Der Kapitelindex steht [hier](https://cxy2696.github.io/percolation-atlas/#/de/atlas).
+- **Ein Experiment laufen lassen.** Der [Experimentindex](https://cxy2696.github.io/percolation-atlas/#/de/labs) beginnt mit drei geführten Läufen: die Durchgangswahrscheinlichkeit bei `p = 1/2` messen, drei Gittergrößen kollabieren lassen und das Suszeptibilitätsmaximum finden. Jedes Experiment hat eine Lesehilfe, ein Laufprotokoll und Links zu den geprüften Kapiteln.
+- **Eine Zahl prüfen.** [Quellen](https://cxy2696.github.io/percolation-atlas/#/de/sources) listet jede Referenz mit DOI oder stabiler URL und ihrem Audit-Status. Exakte, numerische und vermutete Aussagen sind unterschiedlich gekennzeichnet; die Konvention steht auf der [Startseite](https://cxy2696.github.io/percolation-atlas/#/de/guide).
 
 ## Schnellstart
 
 Voraussetzungen: Python 3.10+, Node.js 20+ und ein C++20-Compiler. Julia 1.9+ wird nur für die Julia-Suite gebraucht.
 
 ```sh
-git clone https://github.com/cxy2696/atlas-percolation.git
-cd atlas-percolation
+git clone https://github.com/cxy2696/percolation-atlas.git
+cd percolation-atlas
 python3 scripts/build_content.py     # Manifest, Suchindex, Code-Inventar
 python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 ```

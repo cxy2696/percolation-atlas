@@ -6,7 +6,7 @@ human saves the first page in the web UI.
 
 One-time setup:
 
-1. Open <https://github.com/cxy2696/atlas-percolation/wiki/_new>.
+1. Open <https://github.com/cxy2696/percolation-atlas/wiki/_new>.
 2. Set the title to **Home** and save any placeholder body.
 3. Run `scripts/push_wiki.sh` from the repository root.
 

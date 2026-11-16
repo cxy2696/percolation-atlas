@@ -1,4 +1,4 @@
-// Umbrella header for the C++ edition of atlas-percolation.
+// Umbrella header for the C++ edition of percolation-atlas.
 
 #pragma once
 

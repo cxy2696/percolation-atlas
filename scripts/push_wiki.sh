@@ -8,7 +8,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-WIKI_REMOTE="${WIKI_REMOTE:-https://github.com/cxy2696/atlas-percolation.wiki.git}"
+WIKI_REMOTE="${WIKI_REMOTE:-https://github.com/cxy2696/percolation-atlas.wiki.git}"
 SRC="$ROOT/wiki"
 
 if [ ! -d "$SRC" ]; then
@@ -24,7 +24,7 @@ if ! git clone --quiet "$WIKI_REMOTE" "$tmp/wiki" 2>/dev/null; then
 The wiki repository does not exist yet. GitHub creates it only after the first
 page is saved in the browser:
 
-  https://github.com/cxy2696/atlas-percolation/wiki/_new
+  https://github.com/cxy2696/percolation-atlas/wiki/_new
 
 Create a page titled "Home", save it, then run this script again.
 MSG

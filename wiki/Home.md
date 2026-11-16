@@ -1,6 +1,6 @@
 # Percolation Atlas — wiki
 
-**Version 1.4.7** · [Live site](https://cxy2696.github.io/atlas-percolation/) · [Repository](https://github.com/cxy2696/atlas-percolation) · [Release](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
+**Version 1.4.7** · [Live site](https://cxy2696.github.io/percolation-atlas/) · [Repository](https://github.com/cxy2696/percolation-atlas) · [Release](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
 
 A trilingual atlas of percolation theory: 23 chapters, 16 interactive experiments, 13 algorithm walkthroughs, 142 audited references, five-language core code (Java and R cover the sampler) and a Python package.
 
@@ -12,8 +12,8 @@ The site opens in **light mode, English**, on the start-here guide at `#/en/guid
 |---|---|
 | Understand what the site contains | [[Interface Guide]] |
 | See where percolation is used, and where the analogy stops | [[Applications]] |
-| Read the theory | [Chapter 01 — What percolation is](https://cxy2696.github.io/atlas-percolation/#/en/atlas/01-foundations) |
-| Run a first experiment | [Lattice percolation laboratory](https://cxy2696.github.io/atlas-percolation/#/en/labs/lattice) |
+| Read the theory | [Chapter 01 — What percolation is](https://cxy2696.github.io/percolation-atlas/#/en/atlas/01-foundations) |
+| Run a first experiment | [Lattice percolation laboratory](https://cxy2696.github.io/percolation-atlas/#/en/labs/lattice) |
 | Understand an algorithm | [[Algorithms]] |
 | Check a number or a source | [[Reproducibility]] and [[References]] |
 | Install the package | [[Getting Started]] |

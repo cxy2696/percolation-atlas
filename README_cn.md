@@ -2,27 +2,29 @@
 
 [English](README.md) · **简体中文** · [Deutsch](README_de.md)
 
-[![CI](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/atlas-percolation?label=release)](https://github.com/cxy2696/atlas-percolation/releases)
+[![CI](https://github.com/cxy2696/percolation-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/percolation-atlas/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/percolation-atlas/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/percolation-atlas/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/percolation-atlas?label=release)](https://github.com/cxy2696/percolation-atlas/releases)
 
-渗流研究的是：随机连接什么时候会贯穿介质？咖啡渣、森林、电网、接触网络或多孔电极，问的都是同一类问题。这个仓库是围绕该问题的一份三语参考：23 章正文、16 个交互实验、13 条算法精读、五种参考实现（Java 覆盖核心抽样），以及 142 条带来源的文献。
+渗流问的是一个看似简单的问题：随机连接什么时候会贯穿介质？答案可能藏在咖啡渣、多孔电极、森林、电网或接触网络里。这份图册把理论、模拟与证据放在一起，并标出每条结论的边界。
 
-站点是纯静态的 Markdown、JSON 和 JavaScript，没有应用服务器，也没有运行时框架；唯一的外部前端文件是随仓库附带的 KaTeX 与 marked。Python 包、命令行工具和 JSON API 只是同一套引擎的不同外壳。
+它包括 23 章中英德正文、16 个交互实验、13 条算法精读、五种参考实现（C++、Python、Julia、Java、R）和 142 条带来源的文献。JavaScript 只负责浏览器界面；参考算法在 `lib/`。
 
-**在线站点：** <https://cxy2696.github.io/atlas-percolation/> · **Wiki：** <https://github.com/cxy2696/atlas-percolation/wiki> · **发布：** [v1.4.7](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
+站点是纯静态的 Markdown、JSON 和 JavaScript，没有应用服务器，也没有运行时框架。Python 包和一个小的 JSON API 让同一套算法可以在浏览器之外使用。
+
+**在线站点：** <https://cxy2696.github.io/percolation-atlas/> · **Wiki：** <https://github.com/cxy2696/percolation-atlas/wiki> · **发布：** [v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
 
 ## 从这里开始
 
-- **读论证。** 从[第 1 章](https://cxy2696.github.io/atlas-percolation/#/zh/atlas/01-foundations)开始，再读第 3–7 章的严格核心。章节索引在[这里](https://cxy2696.github.io/atlas-percolation/#/zh/atlas)。
-- **跑实验。** [实验索引](https://cxy2696.github.io/atlas-percolation/#/zh/labs)开头有三个引导实验：测量 `p = 1/2` 处的横穿概率、让三种尺寸的曲线坍缩、寻找磁化率峰值。每个实验都有读图指南、运行记录，以及它所检验的章节链接。
-- **查数字。** [文献页](https://cxy2696.github.io/atlas-percolation/#/zh/sources)列出每条文献的 DOI 或稳定链接与审计状态。精确、数值、猜想三类陈述用不同标签区分；约定见[起始页](https://cxy2696.github.io/atlas-percolation/#/zh/guide)。
+- **读论证。** 从[第 1 章](https://cxy2696.github.io/percolation-atlas/#/zh/atlas/01-foundations)开始，再读第 3–7 章的严格核心。章节索引在[这里](https://cxy2696.github.io/percolation-atlas/#/zh/atlas)。
+- **跑实验。** [实验索引](https://cxy2696.github.io/percolation-atlas/#/zh/labs)开头有三个引导实验：测量 `p = 1/2` 处的横穿概率、让三种尺寸的曲线坍缩、寻找磁化率峰值。每个实验都有读图指南、运行记录，以及它所检验的章节链接。
+- **查数字。** [文献页](https://cxy2696.github.io/percolation-atlas/#/zh/sources)列出每条文献的 DOI 或稳定链接与审计状态。精确、数值、猜想三类陈述用不同标签区分；约定见[起始页](https://cxy2696.github.io/percolation-atlas/#/zh/guide)。
 
 ## 快速开始
 
 需要 Python 3.10+、Node.js 20+ 和 C++20 编译器。只有 Julia 测试需要 Julia 1.9+。
 
 ```sh
-git clone https://github.com/cxy2696/atlas-percolation.git
-cd atlas-percolation
+git clone https://github.com/cxy2696/percolation-atlas.git
+cd percolation-atlas
 python3 scripts/build_content.py     # 生成 manifest、搜索索引、代码清单
 python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 ```

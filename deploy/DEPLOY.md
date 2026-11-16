@@ -15,15 +15,15 @@ and deploys it with the official Pages actions.
 git push origin main
 ```
 
-The published URL is <https://cxy2696.github.io/atlas-percolation/>. Enable
+The published URL is <https://cxy2696.github.io/percolation-atlas/>. Enable
 Pages → Source: GitHub Actions in the repository settings. The workflow runs on
 every push to `main` and on manual dispatch.
 
 ## Docker
 
 ```sh
-docker build -t atlas-percolation:1.4.7 .
-docker run --rm -p 8080:8080 atlas-percolation:1.4.7
+docker build -t percolation-atlas:1.4.7 .
+docker run --rm -p 8080:8080 percolation-atlas:1.4.7
 # site: http://127.0.0.1:8080/
 # api:  http://127.0.0.1:8080/api/health
 ```
@@ -35,7 +35,7 @@ limiting; the API has no authentication by design.
 ## Fly.io
 
 ```sh
-fly launch --dockerfile Dockerfile --name atlas-percolation
+fly launch --dockerfile Dockerfile --name percolation-atlas
 fly deploy
 ```
 

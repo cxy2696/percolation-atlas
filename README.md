@@ -2,27 +2,29 @@
 
 **English** · [简体中文](README_cn.md) · [Deutsch](README_de.md)
 
-[![CI](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/atlas-percolation/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/atlas-percolation?label=release)](https://github.com/cxy2696/atlas-percolation/releases)
+[![CI](https://github.com/cxy2696/percolation-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/cxy2696/percolation-atlas/actions/workflows/ci.yml) [![Pages](https://github.com/cxy2696/percolation-atlas/actions/workflows/pages.yml/badge.svg)](https://github.com/cxy2696/percolation-atlas/actions/workflows/pages.yml) [![Release](https://img.shields.io/github/v/release/cxy2696/percolation-atlas?label=release)](https://github.com/cxy2696/percolation-atlas/releases)
 
-Percolation asks when random connections form a path across a medium: through coffee grounds, a forest, a power grid, a contact network, or a porous electrode. This repository is a trilingual reference on that question. It has 23 chapters, 16 interactive experiments, a 13-part algorithm reader, five reference implementations (Java covers the core sampler) and 142 sourced references.
+Percolation asks a deceptively simple question: when do random connections form a path across a medium? The answers run from coffee grounds and porous electrodes to forests, power grids and contact networks. This atlas collects the theory, the simulations and the evidence, and marks where each claim stops.
 
-The site is a static directory of Markdown, JSON and JavaScript. There is no application server and no runtime framework; the only vendored front-end files are KaTeX and marked. The Python package, command-line tool and JSON API are the same engine in a different wrapper.
+It has 23 chapters in English, Chinese and German, 16 interactive experiments, 13 algorithm walkthroughs, five reference editions (C++, Python, Julia, Java, R) and 142 sourced references. JavaScript is used only for the browser interface; the reference algorithms live in `lib/`.
 
-**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/atlas-percolation/releases/tag/v1.4.7)
+The site is plain Markdown, JSON and JavaScript, with no application server or runtime framework. A Python package and a small JSON API expose the same algorithms outside the browser.
+
+**Live site:** <https://cxy2696.github.io/percolation-atlas/> · **Wiki:** <https://github.com/cxy2696/percolation-atlas/wiki> · **Release:** [v1.4.7](https://github.com/cxy2696/percolation-atlas/releases/tag/v1.4.7)
 
 ## Start here
 
-- **Read the argument.** Begin with [Chapter 1](https://cxy2696.github.io/atlas-percolation/#/en/atlas/01-foundations), then Chapters 3–7 for the rigorous core. The chapter index is [here](https://cxy2696.github.io/atlas-percolation/#/en/atlas).
-- **Run an experiment.** The [experiment index](https://cxy2696.github.io/atlas-percolation/#/en/labs) opens with three guided runs: measure the crossing probability at `p = 1/2`, collapse three lattice sizes, and find the susceptibility peak. Each experiment has a reading guide, a run record and links to the chapter it tests.
-- **Check a number.** [Sources](https://cxy2696.github.io/atlas-percolation/#/en/sources) lists every reference with a DOI or stable URL and its audit status. Exact, numerical and conjectural statements are labelled differently; the convention is explained on the [start page](https://cxy2696.github.io/atlas-percolation/#/en/guide).
+- **Read the argument.** Begin with [Chapter 1](https://cxy2696.github.io/percolation-atlas/#/en/atlas/01-foundations), then Chapters 3–7 for the rigorous core. The chapter index is [here](https://cxy2696.github.io/percolation-atlas/#/en/atlas).
+- **Run an experiment.** The [experiment index](https://cxy2696.github.io/percolation-atlas/#/en/labs) opens with three guided runs: measure the crossing probability at `p = 1/2`, collapse three lattice sizes, and find the susceptibility peak. Each experiment has a reading guide, a run record and links to the chapter it tests.
+- **Check a number.** [Sources](https://cxy2696.github.io/percolation-atlas/#/en/sources) lists every reference with a DOI or stable URL and its audit status. Exact, numerical and conjectural statements are labelled differently; the convention is explained on the [start page](https://cxy2696.github.io/percolation-atlas/#/en/guide).
 
 ## Quick start
 
 Requirements: Python 3.10+, Node.js 20+ and a C++20 compiler. Julia 1.9+ is needed for the Julia suite; Java 17+ is needed for the Java core suite; R 4.2+ for the R core suite.
 
 ```sh
-git clone https://github.com/cxy2696/atlas-percolation.git
-cd atlas-percolation
+git clone https://github.com/cxy2696/percolation-atlas.git
+cd percolation-atlas
 python3 scripts/build_content.py     # manifest, search index, code inventory
 python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 ```

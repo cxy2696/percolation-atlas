@@ -28,7 +28,7 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 REFS = ROOT / "content" / "references.json"
 OUT = ROOT / "content" / "reference_audit.json"
-UA = "atlas-percolation-reference-audit/3.0 (mailto:atlas@localhost)"
+UA = "percolation-atlas-reference-audit/3.0 (mailto:atlas@localhost)"
 
 
 def norm(s: str) -> str:

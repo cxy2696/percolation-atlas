@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://cxy2696.github.io/atlas-percolation/sitemap.xml
+Sitemap: https://cxy2696.github.io/percolation-atlas/sitemap.xml

@@ -24,9 +24,9 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Mathematics",
 ]
 [project.urls]
-Homepage = "https://cxy2696.github.io/atlas-percolation/"
-Repository = "https://github.com/cxy2696/atlas-percolation"
-Documentation = "https://github.com/cxy2696/atlas-percolation/blob/main/docs/API.md"
+Homepage = "https://cxy2696.github.io/percolation-atlas/"
+Repository = "https://github.com/cxy2696/percolation-atlas"
+Documentation = "https://github.com/cxy2696/percolation-atlas/blob/main/docs/API.md"
 
 [project.scripts]
 atlas-perc = "percolation_atlas.cli:main"

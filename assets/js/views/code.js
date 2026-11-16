@@ -78,7 +78,7 @@ POST /api/explosive
 GET  /api/openapi.json</pre>
       </section>
     </div>
-    <p class="hint" style="margin-top:12px">${T('code_audit_note')} · <a href="https://github.com/cxy2696/atlas-percolation/blob/main/docs/API.md" target="_blank" rel="noopener noreferrer">docs/API.md</a></p>`;
+    <p class="hint" style="margin-top:12px">${T('code_audit_note')} · <a href="https://github.com/cxy2696/percolation-atlas/blob/main/docs/API.md" target="_blank" rel="noopener noreferrer">docs/API.md</a></p>`;
 
   const body = root.querySelector('#code-body');
   const pathEl = root.querySelector('#code-path');

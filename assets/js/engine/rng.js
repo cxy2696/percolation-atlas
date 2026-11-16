@@ -1,5 +1,5 @@
 /**
- * atlas-percolation — reference RNG.
+ * percolation-atlas — reference RNG.
  *
  * xoshiro128** (Blackman & Vigna, 2018) with SplitMix32 seeding.  The
  * generator is implemented with 32-bit integer arithmetic only, so the

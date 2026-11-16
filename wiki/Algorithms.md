@@ -69,7 +69,7 @@ Repeatedly delete vertices whose current degree is below `k`. The result is the 
 | Leath extremes | `tests/js/algorithms.test.js` |
 | k-core regression | `tests/js/engine.test.js` |
 
-The prose walkthrough is in [`docs/ALGORITHMS.md`](https://github.com/cxy2696/atlas-percolation/blob/main/docs/ALGORITHMS.md); the interactive version is the site's **Algorithms** view.
+The prose walkthrough is in [`docs/ALGORITHMS.md`](https://github.com/cxy2696/percolation-atlas/blob/main/docs/ALGORITHMS.md); the interactive version is the site's **Algorithms** view.
 
 ### Hoshen–Kopelman
 

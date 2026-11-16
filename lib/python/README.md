@@ -22,4 +22,4 @@ input sizes, and JSON errors. See `docs/API.md` for the routes.
 The package shares the xoshiro128** stream and edge order with the C++, Julia
 and JavaScript editions of the core. The algorithm zoo (bootstrap, invasion, Leath, Achlioptas), the
 Hoshen–Kopelman labelling routine and the tree/epidemic solvers are
-implemented in all four languages; see `data/golden/algorithms-v3.json`.
+implemented in the C++/Python/Julia reference libraries; the browser runtime mirrors them. See `data/golden/algorithms-v3.json`.

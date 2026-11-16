@@ -1,4 +1,4 @@
-# atlas-percolation — C++ edition
+# percolation-atlas — C++ edition
 
 Header-only C++20 implementation.  The random stream, lattice edge order and
 RNG consumption order match the JavaScript/Python references bit for bit.

@@ -2,7 +2,7 @@
 
 ## Read the live site
 
-Open <https://cxy2696.github.io/atlas-percolation/>.
+Open <https://cxy2696.github.io/percolation-atlas/>.
 
 - Default: light theme, English, start-here guide (`#/en/guide`).
 - Switch language with `EN / 中文 / DE`.
@@ -14,8 +14,8 @@ No account, server or build step is needed to read the site.
 ## Use the site locally
 
 ```sh
-git clone https://github.com/cxy2696/atlas-percolation.git
-cd atlas-percolation
+git clone https://github.com/cxy2696/percolation-atlas.git
+cd percolation-atlas
 
 python3 scripts/build_content.py
 python3 scripts/serve.py 8788

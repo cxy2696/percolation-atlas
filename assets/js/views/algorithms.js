@@ -26,8 +26,12 @@ export async function render(root, ctx) {
   const complexity = g.complexity.map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${esc(v)}</td></tr>`).join('');
   const notes = g.notes.map(([fn, note]) => `<dt><code>${esc(fn)}</code></dt><dd>${esc(note)}</dd>`).join('');
   const pitfalls = g.pitfalls.map((p) => `<li>${esc(p)}</li>`).join('');
-  const sources = g.code.map((c) => `<a class="algo-source" href="#/${lang}/code?file=${encodeURIComponent(c.path)}">${esc(c.label)} <span class="mono">${esc(c.path)}</span> ↗</a>`).join('');
-  const tests = g.tests.map((p) => `<code>${esc(p)}</code>`).join(' · ');
+  const sources = g.code.map((c) => `<a class="algo-source" href="#/${lang}/code?file=${encodeURIComponent(c.path)}"><span class="algo-lang">${esc(c.label)}</span><span class="mono">${esc(c.path)}</span><span aria-hidden="true">↗</span></a>`).join('');
+  const tests = g.tests
+    .map((p) => (p.endsWith('.json')
+      ? `<code>${esc(p)}</code>`
+      : `<a class="algo-test" href="#/${lang}/code?file=${encodeURIComponent(p)}">${esc(p)}</a>`))
+    .join(' · ');
 
   const rows = ALGORITHM_ORDER.map((id) => {
     const e = ALGORITHM_GUIDE[id];
@@ -36,6 +40,7 @@ export async function render(root, ctx) {
     return `<tr>
       <td><a href="#/${lang}/algorithms/${id}">${esc(e.title[lang] || e.title.en)}</a></td>
       <td>${esc(e.tag[lang] || e.tag.en)}</td>
+      <td class="num">${e.implementations}</td>
       <td class="num">${esc(first[1])}</td>
       <td class="num">${esc(mem[1])}</td>
     </tr>`;
@@ -53,7 +58,9 @@ export async function render(root, ctx) {
         <div class="algo-head">
           <span class="tag">${esc(g.tag)}</span>
           <h2>${esc(g.title)}</h2>
+          <p class="algo-coverage">${g.implementations} implementations · ${g.tests.length} checks · ${g.code.length} source files</p>
         </div>
+        <p class="algo-summary">${esc(g.summary)}</p>
         <div class="algo-purpose">${g.purpose.map((p) => `<p>${esc(p)}</p>`).join('')}</div>
         <div class="algo-cols">
           <section>
@@ -87,7 +94,7 @@ export async function render(root, ctx) {
       <h3>${T('algo_compare')}</h3>
       <p class="hint" style="margin-top:0">${T('algo_compare_lead')}</p>
       <table class="data-table">
-        <thead><tr><th>${T('algo_name')}</th><th>${T('algo_task')}</th><th>${T('algo_cost')}</th><th>${T('algo_memory')}</th></tr></thead>
+        <thead><tr><th>${T('algo_name')}</th><th>${T('algo_task')}</th><th>${T('algo_languages')}</th><th>${T('algo_cost')}</th><th>${T('algo_memory')}</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </section>`;

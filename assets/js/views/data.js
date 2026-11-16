@@ -1,4 +1,5 @@
 import { t } from '../i18n.js';
+import { wilsonInterval } from '../lib/experiment.js';
 import { drawPlot, PALETTE } from '../lib/plot.js';
 import { fmt } from '../labs/ui.js';
 
@@ -61,6 +62,7 @@ python3 scripts/analyse_bench.py</pre></div>`;
   root.querySelector('#data-meta').innerHTML = `SEED ${meta.seed ?? '—'}<br>${meta.generated ?? ''}<br>${meta.harness ?? ''}`;
 
   const body = root.querySelector('#data-body');
+  const recordCount = ['crossing','torus','arm','cardy','network','interdependent','kcore','continuum'].reduce((n, key) => n + (Array.isArray(data[key]) ? data[key].length : 0), 0);
   const fits = data.fits || {};
   const collapse = fits.collapse || {};
   const armFit = fits.one_arm || {};
@@ -70,8 +72,8 @@ python3 scripts/analyse_bench.py</pre></div>`;
   body.innerHTML = `<div class="stat-strip">
     <div><span>${t(lang, 'data_fit')} p_c</span><b>${fmt(collapse.pc, 4)}</b></div>
     <div><span>ν (fixed)</span><b>${fmt(collapse.nu, 3)}</b></div>
-    <div><span>one-arm</span><b>${fmt(armFit.slope, 4)}${armFit.slope_se ? ` ± ${fmt(1.96 * armFit.slope_se, 3)}` : ''}</b></div>
-    <div><span>${t(lang, 'records')}</span><b>${(data.crossing || []).length + (data.torus || []).length}</b></div>
+    <div><span>one-arm slope</span><b>${fmt(armFit.slope, 4)}${armFit.slope_se ? ` ± ${fmt(1.96 * armFit.slope_se, 3)}` : ''}</b><small>vs −5/48 = −0.1042</small></div>
+    <div><span>${t(lang, 'records')}</span><b>${recordCount}</b></div>
   </div>
   <p class="hint small" style="margin:-4px 0 18px">${collapse.note || ''}${fitWindow ? ' · ' + fitWindow : ''}</p>`;
   const crossingByL = byL(data.crossing || [], 'L');
@@ -125,6 +127,10 @@ python3 scripts/analyse_bench.py</pre></div>`;
     series: crossingByL.map(([L, rows], i) => ({
       x: rows.map((r) => r.p),
       y: rows.map(pi),
+      band: {
+        lower: rows.map((r) => wilsonInterval(r.hits, r.n).lower),
+        upper: rows.map((r) => wilsonInterval(r.hits, r.n).upper),
+      },
       color: [PALETTE.cyan, PALETTE.amber, PALETTE.violet, PALETTE.green][i % 4],
       label: `L=${L}`,
       points: 2,
@@ -151,7 +157,7 @@ python3 scripts/analyse_bench.py</pre></div>`;
     xLabel: 'p',
     yLabel: 'χ',
     xRange: [0.42, 0.58],
-    yRange: [1, 2000],
+    yRange: [1, Math.max(2000, ...torusByL.flatMap(([, rows]) => rows.map((r) => r.chi))) * 1.15],
     logY: true,
     vlines: [{ x: 0.5, color: 'rgba(255,180,84,0.45)', label: 'p_c' }],
     series: torusByL.map(([L, rows], i) => ({
@@ -221,7 +227,7 @@ python3 scripts/analyse_bench.py</pre></div>`;
       height: 250,
       xLabel: 'f',
       yLabel: 'S',
-      xRange: [0, 0.9],
+      xRange: [0, 1],
       yRange: [0, 1],
       series: [
         { x: net.pl25rand.map((r) => r.f), y: net.pl25rand.map((r) => r.s), color: PALETTE.cyan, label: 'γ=2.5 random' },
@@ -265,14 +271,14 @@ python3 scripts/analyse_bench.py</pre></div>`;
       height: 250,
       xLabel: 'λ = nπr²',
       yLabel: 'S_max',
-      xRange: [0.2, 2.2],
+      xRange: [0, Math.max(2.2, ...(data.continuum.points || []).map((r) => r.lambda)) * 1.05],
       yRange: [0, 1],
       vlines: [{ x: 1.128, color: 'rgba(255,180,84,0.5)', label: 'λ_c' }],
       series: [{ x: data.continuum.points.map((r) => r.lambda), y: data.continuum.points.map((r) => r.smax), color: PALETTE.green, points: 2 }],
     });
   }
 
-  ctx.setStatus(t(lang, 'status_done'), `DATA · ${(data.crossing || []).length} CROSSING ROWS`);
+  ctx.setStatus(t(lang, 'status_done'), `DATA · ${recordCount} ${t(lang, 'records')}`);
   return null;
 }
 
@@ -287,7 +293,7 @@ function pcTable(rows, lang) {
       .map(
         (r) => `<tr><td style="padding:5px 4px;border-top:1px solid rgba(96,190,210,0.12)">${r.L}</td>
         <td style="padding:5px 4px;border-top:1px solid rgba(96,190,210,0.12);color:var(--cyan)">${fmt(r.pc, 4)}</td>
-        <td style="padding:5px 4px;border-top:1px solid rgba(96,190,210,0.12);color:${Math.abs(r.pc - 0.5) > 0.004 ? '#ffb454' : '#6ef0a8'}">${fmt(r.pc - 0.5, 4)}</td></tr>`
+        <td style="padding:5px 4px;border-top:1px solid rgba(96,190,210,0.12);color:${Math.abs(r.pc - 0.5) > 0.004 ? 'var(--amber)' : 'var(--green)'}">${fmt(r.pc - 0.5, 4)}</td></tr>`
       )
       .join('')}</tbody></table>
     <p class="hint" style="margin-top:10px">${t(lang, 'data_criterion_hint')}</p>`;

@@ -159,8 +159,8 @@ def explosive_sweep(n: int, eu, ev, candidate_order, rule: str = "product") -> E
         else:
             pick = e1 if (dsu.size[a1] + dsu.size[b1]) <= (dsu.size[a2] + dsu.size[b2]) else e2
         ra, rb = dsu.find(eu[pick]), dsu.find(ev[pick])
-        before = dsu.max_size
-        if ra != rb:
+        merged = ra != rb
+        if merged:
             sa, sb = dsu.size[ra], dsu.size[rb]
             dsu.union(ra, rb)
             sum2 += 2 * sa * sb
@@ -178,7 +178,7 @@ def explosive_sweep(n: int, eu, ev, candidate_order, rule: str = "product") -> E
                 "max_size": dsu.max_size,
                 "clusters": dsu.count,
                 "chi2": sum2 / n if n else 0.0,
-                "merged": dsu.max_size > before,
+                "merged": merged,
             }
         )
     return ExplosiveResult(
@@ -209,6 +209,8 @@ def explosive_random_graph(n: int, rule: str = "product", steps: int | None = No
         raise ValueError("rule must be product or sum")
     if not isinstance(n, int) or n < 2:
         raise ValueError("explosive_random_graph needs n >= 2")
+    if steps is not None and (not isinstance(steps, int) or steps < 1):
+        raise ValueError("steps must be a positive integer or None")
     rng = Rng(seed)
     dsu = Dsu(n)
     sum2 = n

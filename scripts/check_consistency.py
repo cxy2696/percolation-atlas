@@ -72,12 +72,11 @@ def main() -> int:
         fail("labs: registry entries without a mount function")
     ok(f"experiments: {n_labs}")
 
-    algo_src = read("assets/js/lib/algorithm-guide.js")
-    m = re.search(r"ALGORITHM_ORDER = \[(.*?)\]", algo_src, re.S)
-    if not m:
-        fail("algorithms: ALGORITHM_ORDER not found")
+    algorithm_index = json.loads(read("content/algorithms.json"))
+    n_algos = len(algorithm_index.get("order", []))
+    if n_algos != 13 or set(algorithm_index.get("order", [])) != set(algorithm_index.get("entries", {})):
+        fail(f"algorithms: expected 13 ordered entries, got {n_algos}")
     else:
-        n_algos = len(re.findall(r"'[^']+'", m.group(1)))
         ok(f"algorithms: {n_algos}")
 
     refs = json.loads(read("content/references.json"))

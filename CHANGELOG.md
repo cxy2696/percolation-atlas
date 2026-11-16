@@ -1,5 +1,58 @@
 # Changelog
 
+## 4.5.0 — 2026-11-16
+
+An algorithm-framework and visualization edition. The algorithm reader now has
+a single machine-readable source, the charts are interactive and exportable,
+and the lattice/3D displays fit their canvases. Several latent algorithm bugs
+found by an independent audit are fixed.
+
+**Algorithm framework**
+
+- Added `content/algorithms.json`: order, groups, summaries, prose, source paths
+  and tests for all 13 routines. `scripts/build_algorithms.mjs` generates the
+  site reader and `lib/python/percolation_atlas/algorithm_index.json`.
+- Added `atlas-perc algorithms [id] [--json]`, listing all 13 routines with
+  their four implementations, source paths and tests.
+- Added `scripts/check_algorithms.py` and `tests/js/algorithm-guide.test.js`:
+  every listed source and test must exist, all three languages must be authored,
+  and `docs/ALGORITHMS.md` must follow the reader order.
+- Fixed message passing on self-loops (Python and Julia CSR pairing); added
+  regression tests in all four suites.
+- Corrected the DSU source path (`lib/js/engine/dsu.js`, not `percolation.js`)
+  and replaced the "path halving" description with the full path compression
+  the code performs.
+- Fixed the bootstrap pitfall wording and the vacuous `r > maximum degree`
+  tests.
+- Corrected Leath's complexity to include the O(n + m) CSR build and the soft
+  cutoff; corrected k-core's worst-case memory and k validation; corrected the
+  Achlioptas `merged` flag; made `molloy_reed` return `Inf`/`fc = 1` for
+  degenerate sequences; guarded zero-sample CLI cases.
+- Fixed the algorithm chapter's stale lab numbers (08–10, not 10–12).
+
+**Visualization**
+
+- Charts now support hover, focus, ←/→ point stepping, an aria-live readout,
+  and PNG export. Series are clipped to the plot frame; multi-series charts get
+  dash patterns as well as colour; reference lines use theme colours.
+- Fixed the triangular lattice fit and the lattice pixel frame, the 3D cube
+  fit, the 3D orientation triad, the network f_c axis and hub legend, and the
+  epidemic histogram axes/legend.
+- The Data view now draws Wilson bands on the crossing curves, sizes the χ and
+  continuum axes from the data, counts all benchmark rows, and labels the
+  one-arm slope against −5/48.
+- Reduced the crossing sample double count, made the ν corner follow the slider,
+  and fixed the lattice sweep's slider id.
+
+**Readability and de-AI**
+
+- Algorithm pages now lead with a one-line summary, then idea, invariant, cost,
+  source files and tests. The reader lists implementations and links tests.
+- Added `scripts/check_style.py`, a floor against generated-prose phrases, and
+  wired it into `make test`/CI.
+- Rewrote the algorithm docs and chapter passages that were still chatty or
+  stale; repaired the documentation order and spacing.
+
 ## 4.4.0 — 2026-11-14
 
 A readability and verification edition. The chapter structure is unchanged;

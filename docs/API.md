@@ -140,6 +140,8 @@ exact; the golden file uses tolerances only for the float-valued fields.
 
 ```sh
 atlas-perc info
+atlas-perc algorithms
+atlas-perc algorithms nz --json
 atlas-perc sample --lattice square --mode bond --L 128 --p 0.5 --seed 42
 atlas-perc sweep --lattice square --L 64 --seed 7
 atlas-perc bootstrap --L 64 --p 0.55 --r 3 --seed 11
@@ -149,8 +151,9 @@ atlas-perc serve --host 127.0.0.1 --port 8080
 ```
 
 Every command accepts `--json` and prints a stable JSON envelope:
-`{"package", "version", "engine", "command", "result"}`. Errors return exit
-status 2 with a one-line message on stderr.
+`{"package", "version", "engine", "command", "result"}`. `algorithms` also
+returns the source and test paths for each routine. Errors return exit status 2
+with a one-line message on stderr.
 
 ## HTTP API
 

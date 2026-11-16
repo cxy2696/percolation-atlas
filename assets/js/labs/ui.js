@@ -99,14 +99,17 @@ function hexRgb(hex, fallback) {
 }
 
 /** Colour for a cluster of size s given the largest size; theme aware. */
-export function clusterColor(s, maxS, alpha = 1, C = null) {
+export function clusterColor(s, maxS, alpha = 1, C = null, secondS = null) {
   const p = C || palette();
   const parse = (hex) => hexRgb(hex, [79, 227, 234]);
   if (s === maxS) {
     const [r, g, b] = parse(p.cyan);
     return `rgba(${r},${g},${b},${alpha})`;
   }
-  if (s > maxS * 0.35) {
+  // Only the actual second cluster gets amber. If no second size is
+  // supplied, fall back to the older size-threshold behaviour used by
+  // callers that do not need the distinction.
+  if (secondS !== null ? s === secondS : s > maxS * 0.35) {
     const [r, g, b] = parse(p.amber);
     return `rgba(${r},${g},${b},${alpha})`;
   }

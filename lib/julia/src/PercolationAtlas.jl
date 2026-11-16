@@ -52,6 +52,6 @@ export neighbours_from_edges, bootstrap_activation, explosive_sweep,
 export bethe_threshold, bethe_percolation, poisson_pmf,
        configuration_giant_component, sir_final_size
 
-const PKG_VERSION = v"4.1.0"
+const PKG_VERSION = v"4.5.0"
 
 end

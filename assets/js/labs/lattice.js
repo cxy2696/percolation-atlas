@@ -23,7 +23,7 @@ const LABELS = {
     controls: 'Controls',
     resample: 'Resample',
     sweep: 'Sweep p',
-    sMax: 'Largest cluster S',
+    sMax: 'Largest cluster (share of N)',
     chi: 'Susceptibility χ',
     ncl: 'Clusters',
     crossingLr: 'Left–right crossing',
@@ -37,6 +37,8 @@ const LABELS = {
     square: 'square',
     triangular: 'triangular',
     honeycomb: 'honeycomb',
+    configuration: 'one configuration',
+    leftRight: 'left ↔ right',
     presetCritical: 'At threshold',
     presetBelow: 'Below threshold',
     presetAbove: 'Above threshold',
@@ -59,7 +61,7 @@ const LABELS = {
     controls: '控制',
     resample: '重采样',
     sweep: '扫描 p',
-    sMax: '最大团簇 S',
+    sMax: '最大团簇（占 N 的比例）',
     chi: '磁化率 χ',
     ncl: '团簇数',
     crossingLr: '左右横穿',
@@ -73,6 +75,8 @@ const LABELS = {
     square: '方格',
     triangular: '三角',
     honeycomb: '蜂窝',
+    configuration: '单张构型',
+    leftRight: '左 ↔ 右',
     presetCritical: '在阈值',
     presetBelow: '阈值以下',
     presetAbove: '阈值以上',
@@ -95,7 +99,7 @@ const LABELS = {
     controls: 'Regler',
     resample: 'Neu ziehen',
     sweep: 'p durchlaufen',
-    sMax: 'Größter Cluster S',
+    sMax: 'Größter Cluster (Anteil von N)',
     chi: 'Suszeptibilität χ',
     ncl: 'Cluster',
     crossingLr: 'Durchgang links–rechts',
@@ -109,6 +113,8 @@ const LABELS = {
     square: 'Quadrat',
     triangular: 'Dreieck',
     honeycomb: 'Bienenwabe',
+    configuration: 'eine Konfiguration',
+    leftRight: 'links ↔ rechts',
     presetCritical: 'Bei der Schwelle',
     presetBelow: 'Unter der Schwelle',
     presetAbove: 'Über der Schwelle',
@@ -131,7 +137,7 @@ export function mount(root, ctx) {
     labHead({ kicker: L.kicker, title: L.title, lead: L.lead, lang , guide: 'lattice' }) +
     `<div class="grid-lab">
       <div>
-        ${canvasBox('lat-canvas', [t(lang, 'geometry'), t(lang, 'stage_engine'), 'p', 'L'])}
+        ${canvasBox('lat-canvas', [L.configuration, '', L.leftRight, ''])}
         <div class="legend" style="margin:10px 0 14px">
           <span><i data-theme-color="cyan"></i>${L.largest}</span>
           <span><i data-theme-color="amber"></i>${L.second}</span>
@@ -316,7 +322,7 @@ export function mount(root, ctx) {
 
   function readouts() {
     const n = lat.n;
-    setText('lat-smax', `${fmt(stats.maxSize / Math.max(1, stats.sum), 4)}  (${stats.maxSize})`);
+    setText('lat-smax', `${fmt(stats.maxSize / Math.max(1, lat.n), 4)}  (${stats.maxSize})`);
     setText('lat-chi', fmt(stats.chi2(), 3));
     setText('lat-ncl', String(stats.count));
     setText('lat-p-readout', fmt(state.p, 3));
@@ -331,6 +337,15 @@ export function mount(root, ctx) {
     }
     setText('lat-time', `${lastMs.toFixed(1)}`);
     const cross = model.crossesLR();
+    const wrap = canvas.parentElement;
+    const tr = wrap.querySelector('.corner.tr');
+    const br = wrap.querySelector('.corner.br');
+    if (tr) tr.textContent = `${state.L} × ${state.L}`;
+    if (br) br.textContent = `${L[state.kind] || state.kind} · ${t(lang, state.mode)}`;
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label',
+      `${state.L} by ${state.L} ${state.mode} percolation at p = ${state.p.toFixed(3)}. ` +
+      `Largest cluster ${stats.maxSize} sites; ${cross ? 'left and right boundaries are connected' : 'no left-right crossing'}.`);
     setText('lat-cross', cross ? t(lang, 'yes') : t(lang, 'no'));
     const cEl = document.getElementById('lat-cross');
     if (cEl) cEl.parentElement.className = `readout ${cross ? 'ok' : ''}`;
@@ -389,12 +404,13 @@ export function mount(root, ctx) {
     const sizeOf = rootSizes();
     const dsu = model.dsu;
     const maxS = stats.maxSize;
+    const secondS = stats.sizes.length > 1 ? stats.sizes[1] : 0;
     const rgbCache = new Map();
     const rgbOf = (r) => {
       let c = rgbCache.get(r);
       if (!c) {
         const s = sizeOf.get(r) || 1;
-        const str = clusterColor(s, maxS, 1, C);
+        const str = clusterColor(s, maxS, 1, C, secondS);
         const m = str.match(/rgba?\(([^)]+)\)/);
         const p = m ? m[1].split(',').map(Number) : [80, 200, 210];
         c = [p[0], p[1], p[2]];
@@ -445,22 +461,40 @@ export function mount(root, ctx) {
     g.imageSmoothingEnabled = false;
     const pad = 8;
     const side = Math.min(W - 2 * pad, H - 2 * pad);
-    g.drawImage(pixelCanvas, pad + (W - 2 * pad - side) / 2, pad + (H - 2 * pad - side) / 2, side, side);
+    const x0 = pad + (W - 2 * pad - side) / 2;
+    const y0 = pad + (H - 2 * pad - side) / 2;
+    g.drawImage(pixelCanvas, x0, y0, side, side);
     g.strokeStyle = C.grid;
-    g.strokeRect(pad + 0.5, pad + 0.5, side, side);
+    g.strokeRect(x0 + 0.5, y0 + 0.5, side, side);
   }
 
   function drawVector(g, W, H, C) {
     const pad = 18;
-    const side = Math.min(W - 2 * pad, H - 2 * pad);
-    const ox = pad + (W - 2 * pad - side) / 2;
-    const oy = pad + (H - 2 * pad - side) / 2;
+    // Triangular sites extend to x ≈ 1.48 while y stays below 1. Fit the
+    // actual position bounding box instead of assuming a unit square.
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+    for (let v = 0; v < lat.n; v++) {
+      const p = lat.position(v);
+      if (p.x < minX) minX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y > maxY) maxY = p.y;
+    }
+    const spanX = Math.max(1e-9, maxX - minX);
+    const spanY = Math.max(1e-9, maxY - minY);
+    const side = Math.min((W - 2 * pad) / spanX, (H - 2 * pad) / spanY);
+    const ox = pad + (W - spanX * side) / 2 - minX * side;
+    const oy = pad + (H - spanY * side) / 2 - minY * side;
     const pos = (v) => {
       const p = lat.position(v);
       return [ox + p.x * side, oy + p.y * side];
     };
     const dsu = model.dsu;
     const maxS = stats.maxSize;
+    const secondS = stats.sizes.length > 1 ? stats.sizes[1] : 0;
     const sizeOf = rootSizes();
     // closed edges first
     g.lineWidth = 1;
@@ -481,7 +515,7 @@ export function mount(root, ctx) {
       const [x1, y1] = pos(lat.eu[e]);
       const [x2, y2] = pos(lat.ev[e]);
       const r = dsu.find(lat.eu[e]);
-      g.strokeStyle = clusterColor(sizeOf.get(r) || 1, maxS, 0.9, C);
+      g.strokeStyle = clusterColor(sizeOf.get(r) || 1, maxS, 0.9, C, secondS);
       g.lineWidth = 1.2;
       g.beginPath();
       g.moveTo(x1, y1);
@@ -496,12 +530,12 @@ export function mount(root, ctx) {
         g.fillRect(x - 1, y - 1, 2, 2);
       } else {
         const r = dsu.find(v);
-        g.fillStyle = clusterColor(sizeOf.get(r) || 1, maxS, 1, C);
+        g.fillStyle = clusterColor(sizeOf.get(r) || 1, maxS, 1, C, secondS);
         g.fillRect(x - 1.2, y - 1.2, 2.4, 2.4);
       }
     }
     g.strokeStyle = C.grid;
-    g.strokeRect(ox - 6, oy - 6, side + 12, side + 12);
+    g.strokeRect(ox + minX * side - 6, oy + minY * side - 6, spanX * side + 12, spanY * side + 12);
   }
 
   function applyControls() {
@@ -542,7 +576,7 @@ export function mount(root, ctx) {
         return;
       }
       state.p = p;
-      const input = document.getElementById('lat-p');
+      const input = document.getElementById('lat-p-slider');
       if (input) {
         input.value = String(p);
         document.getElementById('lat-p-slider-val').textContent = p.toFixed(3);

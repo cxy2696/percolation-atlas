@@ -165,7 +165,7 @@ export function mount(root, ctx) {
       height: 260,
       xLabel: 'f',
       yLabel: 'S(f)',
-      xRange: [0, 0.9],
+      xRange: [0, 1],
       yRange: [0, 1],
       vlines: [
         { x: state.f, color: 'rgba(255,180,84,0.5)', label: 'f' },
@@ -252,6 +252,13 @@ export function mount(root, ctx) {
       g.fill();
       g.globalAlpha = 1;
     }
+    g.font = '10px "Avenir Next", "Segoe UI", system-ui, sans-serif';
+    g.fillStyle = C.faint;
+    g.textAlign = 'left';
+    g.textBaseline = 'bottom';
+    g.fillText('amber: top 8 by degree · size/opacity: degree', 10, H - 8);
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Network hub map: amber points are the eight highest-degree vertices; point size and opacity increase with degree.');
   }
 
   document.getElementById('net-gamma').addEventListener('change', (e) => {

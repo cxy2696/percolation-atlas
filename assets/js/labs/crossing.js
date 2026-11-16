@@ -72,7 +72,7 @@ export function mount(root, ctx) {
     labHead({ kicker: L.kicker, title: L.title, lead: L.lead, lang , guide: 'crossing' }) +
     `<div class="grid-lab">
       <div>
-        ${canvasBox('cross-raw', ['π(p)', 'BOND · SQUARE', 'p', ''])}
+        ${canvasBox('cross-raw', ['π(p)', 'BOND · SQUARE', '', ''])}
         <div style="height:12px"></div>
         ${canvasBox('cross-collapse', ['COLLAPSE', 'ν = 4/3', '', ''])}
       </div>
@@ -141,7 +141,6 @@ export function mount(root, ctx) {
         models[size].sample(0.5, rng);
         atPc[size].n++;
         if (models[size].crossesLR()) atPc[size].hits++;
-        total++;
       }
     }
     frame++;
@@ -192,8 +191,8 @@ export function mount(root, ctx) {
       yRange: [0, 1],
       vlines: [{ x: 0.5, color: 'rgba(255,180,84,0.45)', label: 'p_c = 1/2' }],
       series: LS.map((size, i) => ({
-        x: bins[size].filter((b) => b.n > 6).map((b) => b.p),
-        y: bins[size].filter((b) => b.n > 6).map((b) => b.hits / b.n),
+        x: bins[size].filter((b) => b.n >= 8).map((b) => b.p),
+        y: bins[size].filter((b) => b.n >= 8).map((b) => b.hits / b.n),
         color: [PALETTE.cyan, PALETTE.amber, PALETTE.violet][i],
         label: `L=${size}`,
         points: 2,
@@ -201,7 +200,7 @@ export function mount(root, ctx) {
     });
 
     const series = LS.map((size, i) => {
-      const pts = bins[size].filter((b) => b.n > 6);
+      const pts = bins[size].filter((b) => b.n >= 8);
       return {
         x: pts.map((b) => (b.p - 0.5) * Math.pow(size, nu)),
         y: pts.map((b) => b.hits / b.n),
@@ -224,6 +223,8 @@ export function mount(root, ctx) {
     });
 
     setText('cross-total', total.toLocaleString());
+    const tr = document.getElementById('cross-collapse')?.parentElement?.querySelector('.corner.tr');
+    if (tr) tr.textContent = `ν = ${nu.toFixed(3)}`;
     for (const size of [32, 64, 128]) {
       const b = atPc[size];
       if (!b.n) {

@@ -48,10 +48,15 @@ function logTicks(a, b) {
   for (let e = Math.floor(Math.log10(a)); e <= Math.ceil(Math.log10(b)); e++) {
     for (const m of [1, 2, 5]) {
       const v = m * Math.pow(10, e);
-      if (v >= a * 0.999 && v <= b * 1.001 && out.length < 8) out.push(v);
+      if (v >= a * 0.999 && v <= b * 1.001) out.push(v);
     }
   }
-  return out;
+  if (out.length > 12) {
+    // Keep both ends of a wide range instead of truncating the top.
+    return out.filter((_, i) => i === 0 || i === out.length - 1 || i % 2 === 0);
+  }
+  if (out.length && out[out.length - 1] < b * 0.999 && b / a < 20) out.push(b);
+  return [...new Set(out)];
 }
 
 function fmtTick(v) {
@@ -72,7 +77,7 @@ function rgba(hex, alpha) {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
 }
 
-export function drawPlot(canvas, spec) {
+function renderPlot(canvas, spec, hover = null) {
   const C = P();
   const dpr = window.devicePixelRatio || 1;
   const cssW = Math.max(240, canvas.parentElement.clientWidth - 2);
@@ -171,7 +176,7 @@ export function drawPlot(canvas, spec) {
   // horizontal reference lines
   for (const h of spec.hlines || []) {
     const py = sy(h.y);
-    ctx.strokeStyle = h.color || rgba(C.amber, 0.5);
+    ctx.strokeStyle = refColor(h.color, C);
     ctx.setLineDash(h.dash || [3, 3]);
     ctx.beginPath();
     ctx.moveTo(m.l, py);
@@ -179,7 +184,7 @@ export function drawPlot(canvas, spec) {
     ctx.stroke();
     ctx.setLineDash([]);
     if (h.label) {
-      ctx.fillStyle = h.color || C.amber;
+      ctx.fillStyle = C.dim;
       ctx.textAlign = 'right';
       ctx.textBaseline = 'bottom';
       ctx.fillText(h.label, m.l + W - 3, py - 2);
@@ -189,7 +194,7 @@ export function drawPlot(canvas, spec) {
   // vertical reference lines
   for (const v of spec.vlines || []) {
     const px = sx(v.x);
-    ctx.strokeStyle = v.color || rgba(C.amber, 0.55);
+    ctx.strokeStyle = refColor(v.color, C);
     ctx.setLineDash(v.dash || [3, 3]);
     ctx.beginPath();
     ctx.moveTo(px, m.t);
@@ -197,7 +202,7 @@ export function drawPlot(canvas, spec) {
     ctx.stroke();
     ctx.setLineDash([]);
     if (v.label) {
-      ctx.fillStyle = v.color || C.amber;
+      ctx.fillStyle = C.dim;
       ctx.textAlign = px > m.l + W * 0.7 ? 'right' : 'left';
       ctx.textBaseline = 'top';
       ctx.fillText(v.label, px + (px > m.l + W * 0.7 ? -4 : 4), m.t + 3);
@@ -205,9 +210,17 @@ export function drawPlot(canvas, spec) {
   }
 
   // series
-  for (const s of spec.series || []) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(m.l, m.t, W, H);
+  ctx.clip();
+  const autoDash = (spec.series || []).length > 1 && spec.autoDash !== false;
+  const dashPatterns = [[], [6, 4], [2, 3], [9, 3, 2, 3]];
+  for (let si = 0; si < (spec.series || []).length; si++) {
+    const s = spec.series[si];
     if (!s.x || s.x.length === 0) continue;
     const color = s.color || C.cyan;
+    const dash = s.dash !== undefined ? s.dash : autoDash ? dashPatterns[si % dashPatterns.length] : [];
 
     // confidence band before the centre line
     if (s.band) {
@@ -237,7 +250,7 @@ export function drawPlot(canvas, spec) {
 
     ctx.strokeStyle = color;
     ctx.lineWidth = s.width || 1.5;
-    if (s.dash) ctx.setLineDash(s.dash);
+    if (dash.length) ctx.setLineDash(dash);
     ctx.beginPath();
     let started = false;
     for (let i = 0; i < s.x.length; i++) {
@@ -295,6 +308,7 @@ export function drawPlot(canvas, spec) {
       }
     }
   }
+  ctx.restore();
 
   // annotations
   for (const a of spec.annotations || []) {
@@ -315,7 +329,8 @@ export function drawPlot(canvas, spec) {
     ctx.font = FONT;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    for (const s of spec.series) {
+    for (let si = 0; si < spec.series.length; si++) {
+      const s = spec.series[si];
       if (!s.label) continue;
       const width = 26 + ctx.measureText(s.label).width;
       if (x > m.l && x + width > m.l + W) {
@@ -323,15 +338,311 @@ export function drawPlot(canvas, spec) {
         // more series, the extra labels start again at the left margin.
         x = m.l;
       }
+      const dash = s.dash !== undefined ? s.dash : autoDash ? dashPatterns[si % dashPatterns.length] : [];
       ctx.strokeStyle = s.color || C.cyan;
       ctx.lineWidth = 2;
+      if (dash.length) ctx.setLineDash(dash);
       ctx.beginPath();
       ctx.moveTo(x, y);
       ctx.lineTo(x + 14, y);
       ctx.stroke();
+      ctx.setLineDash([]);
       ctx.fillStyle = C.dim;
       ctx.fillText(s.label, x + 18, y);
       x += width + 18;
     }
   }
+
+  canvas.__plotGeom = { m, W, H, cssW, cssH, xr, yr, logX, logY, sx, sy };
+  if (hover) drawHover(canvas, hover);
+}
+
+/* ---------------------------------------------------------------- interaction */
+function plotValue(v) {
+  if (!Number.isFinite(v)) return '—';
+  const a = Math.abs(v);
+  if (a !== 0 && (a >= 10000 || a < 0.001)) return v.toExponential(2);
+  if (a >= 100) return v.toFixed(1);
+  if (a >= 1) return v.toFixed(3);
+  return v.toFixed(4);
+}
+
+function dataXFromEvent(canvas, event) {
+  const g = canvas.__plotGeom;
+  if (!g) return null;
+  const rect = canvas.getBoundingClientRect();
+  if (!rect.width) return null;
+  const cssX = ((event.clientX - rect.left) / rect.width) * g.cssW;
+  if (cssX < g.m.l || cssX > g.m.l + g.W) return null;
+  const t = (cssX - g.m.l) / g.W;
+  return g.logX
+    ? Math.pow(10, Math.log10(g.xr[0]) + t * (Math.log10(g.xr[1]) - Math.log10(g.xr[0])))
+    : g.xr[0] + t * (g.xr[1] - g.xr[0]);
+}
+
+function hoverAt(canvas, x) {
+  const spec = canvas.__plotSpec;
+  const g = canvas.__plotGeom;
+  if (!spec || !g || !Number.isFinite(x)) return null;
+  const points = [];
+  for (const series of spec.series || []) {
+    if (!series.x || !series.x.length) continue;
+    let best = -1;
+    let bestPx = Infinity;
+    for (let i = 0; i < series.x.length; i++) {
+      const xi = series.x[i];
+      const yi = series.y[i];
+      if (!Number.isFinite(xi) || !Number.isFinite(yi)) continue;
+      if (g.logX && xi <= 0) continue;
+      const px = Math.abs(g.sx(xi) - g.sx(x));
+      if (px < bestPx) {
+        bestPx = px;
+        best = i;
+      }
+    }
+    if (best >= 0 && bestPx <= 18) {
+      points.push({
+        index: best,
+        x: series.x[best],
+        y: series.y[best],
+        color: series.color || P().cyan,
+        label: series.label || '',
+      });
+    }
+  }
+  if (!points.length) return null;
+  return { x, px: g.sx(x), points };
+}
+
+function drawHover(canvas, hover) {
+  const spec = canvas.__plotSpec;
+  const g = canvas.__plotGeom;
+  if (!spec || !g || !hover) return;
+  const C = P();
+  const ctx = canvas.getContext('2d');
+  const px = Math.max(g.m.l, Math.min(g.m.l + g.W, hover.px));
+  ctx.save();
+  ctx.strokeStyle = C.dim;
+  ctx.globalAlpha = 0.55;
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(px, g.m.t);
+  ctx.lineTo(px, g.m.t + g.H);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
+
+  for (const point of hover.points) {
+    const py = g.sy(point.y);
+    ctx.fillStyle = point.color;
+    ctx.beginPath();
+    ctx.arc(g.sx(point.x), py, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = C.bg;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  const lines = [
+    `${spec.xLabel || 'x'} = ${plotValue(hover.x)}`,
+    ...hover.points.map((p) => `${p.label || 'value'} = ${plotValue(p.y)}`),
+  ];
+  ctx.font = FONT;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  const pad = 7;
+  const lineH = 15;
+  const width = Math.max(...lines.map((line) => ctx.measureText(line).width)) + pad * 2;
+  const height = lines.length * lineH + pad * 2 - 2;
+  let bx = px + 12;
+  if (bx + width > g.cssW - 6) bx = px - width - 12;
+  bx = Math.max(6, bx);
+  let by = g.m.t + 10;
+  if (by + height > g.cssH - 6) by = g.cssH - height - 6;
+  ctx.fillStyle = C.bg;
+  ctx.globalAlpha = 0.96;
+  ctx.fillRect(bx, by, width, height);
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = C.grid;
+  ctx.strokeRect(bx + 0.5, by + 0.5, width, height);
+  ctx.fillStyle = C.ink;
+  lines.forEach((line, i) => {
+    ctx.fillStyle = i === 0 ? C.dim : C.ink;
+    ctx.fillText(line, bx + pad, by + pad + i * lineH);
+  });
+  ctx.restore();
+}
+
+function plotSummary(spec) {
+  const parts = [];
+  if (spec.xLabel) parts.push(`x: ${spec.xLabel}`);
+  if (spec.yLabel) parts.push(`y: ${spec.yLabel}`);
+  const labels = (spec.series || []).map((s) => s.label).filter(Boolean);
+  if (labels.length) parts.push(`series: ${labels.join(', ')}`);
+  parts.push('Use arrow keys to inspect points; hover or focus the chart for details.');
+  return `${spec.title ? spec.title + '. ' : ''}${parts.join('. ')}`;
+}
+
+function downloadPlot(canvas, filename) {
+  const spec = canvas.__plotSpec || {};
+  const C = P();
+  const out = document.createElement('canvas');
+  out.width = canvas.width;
+  out.height = canvas.height;
+  const ctx = out.getContext('2d');
+  ctx.fillStyle = C.bg || '#ffffff';
+  ctx.fillRect(0, 0, out.width, out.height);
+  ctx.drawImage(canvas, 0, 0);
+  const safe = (filename || spec.title || canvas.id || 'chart')
+    .toString()
+    .replace(/[^\w.-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80) || 'chart';
+  const a = document.createElement('a');
+  a.download = `${safe}.png`;
+  a.href = out.toDataURL('image/png');
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function ensureSaveButton(canvas) {
+  const wrap = canvas.closest('.canvas-wrap');
+  if (!wrap || wrap.querySelector('.chart-save')) return;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'chart-save';
+  button.textContent = 'PNG';
+  button.setAttribute('aria-label', 'Save chart as PNG');
+  button.title = 'Save chart as PNG';
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    downloadPlot(canvas);
+  });
+  wrap.classList.add('has-chart-save');
+  wrap.appendChild(button);
+}
+
+function bindPlot(canvas) {
+  if (canvas.__plotBound) return;
+  canvas.__plotBound = true;
+  canvas.tabIndex = 0;
+  canvas.setAttribute('role', 'img');
+
+  let live = canvas.parentElement?.querySelector('.chart-live');
+  if (!live && canvas.parentElement) {
+    live = document.createElement('p');
+    live.className = 'sr-only chart-live';
+    live.setAttribute('aria-live', 'polite');
+    canvas.parentElement.appendChild(live);
+  }
+  const announce = (hover) => {
+    if (!live) return;
+    if (!hover) {
+      live.textContent = '';
+      return;
+    }
+    const spec = canvas.__plotSpec || {};
+    live.textContent = `${spec.xLabel || 'x'} ${plotValue(hover.x)}; ` +
+      hover.points.map((p) => `${p.label || 'value'} ${plotValue(p.y)}`).join('; ');
+  };
+
+  const redraw = () => {
+    if (canvas.__plotSpec) renderPlot(canvas, canvas.__plotSpec, canvas.__plotHover || null);
+  };
+
+  canvas.addEventListener('pointermove', (event) => {
+    const x = dataXFromEvent(canvas, event);
+    const next = x === null ? null : hoverAt(canvas, x);
+    if (next) {
+      canvas.__plotHover = next;
+      redraw();
+      announce(next);
+    } else if (canvas.__plotHover) {
+      canvas.__plotHover = null;
+      redraw();
+      announce(null);
+    }
+  });
+  canvas.addEventListener('pointerleave', () => {
+    if (!canvas.__plotHover) return;
+    canvas.__plotHover = null;
+    redraw();
+    announce(null);
+  });
+  canvas.addEventListener('blur', () => {
+    if (!canvas.__plotHover) return;
+    canvas.__plotHover = null;
+    redraw();
+    announce(null);
+  });
+  canvas.addEventListener('focus', () => {
+    if (canvas.__plotHover) return;
+    const spec = canvas.__plotSpec;
+    const first = spec?.series?.find((s) => s.x && s.x.length);
+    const next = first ? hoverAt(canvas, first.x[0]) : null;
+    if (next) {
+      canvas.__plotHover = next;
+      redraw();
+      announce(next);
+    }
+  });
+  canvas.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(event.key)) return;
+    const spec = canvas.__plotSpec;
+    if (!spec || !spec.series) return;
+    const xs = [...new Set(spec.series.flatMap((s) => (s.x || []).filter((v) => Number.isFinite(v))))].sort((a, b) => a - b);
+    if (!xs.length) return;
+    event.preventDefault();
+    if (event.key === 'Escape') {
+      canvas.__plotHover = null;
+      redraw();
+      announce(null);
+      return;
+    }
+    const current = canvas.__plotHover?.x;
+    const base = current === undefined ? -1 : xs.findIndex((x) => x >= current);
+    let index;
+    if (event.key === 'ArrowRight') index = base < 0 ? 0 : Math.min(xs.length - 1, base + 1);
+    else if (event.key === 'ArrowLeft') index = base < 0 ? xs.length - 1 : Math.max(0, base - 1);
+    else if (event.key === 'Home') index = 0;
+    else index = xs.length - 1;
+    const next = hoverAt(canvas, xs[index]);
+    if (next) {
+      canvas.__plotHover = next;
+      redraw();
+      announce(next);
+    }
+  });
+
+  if ('ResizeObserver' in window) {
+    let last = 0;
+    const observer = new ResizeObserver(() => {
+      const width = canvas.parentElement?.clientWidth || 0;
+      if (Math.abs(width - last) < 2) return;
+      last = width;
+      redraw();
+    });
+    observer.observe(canvas.parentElement);
+    canvas.__plotObserver = observer;
+  }
+}
+
+function refColor(color, C) {
+  const text = String(color || '');
+  if (/rgba\(\s*255\s*,\s*180\s*,\s*84/.test(text)) return rgba(C.amber, 0.65);
+  if (/rgba\(\s*110\s*,\s*240\s*,\s*168/.test(text)) return rgba(C.green, 0.65);
+  return color || rgba(C.amber, 0.55);
+}
+
+export function drawPlot(canvas, spec) {
+  canvas.__plotSpec = spec;
+  if (spec.interactive !== false) {
+    bindPlot(canvas);
+    ensureSaveButton(canvas);
+    canvas.closest('.canvas-wrap')?.classList.add('is-interactive');
+    canvas.setAttribute('aria-label', plotSummary(spec));
+  }
+  renderPlot(canvas, spec, canvas.__plotHover || null);
 }

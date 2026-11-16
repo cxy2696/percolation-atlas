@@ -8,7 +8,7 @@ Percolation asks when random connections form a path across a medium: through co
 
 The site is a static directory of Markdown, JSON and JavaScript. There is no application server and no runtime framework; the only vendored front-end files are KaTeX and marked. The Python package, command-line tool and JSON API are the same engine in a different wrapper.
 
-**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.4.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.4.0)
+**Live site:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.5.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.5.0)
 
 ## Start here
 
@@ -35,7 +35,7 @@ Open `http://127.0.0.1:8788/`. The site must be served over HTTP because the con
 |---|---|
 | Chapters | 23 chapters in English, Simplified Chinese and German, from the 1957 paper through duality, sharpness, exponents, SLE, random-cluster models, networks, measurement, applications, algorithms, directed and continuum percolation, transport, proofs, design, reproducibility, trees and epidemics. |
 | Experiments | 16 interactive models: lattice percolation, crossing collapse, Newman–Ziff, 3D site percolation, Cardy, directed, random-cluster, bootstrap, explosive, invasion, network robustness, coupled cascades, Boolean model, Bethe tree, SIR, and an algorithm studio. |
-| Algorithms | 13 routines with the idea, invariant, cost, source file and failure modes: Bernoulli sampler, DSU, bond and site Newman–Ziff, Leath, bootstrap, invasion, Achlioptas, k-core, Hoshen–Kopelman, Bethe fixed point, SIR final size and message passing. |
+| Algorithms | 13 routines with the idea, invariant, cost, source files and failure modes: Bernoulli sampler, DSU, bond and site Newman–Ziff, Leath, bootstrap, invasion, Achlioptas, k-core, Hoshen–Kopelman, Bethe fixed point, SIR final size and message passing. All four implementations and their tests are indexed in `content/algorithms.json`. |
 | Code | C++20 header-only, Julia, Python and JavaScript, sharing the same xoshiro128** stream and lattice edge order. |
 | Data | A C++ benchmark harness, a Python analyser, and a JSON record with raw counts, seeds and fits. |
 | Checks | Four language suites, cross-language parity probes, RNG golden vectors, translation structure, prose-claim checks and a bibliography audit. |
@@ -43,13 +43,15 @@ Open `http://127.0.0.1:8788/`. The site must be served over HTTP because the con
 ## Reproduce the checks
 
 ```sh
-make test          # four suites + parity + translation structure + prose claims
+make test          # four suites + parity + structure, claim, algorithm and style checks
 make verify        # translation structure + prose claims + reference audit
 make bench         # C++ harness -> data/raw_bench.json
 make analyse       # raw JSON -> data/benchmarks.json
 make content       # rebuild manifest/search/code inventory
 make audit         # Crossref/HTTP reference audit
 make package       # wheel + sdist for the Python package
+make check-algorithms  # index, source paths, tests and docs order
+make check-style       # generated-prose floor
 ```
 
 A single suite:
@@ -77,6 +79,8 @@ The Python package is the distributable form of the engine. It has no runtime de
 python3 -m pip install -e lib/python
 
 atlas-perc info
+atlas-perc algorithms             # the thirteen routines and where they live
+atlas-perc algorithms nz --json   # source and test paths for one routine
 atlas-perc sample    --lattice square --mode bond --L 128 --p 0.5 --seed 42
 atlas-perc sweep     --lattice square --L 64 --seed 7
 atlas-perc bootstrap --L 64 --p 0.55 --r 3 --seed 11
@@ -95,6 +99,7 @@ Deployment options are GitHub Pages (the canonical site), Docker (`Dockerfile`),
 README.md / README_cn.md / README_de.md  repository guide in three languages
 content/
   en/ zh/ de/           chapter Markdown, one file per chapter and language
+  algorithms.json       machine-readable index of the thirteen routines
   references.json       primary bibliography (DOI or stable publisher URL)
   citations.json        chapter -> reference keys
   manifest.json         generated; do not edit by hand
@@ -116,7 +121,10 @@ assets/
   css/hud.css           shell styles
   css/reading.css       reading layer: type, measure, colour and responsive rules
 scripts/
+  build_algorithms.mjs  validates algorithms.json and generates the reader index
   build_content.py      validates content and generates JSON
+  check_algorithms.py   source, test and documentation coverage for the routines
+  check_style.py        generated-prose floor
   check_translations.py compares section numbers, equation tags and display blocks
   bench.cpp             C++ raw-data harness
   analyse_bench.py      derived data and fits
@@ -133,6 +141,7 @@ wiki/                  GitHub wiki source, published by scripts/push_wiki.sh
 - **Reading first.** Chapters use a 720 px serif measure, sentence-case headings and a light default palette. The instrumentation language is kept for live readouts, not for prose.
 - **Content.** Markdown with YAML front matter. Every chapter has a stable id and the same order in every language. `scripts/build_content.py` refuses a partial translation, a duplicate order or an unresolved citation, and `scripts/check_translations.py` refuses a chapter whose section numbers, equation tags or display-block count drift between editions.
 - **Translations.** Authored, not machine-translated at runtime. The glossary and voice rules are in [`docs/EDITORIAL.md`](docs/EDITORIAL.md); technical terms are kept consistent across editions. Adding a fourth edition is a content and review task, not an engine change.
+- **Algorithms.** `content/algorithms.json` is the single source for the 13 routines: order, grouping, summaries, prose, source paths and tests. `scripts/build_algorithms.mjs` generates the site module and the Python index; `scripts/check_algorithms.py` verifies that every listed source and test exists, and that the docs follow the same order.
 - **Experiments.** Every experiment runs the same engine as the library suites. A run record captures the controls, seed, readouts, app version and the commit when available; it can be downloaded as JSON or saved to a local notebook.
 - **Accessibility.** Keyboard navigation, visible focus states, semantic headings, text labels for chart series, and a light/dark palette that keeps contrast. Charts are canvas, but every experiment also reports its key numbers as text.
 - **Browser support.** Current Chrome, Firefox and Safari with ES modules and `IntersectionObserver`. Without JavaScript the Markdown sources remain readable in `content/`.

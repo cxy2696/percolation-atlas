@@ -17,6 +17,12 @@ import {
 const golden = JSON.parse(readFileSync(new URL('../../data/golden/algorithms-v3.json', import.meta.url)));
 const expected = Object.fromEntries(golden.probes.map((p) => [p.id, p.value]));
 
+test('explosive: merged tracks a union, not a growth in max size', () => {
+  const r = explosiveSweep(8, [0, 2, 4, 6], [1, 3, 5, 7], [0, 2, 1, 3]);
+  assert.equal(r.steps[1].clusters, 6);
+  assert.equal(r.steps[1].merged, true);
+});
+
 test('algorithm golden: bootstrap 3x3 corners, r=2', () => {
   const lat = buildLattice('square', 3);
   const nb = neighboursFromEdges(lat.n, lat.eu, lat.ev);
@@ -26,6 +32,16 @@ test('algorithm golden: bootstrap 3x3 corners, r=2', () => {
   assert.equal(b.activeCount, expected.bootstrap_3x3_corners_r2.activeCount);
   assert.equal(b.rounds.length, expected.bootstrap_3x3_corners_r2.rounds);
   assert.deepEqual(Array.from(b.time), expected.bootstrap_3x3_corners_r2.time);
+});
+
+test('bootstrap: r above the maximum degree adds nothing', () => {
+  const lat = buildLattice('square', 5);
+  const nb = neighboursFromEdges(lat.n, lat.eu, lat.ev);
+  const init = new Uint8Array(lat.n);
+  init[0] = 1;
+  const b = bootstrapActivation(lat.n, nb, init, 5);
+  assert.equal(b.activeCount, 1);
+  assert.equal(b.rounds.length, 0);
 });
 
 test('bootstrap is the least fixed point of the threshold closure', () => {

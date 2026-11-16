@@ -16,9 +16,9 @@ JULIA  ?= julia
 CXX    ?= c++
 PORT   ?= 8788
 
-.PHONY: test test-js test-py test-cpp test-julia parity parity-check parity-alg check-translations check-claims check-consistency verify audit bench analyse content site serve package api clean
+.PHONY: test test-js test-py test-cpp test-julia parity parity-check parity-alg check-translations check-claims check-consistency check-algorithms check-style algorithms verify audit bench analyse content site serve package api clean
 
-test: test-js test-py test-cpp test-julia parity-check parity-alg check-translations check-claims check-consistency
+test: test-js test-py test-cpp test-julia parity-check parity-alg check-translations check-claims check-consistency check-algorithms check-style
 
 test-js:
 	$(NODE) --test tests/js/*.test.js
@@ -49,7 +49,17 @@ check-claims:
 check-consistency:
 	$(PYTHON) scripts/check_consistency.py
 
-verify: check-translations check-claims check-consistency audit
+check-algorithms:
+	$(NODE) scripts/build_algorithms.mjs --check
+	$(PYTHON) scripts/check_algorithms.py
+
+check-style:
+	$(PYTHON) scripts/check_style.py
+
+algorithms:
+	$(NODE) scripts/build_algorithms.mjs
+
+verify: check-translations check-claims check-consistency check-algorithms check-style audit
 
 audit:
 	$(PYTHON) scripts/verify_references.py
@@ -62,7 +72,7 @@ bench:
 analyse:
 	PYTHONPATH=lib/python $(PYTHON) scripts/analyse_bench.py
 
-content:
+content: algorithms
 	$(PYTHON) scripts/build_content.py
 	$(PYTHON) scripts/check_translations.py
 

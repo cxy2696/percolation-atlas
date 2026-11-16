@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Build algorithm reader
+        run: node scripts/build_algorithms.mjs
       - name: Build content and validate citations
         run: python3 scripts/build_content.py
       - name: Translation structure check
@@ -25,6 +27,12 @@ jobs:
         run: python3 scripts/verify_claims.py
       - name: Version and count consistency
         run: python3 scripts/check_consistency.py
+      - name: Algorithm index consistency
+        run: |
+          node scripts/build_algorithms.mjs --check
+          python3 scripts/check_algorithms.py
+      - name: Prose style floor
+        run: python3 scripts/check_style.py
       - name: JavaScript suite
         run: node --test tests/js/*.test.js
       - name: Python suite

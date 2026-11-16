@@ -1,0 +1,1217 @@
+{
+ "version": 1,
+ "order": [
+  "sampler",
+  "dsu",
+  "nz",
+  "nz-site",
+  "leath",
+  "bootstrap",
+  "invasion",
+  "achlioptas",
+  "kcore",
+  "hoshen",
+  "bethe",
+  "sir",
+  "message"
+ ],
+ "groups": [
+  {
+   "id": "core",
+   "ids": [
+    "sampler",
+    "dsu",
+    "nz",
+    "nz-site",
+    "leath"
+   ]
+  },
+  {
+   "id": "dynamics",
+   "ids": [
+    "bootstrap",
+    "invasion",
+    "achlioptas",
+    "kcore"
+   ]
+  },
+  {
+   "id": "trees",
+   "ids": [
+    "hoshen",
+    "bethe",
+    "sir",
+    "message"
+   ]
+  }
+ ],
+ "entries": {
+  "sampler": {
+   "title": {
+    "en": "One configuration, correctly",
+    "zh": "正确地抽一张构型",
+    "de": "Eine Konfiguration, richtig gezogen"
+   },
+   "tag": {
+    "en": "Bernoulli sampling",
+    "zh": "Bernoulli 抽样",
+    "de": "Bernoulli-Sampling"
+   },
+   "summary": {
+    "en": "Draw one independent Bernoulli configuration in a fixed order.",
+    "zh": "按固定顺序抽取一张独立的 Bernoulli 构型。",
+    "de": "Eine unabhängige Bernoulli-Konfiguration in fester Reihenfolge ziehen."
+   },
+   "doc_title": "Bernoulli sampler",
+   "complexity": {
+    "en": [
+     [
+      "site draw",
+      "O(n)"
+     ],
+     [
+      "bond draw",
+      "O(m)"
+     ],
+     [
+      "union pass",
+      "O(m α(n))"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ]
+    ],
+    "zh": [
+     [
+      "位点抽样",
+      "O(n)"
+     ],
+     [
+      "键抽样",
+      "O(m)"
+     ],
+     [
+      "合并",
+      "O(m α(n))"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ]
+    ],
+    "de": [
+     [
+      "Platzziehen",
+      "O(n)"
+     ],
+     [
+      "Kantenziehen",
+      "O(m)"
+     ],
+     [
+      "Vereinigung",
+      "O(m α(n))"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/percolation.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/percolation.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/percolation.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/percolation.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/engine.test.js",
+    "lib/python/tests/test_engine.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/rng-seed42.json"
+   ]
+  },
+  "dsu": {
+   "title": {
+    "en": "Union–find without magic",
+    "zh": "没有魔法的并查集",
+    "de": "Union-Find ohne Magie"
+   },
+   "tag": {
+    "en": "Data structure",
+    "zh": "数据结构",
+    "de": "Datenstruktur"
+   },
+   "summary": {
+    "en": "Maintain connected components under edge insertions.",
+    "zh": "在加边过程中维护连通分量。",
+    "de": "Zusammenhangskomponenten unter Kanteneinfügungen pflegen."
+   },
+   "doc_title": "Union–find",
+   "complexity": {
+    "en": [
+     [
+      "find",
+      "O(α(n)) amortised"
+     ],
+     [
+      "union",
+      "O(α(n)) amortised"
+     ],
+     [
+      "memory",
+      "O(n)"
+     ],
+     [
+      "m operations",
+      "O(m α(n))"
+     ]
+    ],
+    "zh": [
+     [
+      "find",
+      "摊还 O(α(n))"
+     ],
+     [
+      "union",
+      "摊还 O(α(n))"
+     ],
+     [
+      "内存",
+      "O(n)"
+     ],
+     [
+      "m 次操作",
+      "O(m α(n))"
+     ]
+    ],
+    "de": [
+     [
+      "find",
+      "amortisiert O(α(n))"
+     ],
+     [
+      "union",
+      "amortisiert O(α(n))"
+     ],
+     [
+      "Speicher",
+      "O(n)"
+     ],
+     [
+      "m Operationen",
+      "O(m α(n))"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/dsu.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/percolation.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/percolation.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/percolation.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/engine.test.js",
+    "lib/python/tests/test_engine.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl"
+   ]
+  },
+  "nz": {
+   "title": {
+    "en": "Newman–Ziff: one order, all p",
+    "zh": "Newman–Ziff：一条边序，全部 p",
+    "de": "Newman–Ziff: eine Ordnung, alle p"
+   },
+   "tag": {
+    "en": "Sweep",
+    "zh": "扫描",
+    "de": "Sweep"
+   },
+   "summary": {
+    "en": "Turn one random edge order into the full S_max(p) and χ(p) curves.",
+    "zh": "用一条随机边序得到完整的 S_max(p) 与 χ(p) 曲线。",
+    "de": "Aus einer zufälligen Kantenordnung die vollen S_max(p)- und χ(p)-Kurven gewinnen."
+   },
+   "doc_title": "Newman–Ziff",
+   "complexity": {
+    "en": [
+     [
+      "one sweep",
+      "O(m α(n))"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ],
+     [
+      "independent error bars",
+      "requires independent edge orders"
+     ]
+    ],
+    "zh": [
+     [
+      "一次扫描",
+      "O(m α(n))"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ],
+     [
+      "独立误差棒",
+      "需要独立边序"
+     ]
+    ],
+    "de": [
+     [
+      "ein Sweep",
+      "O(m α(n))"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ],
+     [
+      "unabhängige Fehlerbalken",
+      "brauchen unabhängige Kantenordnungen"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/percolation.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/percolation.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/percolation.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/percolation.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/engine.test.js",
+    "lib/python/tests/test_engine.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/parity.json",
+    "data/golden/rng-seed42.json"
+   ]
+  },
+  "nz-site": {
+   "title": {
+    "en": "Newman–Ziff for sites",
+    "zh": "位点 Newman–Ziff",
+    "de": "Newman–Ziff für Plätze"
+   },
+   "tag": {
+    "en": "Sweep (site)",
+    "zh": "扫描（位点）",
+    "de": "Sweep (Platz)"
+   },
+   "summary": {
+    "en": "Turn one random site order into the full site-percolation curve.",
+    "zh": "用一条随机位点序得到完整的位点渗流曲线。",
+    "de": "Aus einer zufälligen Platzordnung die volle Site-Perkolationskurve gewinnen."
+   },
+   "doc_title": "Site Newman–Ziff",
+   "complexity": {
+    "en": [
+     [
+      "shuffle",
+      "O(n)"
+     ],
+     [
+      "one sweep",
+      "O(n + m α(n))"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ]
+    ],
+    "zh": [
+     [
+      "洗牌",
+      "O(n)"
+     ],
+     [
+      "一次扫描",
+      "O(n + m α(n))"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ]
+    ],
+    "de": [
+     [
+      "Mischen",
+      "O(n)"
+     ],
+     [
+      "ein Sweep",
+      "O(n + m α(n))"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/percolation.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/percolation.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/percolation.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/percolation.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/message.test.js",
+    "lib/python/tests/test_message.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "leath": {
+   "title": {
+    "en": "Leath growth: sample one cluster",
+    "zh": "Leath 生长：只抽一个团簇",
+    "de": "Leath-Wachstum: einen Cluster ziehen"
+   },
+   "tag": {
+    "en": "Single cluster",
+    "zh": "单团簇",
+    "de": "Einzelcluster"
+   },
+   "summary": {
+    "en": "Grow the single cluster attached to a chosen seed.",
+    "zh": "只生长与指定种子相连的那个团簇。",
+    "de": "Den einen Cluster wachsen lassen, der an einem gewählten Seed hängt."
+   },
+   "doc_title": "Leath growth",
+   "complexity": {
+    "en": [
+     [
+      "time",
+      "O(n + m + |C| + boundary)"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ],
+     [
+      "cutoff bias",
+      "soft cutoff: a frontier can overshoot"
+     ]
+    ],
+    "zh": [
+     [
+      "时间",
+      "O(n + m + |C| + 边界)"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ],
+     [
+      "截断偏差",
+      "软截断：可能超出整个前沿"
+     ]
+    ],
+    "de": [
+     [
+      "Zeit",
+      "O(n + m + |C| + Rand)"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ],
+     [
+      "Abschneide-Bias",
+      "weicher Schnitt: eine ganze Front kann überschießen"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/algorithms.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/algorithms.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/algorithms.test.js",
+    "lib/python/tests/test_algorithms.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "bootstrap": {
+   "title": {
+    "en": "Bootstrap: iterate until nothing moves",
+    "zh": "自举：迭代到不再变化",
+    "de": "Bootstrap: iterieren, bis nichts mehr geht"
+   },
+   "tag": {
+    "en": "Closure",
+    "zh": "闭包",
+    "de": "Abschluss"
+   },
+   "summary": {
+    "en": "Apply a monotone r-neighbour closure to its least fixed point.",
+    "zh": "把单调的 r 邻居闭包迭代到最小不动点。",
+    "de": "Einen monotonen r-Nachbar-Abschluss bis zum kleinsten Fixpunkt iterieren."
+   },
+   "doc_title": "Bootstrap closure",
+   "complexity": {
+    "en": [
+     [
+      "time",
+      "O(n + m)"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ],
+     [
+      "rounds",
+      "at most n"
+     ]
+    ],
+    "zh": [
+     [
+      "时间",
+      "O(n + m)"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ],
+     [
+      "轮数",
+      "至多 n"
+     ]
+    ],
+    "de": [
+     [
+      "Zeit",
+      "O(n + m)"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ],
+     [
+      "Runden",
+      "höchstens n"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/algorithms.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/algorithms.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/algorithms.test.js",
+    "lib/python/tests/test_algorithms.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "invasion": {
+   "title": {
+    "en": "Invasion: follow the cheapest boundary",
+    "zh": "侵入：沿最便宜的边界走",
+    "de": "Invasion: dem billigsten Rand folgen"
+   },
+   "tag": {
+    "en": "Greedy growth",
+    "zh": "贪心生长",
+    "de": "Gieriges Wachstum"
+   },
+   "summary": {
+    "en": "Grow a cluster along the cheapest boundary edge.",
+    "zh": "沿边界上阈值最小的边生长团簇。",
+    "de": "Einen Cluster entlang der billigsten Randkante wachsen lassen."
+   },
+   "doc_title": "Invasion percolation",
+   "complexity": {
+    "en": [
+     [
+      "time",
+      "O(m log m) worst case"
+     ],
+     [
+      "heap",
+      "O(m)"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ]
+    ],
+    "zh": [
+     [
+      "时间",
+      "最坏 O(m log m)"
+     ],
+     [
+      "堆",
+      "O(m)"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ]
+    ],
+    "de": [
+     [
+      "Zeit",
+      "O(m log m) im Worst Case"
+     ],
+     [
+      "Heap",
+      "O(m)"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/algorithms.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/algorithms.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/algorithms.test.js",
+    "lib/python/tests/test_algorithms.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "achlioptas": {
+   "title": {
+    "en": "Achlioptas: choose the edge that suppresses growth",
+    "zh": "Achlioptas：选择抑制生长的边",
+    "de": "Achlioptas: die Kante wählen, die Wachstum bremst"
+   },
+   "tag": {
+    "en": "Two choices",
+    "zh": "两个选择",
+    "de": "Zwei Möglichkeiten"
+   },
+   "summary": {
+    "en": "Choose between two candidate edges to delay the giant component.",
+    "zh": "在两条候选边之间选择，以推迟巨分量。",
+    "de": "Zwischen zwei Kandidatenkanten wählen, um die Riesenkomponente zu verzögern."
+   },
+   "doc_title": "Achlioptas process",
+   "complexity": {
+    "en": [
+     [
+      "fixed edge list",
+      "O(m α(n)) time, O(n + m) memory"
+     ],
+     [
+      "random complete graph",
+      "O(n α(n)) time, O(n) memory"
+     ]
+    ],
+    "zh": [
+     [
+      "固定边表",
+      "O(m α(n)) 时间，O(n + m) 内存"
+     ],
+     [
+      "随机完全图",
+      "O(n α(n)) 时间，O(n) 内存"
+     ]
+    ],
+    "de": [
+     [
+      "feste Kantenliste",
+      "O(m α(n)) Zeit, O(n + m) Speicher"
+     ],
+     [
+      "zufälliger vollständiger Graph",
+      "O(n α(n)) Zeit, O(n) Speicher"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/algorithms.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/algorithms.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/algorithms.test.js",
+    "lib/python/tests/test_algorithms.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "kcore": {
+   "title": {
+    "en": "k-core: peel the periphery",
+    "zh": "k-core：剥掉外围",
+    "de": "k-core: die Peripherie abschälen"
+   },
+   "tag": {
+    "en": "Peeling",
+    "zh": "剥离",
+    "de": "Peeling"
+   },
+   "summary": {
+    "en": "Peel vertices until every survivor has degree at least k.",
+    "zh": "反复剥离顶点，直到剩下的每个顶点度数至少为 k。",
+    "de": "Knoten abziehen, bis jeder Überlebende Grad mindestens k hat."
+   },
+   "doc_title": "k-core peeling",
+   "complexity": {
+    "en": [
+     [
+      "time",
+      "O(n + m)"
+     ],
+     [
+      "memory",
+      "O(n + m) worst case"
+     ],
+     [
+      "queue",
+      "a vertex can be re-queued"
+     ]
+    ],
+    "zh": [
+     [
+      "时间",
+      "O(n + m)"
+     ],
+     [
+      "内存",
+      "最坏 O(n + m)"
+     ],
+     [
+      "队列",
+      "顶点可能被重复入队"
+     ]
+    ],
+    "de": [
+     [
+      "Zeit",
+      "O(n + m)"
+     ],
+     [
+      "Speicher",
+      "O(n + m) im schlimmsten Fall"
+     ],
+     [
+      "Queue",
+      "ein Knoten kann erneut eingereiht werden"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/network.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/network.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/network.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/network.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/engine.test.js",
+    "lib/python/tests/test_engine.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl"
+   ]
+  },
+  "hoshen": {
+   "title": {
+    "en": "Hoshen–Kopelman labelling",
+    "zh": "Hoshen–Kopelman 标号",
+    "de": "Hoshen–Kopelman-Etikettierung"
+   },
+   "tag": {
+    "en": "Cluster labelling",
+    "zh": "团簇标号",
+    "de": "Cluster-Etikettierung"
+   },
+   "summary": {
+    "en": "Label every cluster in one scan with a union-find table.",
+    "zh": "用并查集表一趟扫描给每个团簇标号。",
+    "de": "Jeden Cluster in einem Scan mit einer Union-Find-Tabelle labeln."
+   },
+   "doc_title": "Hoshen–Kopelman labelling",
+   "complexity": {
+    "en": [
+     [
+      "scan",
+      "O(n + m)"
+     ],
+     [
+      "unions",
+      "O(m α(n))"
+     ],
+     [
+      "label compression",
+      "O(n)"
+     ],
+     [
+      "memory",
+      "O(n)"
+     ]
+    ],
+    "zh": [
+     [
+      "扫描",
+      "O(n + m)"
+     ],
+     [
+      "合并",
+      "O(m α(n))"
+     ],
+     [
+      "标号压缩",
+      "O(n)"
+     ],
+     [
+      "内存",
+      "O(n)"
+     ]
+    ],
+    "de": [
+     [
+      "Scan",
+      "O(n + m)"
+     ],
+     [
+      "Vereinigungen",
+      "O(m α(n))"
+     ],
+     [
+      "Label-Kompression",
+      "O(n)"
+     ],
+     [
+      "Speicher",
+      "O(n)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/algorithms.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/algorithms.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/trees.test.js",
+    "lib/python/tests/test_trees.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "bethe": {
+   "title": {
+    "en": "Bethe fixed point",
+    "zh": "Bethe 不动点",
+    "de": "Bethe-Fixpunkt"
+   },
+   "tag": {
+    "en": "Exact tree",
+    "zh": "精确树",
+    "de": "Exakter Baum"
+   },
+   "summary": {
+    "en": "Solve the exact branching recursion on a z-regular tree.",
+    "zh": "在 z 正则树上求解精确的分支递推。",
+    "de": "Die exakte Verzweigungsrekursion auf einem z-regulären Baum lösen."
+   },
+   "doc_title": "Bethe fixed point",
+   "complexity": {
+    "en": [
+     [
+      "bisection",
+      "O(log(1/tol))"
+     ],
+     [
+      "one evaluation",
+      "O(1)"
+     ],
+     [
+      "memory",
+      "O(1)"
+     ]
+    ],
+    "zh": [
+     [
+      "二分",
+      "O(log(1/tol))"
+     ],
+     [
+      "单次求值",
+      "O(1)"
+     ],
+     [
+      "内存",
+      "O(1)"
+     ]
+    ],
+    "de": [
+     [
+      "Bisektion",
+      "O(log(1/tol))"
+     ],
+     [
+      "eine Auswertung",
+      "O(1)"
+     ],
+     [
+      "Speicher",
+      "O(1)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/trees.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/trees.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/trees.test.js",
+    "lib/python/tests/test_trees.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "sir": {
+   "title": {
+    "en": "SIR final size",
+    "zh": "SIR 最终规模",
+    "de": "SIR-Endgröße"
+   },
+   "tag": {
+    "en": "Epidemics",
+    "zh": "流行病",
+    "de": "Epidemien"
+   },
+   "summary": {
+    "en": "Solve the final-size fixed point of an SIR epidemic.",
+    "zh": "求解 SIR 流行的最终规模不动点。",
+    "de": "Den Endgrößen-Fixpunkt einer SIR-Epidemie lösen."
+   },
+   "doc_title": "SIR final size",
+   "complexity": {
+    "en": [
+     [
+      "pmf evaluation",
+      "O(k_max)"
+     ],
+     [
+      "bisection",
+      "O(log(1/tol)) evaluations"
+     ],
+     [
+      "memory",
+      "O(k_max)"
+     ]
+    ],
+    "zh": [
+     [
+      "分布求值",
+      "O(k_max)"
+     ],
+     [
+      "二分",
+      "O(log(1/tol)) 次求值"
+     ],
+     [
+      "内存",
+      "O(k_max)"
+     ]
+    ],
+    "de": [
+     [
+      "Verteilungsauswertung",
+      "O(k_max)"
+     ],
+     [
+      "Bisektion",
+      "O(log(1/tol)) Auswertungen"
+     ],
+     [
+      "Speicher",
+      "O(k_max)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/trees.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/trees.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/trees.test.js",
+    "lib/python/tests/test_trees.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  },
+  "message": {
+   "title": {
+    "en": "Message passing",
+    "zh": "消息传递",
+    "de": "Botschaftspassage"
+   },
+   "tag": {
+    "en": "Fixed point",
+    "zh": "不动点",
+    "de": "Fixpunkt"
+   },
+   "summary": {
+    "en": "Approximate the giant component from cavity messages on a fixed graph.",
+    "zh": "在给定图上用空腔消息近似巨分量。",
+    "de": "Die Riesenkomponente aus Cavity-Botschaften auf einem festen Graphen annähern."
+   },
+   "doc_title": "Message passing",
+   "complexity": {
+    "en": [
+     [
+      "one sweep",
+      "O(n + m)"
+     ],
+     [
+      "iterations",
+      "graph-dependent, capped by max_iter"
+     ],
+     [
+      "memory",
+      "O(n + m)"
+     ]
+    ],
+    "zh": [
+     [
+      "一趟",
+      "O(n + m)"
+     ],
+     [
+      "迭代次数",
+      "依赖图，受 max_iter 限制"
+     ],
+     [
+      "内存",
+      "O(n + m)"
+     ]
+    ],
+    "de": [
+     [
+      "ein Durchlauf",
+      "O(n + m)"
+     ],
+     [
+      "Iterationen",
+      "graphabhängig, durch max_iter begrenzt"
+     ],
+     [
+      "Speicher",
+      "O(n + m)"
+     ]
+    ]
+   },
+   "implementations": 4,
+   "code": [
+    {
+     "path": "lib/js/engine/message.js",
+     "label": "JavaScript"
+    },
+    {
+     "path": "lib/python/percolation_atlas/message.py",
+     "label": "Python"
+    },
+    {
+     "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
+     "label": "C++"
+    },
+    {
+     "path": "lib/julia/src/algorithms.jl",
+     "label": "Julia"
+    }
+   ],
+   "tests": [
+    "tests/js/message.test.js",
+    "lib/python/tests/test_message.py",
+    "lib/cpp/tests/test_main.cpp",
+    "lib/julia/test/runtests.jl",
+    "data/golden/algorithms-v3.json"
+   ]
+  }
+ }
+}

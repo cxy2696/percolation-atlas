@@ -238,8 +238,8 @@ function explosive_sweep(n::Integer, eu::AbstractVector{<:Integer},
 
         ra = find(dsu, Int(eu[pick + 1]))
         rb = find(dsu, Int(ev[pick + 1]))
-        before = dsu.max_size
-        if ra != rb
+        merged = ra != rb
+        if merged
             sa = Int(dsu.size[ra + 1])
             sb = Int(dsu.size[rb + 1])
             _union_roots!(dsu, ra + 1, rb + 1)
@@ -259,7 +259,7 @@ function explosive_sweep(n::Integer, eu::AbstractVector{<:Integer},
                       max_size = dsu.max_size,
                       clusters = dsu.count,
                       chi2 = nn > 0 ? sum2 / nn : 0.0,
-                      merged = dsu.max_size > before))
+                      merged = merged))
     end
 
     return (steps = steps,
@@ -455,8 +455,9 @@ Every edge carries an i.i.d. threshold in `threshold[e+1]`.  Starting from
 0-based `seed`, repeatedly accept the lowest-threshold boundary edge leading
 to an unvisited site; edges to visited sites are loops and are discarded,
 counted once each in `loops`.  The accepted set is a spanning tree of the
-invaded cluster (Prim's algorithm with random edge weights), so the accepted
-thresholds are nondecreasing.
+invaded cluster (Prim's algorithm with random edge weights). The accepted
+thresholds are not necessarily monotone: a newly exposed edge can be cheaper
+than the previous one.
 
 Returns `(order, thresholds, accepted, visited, size, loops, loop_edges,
 last_threshold)`.
@@ -970,16 +971,17 @@ function _message_csr(nn::Int, eu::AbstractVector{<:Integer},
     @inbounds for e in 1:m
         a = Int(eu[e])
         b = Int(ev[e])
+        # Advance each endpoint separately; a == b still needs two slots.
         pa = Int(pos[a + 1]) + 1
+        pos[a + 1] += Int32(1)
         pb = Int(pos[b + 1]) + 1
+        pos[b + 1] += Int32(1)
         adj[pa] = Int32(b)
         adj[pb] = Int32(a)
         mate[pa] = Int32(pb)
         mate[pb] = Int32(pa)
         edge_of[pa] = Int32(e - 1)
         edge_of[pb] = Int32(e - 1)
-        pos[a + 1] += Int32(1)
-        pos[b + 1] += Int32(1)
     end
     return (start = start, adj = adj, mate = mate, edge_of = edge_of)
 end

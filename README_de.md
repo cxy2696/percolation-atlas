@@ -8,7 +8,7 @@ Perkolation fragt, wann zufällige Verbindungen ein Medium durchqueren: Kaffeesa
 
 Die Seite besteht aus statischem Markdown, JSON und JavaScript. Es gibt keinen Anwendungsserver und kein Laufzeit-Framework; die einzigen mitgelieferten Frontend-Dateien sind KaTeX und marked. Python-Paket, Kommandozeile und JSON-API sind dieselbe Engine in einer anderen Hülle.
 
-**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.4.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.4.0)
+**Live-Seite:** <https://cxy2696.github.io/atlas-percolation/> · **Wiki:** <https://github.com/cxy2696/atlas-percolation/wiki> · **Release:** [v4.5.0](https://github.com/cxy2696/atlas-percolation/releases/tag/v4.5.0)
 
 ## Hier beginnen
 
@@ -35,7 +35,7 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 |---|---|
 | Kapitel | 23 Kapitel auf Englisch, vereinfachtem Chinesisch und Deutsch, von der Arbeit von 1957 über Dualität, Schärfe, Exponenten, SLE, Random-Cluster-Modelle, Netzwerke, Messung, Anwendungen, Algorithmen, gerichtete und kontinuierliche Perkolation, Transport, Beweise, Entwurf, Reproduzierbarkeit, Bäume und Epidemien. |
 | Experimente | 16 interaktive Modelle: Gitterperkolation, Durchgangskollaps, Newman–Ziff, 3D-Site-Perkolation, Cardy, gerichtete Perkolation, Random-Cluster, Bootstrap, explosiv, Invasion, Netzwerkrobustheit, gekoppelte Kaskaden, Boolesches Modell, Bethe-Baum, SIR und ein Algorithmenstudio. |
-| Algorithmen | 13 Routinen mit Idee, Invariante, Kosten, Quelldatei und Fehlerquellen: Bernoulli-Sampler, DSU, Bond- und Site-Newman–Ziff, Leath, Bootstrap, Invasion, Achlioptas, k-Kern, Hoshen–Kopelman, Bethe-Fixpunkt, SIR-Endgröße und Message Passing. |
+| Algorithmen | 13 Routinen mit Idee, Invariante, Kosten, Quelldateien und Fehlerquellen: Bernoulli-Sampler, DSU, Bond- und Site-Newman–Ziff, Leath, Bootstrap, Invasion, Achlioptas, k-Kern, Hoshen–Kopelman, Bethe-Fixpunkt, SIR-Endgröße und Message Passing. Alle vier Implementierungen und ihre Tests stehen in `content/algorithms.json`. |
 | Code | C++20 header-only, Julia, Python und JavaScript, mit demselben xoshiro128**-Strom und derselben Kantenordnung. |
 | Daten | C++-Benchmark-Harness, Python-Analysator und ein JSON-Protokoll mit Rohzählungen, Seeds und Fits. |
 | Prüfungen | Vier Sprach-Suiten, sprachübergreifende Paritätsproben, RNG-Golden-Werte, Übersetzungsstruktur, Prosa-Aussagen und Bibliographie-Audit. |
@@ -43,13 +43,15 @@ python3 scripts/serve.py 8788        # http://127.0.0.1:8788/
 ## Prüfungen reproduzieren
 
 ```sh
-make test          # vier Suiten + Parität + Übersetzungsstruktur + Prosa-Aussagen
+make test          # vier Suiten + Parität + Struktur-, Aussagen-, Algorithmen- und Stilprüfung
 make verify        # Übersetzungsstruktur + Prosa-Aussagen + Quellen-Audit
 make bench         # C++-Harness -> data/raw_bench.json
 make analyse       # Roh-JSON -> data/benchmarks.json
 make content       # Manifest/Suchindex/Code-Inventar neu bauen
 make audit         # Crossref/HTTP-Quellen-Audit
 make package       # Wheel + sdist für das Python-Paket
+make check-algorithms  # Index, Quelldateien, Tests, Dokumentationsreihenfolge
+make check-style       # Untergrenze für generierte Prosa
 ```
 
 Eine einzelne Suite:
@@ -77,6 +79,8 @@ Das Python-Paket ist die distribuierbare Form der Engine. Es hat außer der Stan
 python3 -m pip install -e lib/python
 
 atlas-perc info
+atlas-perc algorithms             # die dreizehn Routinen und ihr Code
+atlas-perc algorithms nz --json   # Quellen und Tests einer Routine
 atlas-perc sample    --lattice square --mode bond --L 128 --p 0.5 --seed 42
 atlas-perc sweep     --lattice square --L 64 --seed 7
 atlas-perc bootstrap --L 64 --p 0.55 --r 3 --seed 11
@@ -95,6 +99,7 @@ Deployment: GitHub Pages (kanonische Seite), Docker (`Dockerfile`), Netlify, Ver
 README.md / README_cn.md / README_de.md  Repository-Leitfaden in drei Sprachen
 content/
   en/ zh/ de/           Kapitel-Markdown, eine Datei pro Kapitel und Sprache
+  algorithms.json       maschinenlesbarer Index der dreizehn Routinen
   references.json       Primärbibliographie (DOI oder stabile Verlags-URL)
   citations.json        Kapitel -> Referenzschlüssel
   manifest.json         generiert; nicht von Hand bearbeiten
@@ -116,7 +121,10 @@ assets/
   css/hud.css           Shell-Stile
   css/reading.css       Leseschicht: Schrift, Zeilenmaß, Farbe und Responsive-Regeln
 scripts/
+  build_algorithms.mjs  validiert algorithms.json und erzeugt den Reader-Index
   build_content.py      validiert Inhalte und erzeugt JSON
+  check_algorithms.py   Quellen, Tests und Doku-Abdeckung der Routinen
+  check_style.py        Untergrenze für generierte Prosa
   check_translations.py vergleicht Abschnittsnummern, Gleichungs-Tags und Display-Blöcke
   bench.cpp             C++-Rohdaten-Harness
   analyse_bench.py      abgeleitete Daten und Fits
@@ -133,6 +141,7 @@ wiki/                  GitHub-Wiki-Quelle, veröffentlicht von scripts/push_wiki
 - **Lesen zuerst.** Kapitel verwenden ein 720-px-Serifenmaß, satzgroße Überschriften und eine helle Standardpalette. Die Messwertsprache bleibt den Live-Anzeigen vorbehalten, nicht der Prosa.
 - **Inhalt.** Markdown mit YAML-Frontmatter. Jedes Kapitel hat eine stabile id und dieselbe Reihenfolge in jeder Sprache. `scripts/build_content.py` lehnt eine unvollständige Übersetzung, eine doppelte Reihenfolge oder eine unaufgelöste Zitation ab; `scripts/check_translations.py` lehnt Kapitel ab, deren Abschnittsnummern, Gleichungs-Tags oder Display-Blöcke zwischen den Ausgaben driften.
 - **Übersetzungen.** Von Hand geschrieben, nicht zur Laufzeit maschinell übersetzt. Glossar und Stilregeln stehen in [`docs/EDITORIAL.md`](docs/EDITORIAL.md); technische Begriffe bleiben über die Ausgaben hinweg konsistent. Eine vierte Ausgabe ist eine Inhalts- und Redaktionsaufgabe, keine Engine-Änderung.
+- **Algorithmen.** `content/algorithms.json` ist die einzige Quelle für die 13 Routinen: Reihenfolge, Gruppierung, Zusammenfassungen, Prosa, Quellen und Tests. `scripts/build_algorithms.mjs` erzeugt das Site-Modul und den Python-Index; `scripts/check_algorithms.py` prüft, dass jede Quelle und jeder Test existiert und die Dokumentation dieselbe Reihenfolge hat.
 - **Experimente.** Jedes Experiment nutzt dieselbe Engine wie die Bibliotheks-Suiten. Ein Laufprotokoll hält Regler, Seed, Messwerte, App-Version und – wenn verfügbar – den Commit fest; es lässt sich als JSON laden oder in einem lokalen Notizbuch speichern.
 - **Barrierefreiheit.** Tastaturnavigation, sichtbarer Fokus, semantische Überschriften, Textlabels für Diagrammreihen und eine helle/dunkle Palette mit erhaltenem Kontrast. Diagramme sind Canvas, aber jedes Experiment berichtet seine Kernzahlen auch als Text.
 - **Browser.** Aktuelle Chrome-, Firefox- und Safari-Versionen mit ES-Modulen und `IntersectionObserver`. Ohne JavaScript bleibt das Markdown in `content/` lesbar.

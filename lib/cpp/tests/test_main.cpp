@@ -349,6 +349,17 @@ void test_algorithms() {
     }
   }
 
+  // r above the maximum degree adds no site beyond the initial set.
+  {
+    const atlas::Lattice lat = atlas::build_lattice("square", 5);
+    const atlas::Neighbours nb = atlas::neighbours_from_edges(lat.n, lat.eu, lat.ev);
+    std::vector<std::uint8_t> init(static_cast<std::size_t>(lat.n), 0);
+    init[0] = 1;
+    const atlas::BootstrapResult b = atlas::bootstrap_activation(lat.n, nb, init, 5);
+    CHECK_INT(b.active_count, 1);
+    CHECK_INT(static_cast<int>(b.rounds.size()), 0);
+  }
+
   // data/golden/algorithms-v3.json: bootstrap_32x32_p055_r3_seed123
   {
     const atlas::Lattice lat = atlas::build_lattice("square", 32);

@@ -300,8 +300,8 @@ inline ExplosiveResult explosive_sweep(int n, const std::vector<int>& eu,
     }
     const int ra = dsu.find(eu[static_cast<std::size_t>(pick)]);
     const int rb = dsu.find(ev[static_cast<std::size_t>(pick)]);
-    const int before = dsu.max_size();
-    if (ra != rb) {
+    const bool merged = ra != rb;
+    if (merged) {
       const long long sa = dsu.root_size(ra);
       const long long sb = dsu.root_size(rb);
       dsu.unite(ra, rb);
@@ -322,7 +322,7 @@ inline ExplosiveResult explosive_sweep(int n, const std::vector<int>& eu,
     step.max_size = dsu.max_size();
     step.clusters = dsu.count();
     step.chi2 = n > 0 ? static_cast<double>(sum2) / static_cast<double>(n) : 0.0;
-    step.merged = dsu.max_size() > before;
+    step.merged = merged;
     out.steps.push_back(step);
   }
   out.candidates_used = (total / 2) * 2;
@@ -448,7 +448,7 @@ inline ExplosiveResult explosive_percolation(int n, const std::vector<int>& eu,
 // Result of invasion_cluster() / invasion_percolation().
 //
 // order        : invasion order, starting with the seed;
-// thresholds   : threshold of each accepted edge (nondecreasing), length size-1;
+// thresholds   : threshold of each accepted edge, length size-1; the sequence
 // accepted     : 1 for the accepted spanning-tree edges;
 // visited      : 1 for invaded sites;
 // loop_edges   : rejected loop-closing edges, each recorded once;
@@ -474,7 +474,8 @@ struct InvasionResult {
 // an edge whose two endpoints are already visited closes a loop and is
 // discarded, counted once no matter how often it is popped.  This is Prim's
 // algorithm on the random edge weights: the accepted edges form a spanning
-// tree of the invaded cluster and the accepted thresholds are nondecreasing.
+// tree of the invaded cluster. The accepted thresholds are not necessarily
+// monotone: a newly exposed edge can be cheaper than the previous one.
 // It is ordinary invasion percolation, not the trapping variant used for
 // defending clusters.
 inline InvasionResult invasion_cluster(int n, const std::vector<int>& eu,

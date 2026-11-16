@@ -18,7 +18,7 @@ export async function render(root, ctx) {
   root.innerHTML = `
     <div class="view-head">
       <div><div class="kicker">${T('code_kicker')}</div><h2>${T('code_title')}</h2></div>
-      <div class="meta">4 LANGUAGES<br>1 RNG CONTRACT<br><a href="#/${lang}/algorithms" style="color:var(--cyan)">${T('nav_algorithms')} ↗</a></div>
+      <div class="meta">4 languages<br>1 RNG contract<br><a href="#/${lang}/algorithms" style="color:var(--cyan)">${T('nav_algorithms')} ↗</a></div>
     </div>
     <p class="muted" style="max-width:840px;line-height:1.7;margin-top:-6px">${T('code_lead')}</p>
     <div class="code-workbench">

@@ -65,9 +65,22 @@ class BootstrapTests(unittest.TestCase):
     def test_threshold_above_degree(self):
         lat = build_lattice("square", 5)
         nb = neighbours_from_edges(lat.n, lat.eu, lat.ev)
-        b = bootstrap_activation(lat.n, nb, [1] * lat.n, 5)
-        self.assertEqual(b.active_count, lat.n)
+        initial = [0] * lat.n
+        initial[0] = 1
+        b = bootstrap_activation(lat.n, nb, initial, 5)
+        self.assertEqual(b.active_count, 1)
         self.assertEqual(len(b.rounds), 0)
+
+
+class ExplosiveFlagTests(unittest.TestCase):
+    def test_merged_tracks_union_not_max_size(self):
+        eu = [0, 2, 4, 6]
+        ev = [1, 3, 5, 7]
+        r = explosive_sweep(8, eu, ev, [0, 2, 1, 3])
+        # The second step joins two singleton components away from the
+        # current largest component, so max_size does not change.
+        self.assertEqual(r.steps[1]["clusters"], 6)
+        self.assertTrue(r.steps[1]["merged"])
 
 
 class InvasionTests(unittest.TestCase):
@@ -163,3 +176,32 @@ class ExplosiveTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class TestAlgorithmIndex(unittest.TestCase):
+    def test_index_covers_all_routines(self):
+        import json
+        from importlib.resources import files
+
+        index = json.loads(
+            files("percolation_atlas").joinpath("algorithm_index.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(len(index["order"]), 13)
+        self.assertEqual(set(index["order"]), set(index["entries"]))
+        grouped = [item for group in index["groups"] for item in group["ids"]]
+        self.assertCountEqual(grouped, index["order"])
+
+    def test_index_sources_and_tests_exist(self):
+        import json
+        from pathlib import Path
+        from importlib.resources import files
+
+        root = Path(__file__).resolve().parents[3]
+        index = json.loads(
+            files("percolation_atlas").joinpath("algorithm_index.json").read_text(encoding="utf-8")
+        )
+        for ident, entry in index["entries"].items():
+            self.assertEqual(entry["implementations"], len(entry["code"]), ident)
+            for item in entry["code"]:
+                self.assertTrue((root / item["path"]).is_file(), f"{ident}: {item['path']}")
+            for test in entry["tests"]:
+                self.assertTrue((root / test).is_file(), f"{ident}: {test}")

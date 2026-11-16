@@ -18,7 +18,7 @@ const LABELS = {
     sizeHelp: 'A larger cube sharpens the crossing and costs O(L³).',
     probability: 'Occupancy p',
     pHelp: 'Independent site occupancy. The interesting window is p ≈ 0.31.',
-    smax: 'Largest cluster S',
+    smax: 'Largest cluster (share of N)',
     largest: 'largest cluster',
     second: 'second cluster',
     clusters: 'Clusters',
@@ -43,7 +43,7 @@ const LABELS = {
     sizeHelp: '立方体越大，交点越锐，代价是 O(L³)。',
     probability: '占据率 p',
     pHelp: '位点独立占据。有意义的窗口在 p ≈ 0.31。',
-    smax: '最大团簇 S',
+    smax: '最大团簇（占 N 的比例）',
     largest: '最大团簇',
     second: '次大团簇',
     clusters: '团簇数',
@@ -68,7 +68,7 @@ const LABELS = {
     sizeHelp: 'Ein größerer Würfel schärft den Übergang und kostet O(L³).',
     probability: 'Besetzung p',
     pHelp: 'Unabhängige Platzbesetzung. Das interessante Fenster ist p ≈ 0.31.',
-    smax: 'Größter Cluster S',
+    smax: 'Größter Cluster (Anteil von N)',
     largest: 'größter Cluster',
     second: 'zweitgrößter',
     clusters: 'Cluster',
@@ -89,11 +89,11 @@ export function mount(root, ctx) {
     labHead({ kicker: L.kicker, title: L.title, lead: L.lead, lang, guide: 'three-d' }) +
     `<div class="grid-lab">
       <div>
-        ${canvasBox('td-canvas', ['', 'L', 'z', 'p'])}
+        ${canvasBox('td-canvas', ['', 'L × L × L', 'z ↑', 'p'])}
         <div class="legend" style="margin:10px 0 14px">
           <span><i data-theme-color="cyan"></i>${L.largest}</span>
           <span><i data-theme-color="amber"></i>${L.second}</span>
-          <span><i data-theme-color="closed"></i>${L.clusters}</span>
+          <span><i data-theme-color="cyan-dim"></i>${L.clusters}</span>
         </div>
         <div class="grid-2">
           ${panel(L.observables,
@@ -176,7 +176,18 @@ export function mount(root, ctx) {
     const sp = document.getElementById('td-span');
     if (sp) sp.parentElement.className = `readout ${spanning() ? 'ok' : ''}`;
     const ra = document.getElementById('td-ratio');
-    if (ra) ra.parentElement.className = `readout ${state.p / PC > 1 ? 'ok' : 'alert'}`;
+    if (ra) {
+      const ratio = state.p / PC;
+      const cls = ratio > 1.001 ? 'ok' : ratio < 0.999 ? 'alert' : '';
+      ra.parentElement.className = `readout ${cls}`;
+    }
+    if (canvas) {
+      const span = spanning() ? 'spanning' : 'not spanning';
+      canvas.setAttribute('role', 'img');
+      canvas.setAttribute('aria-label',
+        `Simple cubic site percolation at p = ${state.p.toFixed(4)}, L = ${state.L}. ` +
+        `The largest cluster has ${s.maxSize} of ${state.lat.n} sites; the cube is ${span}.`);
+    }
   }
 
   function draw() {
@@ -200,7 +211,9 @@ export function mount(root, ctx) {
     const span = Ls - 1;
     const s = Math.min((W - 2 * pad) / (2 * 0.866 * span), (H - 2 * pad) / (1.9 * span));
     const ox = W / 2;
-    const oy = H * 0.20;
+    // The projected cube runs from -0.9·span·s (top) to +1.0·span·s
+    // (bottom). Set the origin so both ends stay inside the padded canvas.
+    const oy = pad + 0.9 * span * s;
     const iso = (x, y, z) => ({
       x: ox + (x - y) * s * 0.866,
       y: oy + (x + y) * s * 0.5 - z * s * 0.9,
@@ -226,22 +239,26 @@ export function mount(root, ctx) {
       sizes.set(r, (sizes.get(r) || 0) + 1);
     }
     const maxS = Math.max(1, ...sizes.values());
-    const second = [...sizes.values()].sort((a, b) => b - a)[1] || 1;
+    let secondRoot = null;
+    for (const [root, size] of sizes) {
+      if (size === maxS) continue;
+      if (secondRoot === null || size > (sizes.get(secondRoot) || 0)) secondRoot = root;
+    }
     const sites = [];
     for (let v = 0; v < state.lat.n; v++) {
       if (!state.model.occ[v]) continue;
       const z = v % Ls;
       const y = Math.floor(v / Ls) % Ls;
       const x = Math.floor(v / (Ls * Ls));
-      const sSize = sizes.get(dsu.find(v)) || 1;
-      sites.push({ x, y, z, size: sSize });
+      const root = dsu.find(v);
+      sites.push({ x, y, z, size: sizes.get(root) || 1, root });
     }
     sites.sort((a, b) => (a.x + a.y + a.z) - (b.x + b.y + b.z));
     const h = Math.max(1.8, s * 0.42);
     for (const site of sites) {
       const p = iso(site.x, site.y, site.z);
       const isMax = site.size === maxS;
-      const isSecond = site.size === second && maxS > 1;
+      const isSecond = secondRoot !== null && site.root === secondRoot;
       const base = isMax ? C.cyan : isSecond ? C.amber : C.cyanDim;
       // top diamond
       g.fillStyle = base;
@@ -271,10 +288,46 @@ export function mount(root, ctx) {
       g.fill();
     }
     g.fillStyle = C.faint;
-    g.font = '9px monospace';
-    g.fillText(`L = ${Ls}`, 8, 14);
-    g.fillText(L.top, ox - 8, oy - s * 1.55);
-    g.fillText(L.bottom, ox - 14, oy + s * 1.95);
+    g.font = '11px "Avenir Next", "Segoe UI", system-ui, sans-serif';
+    g.textAlign = 'left';
+    g.fillText(`L = ${Ls} · p = ${state.p.toFixed(4)}`, 12, 20);
+    g.textAlign = 'center';
+    g.fillText(L.top, ox, Math.max(14, oy - 0.9 * span * s - 8));
+    g.fillText(L.bottom, ox, Math.min(H - 8, oy + span * s + 14));
+    // A small orientation mark: the vertical axis is z, increasing upward.
+    const ax = Math.max(22, ox - s * 1.9);
+    const ay = oy + s * 0.4;
+    g.strokeStyle = C.dim;
+    g.lineWidth = 1;
+    g.beginPath();
+    g.moveTo(ax, ay + 34);
+    g.lineTo(ax, ay);
+    g.moveTo(ax, ay);
+    g.lineTo(ax - 3, ay + 7);
+    g.moveTo(ax, ay);
+    g.lineTo(ax + 3, ay + 7);
+    g.stroke();
+    g.textAlign = 'center';
+    g.fillText('z', ax, ay - 8);
+
+    // Orientation triad in the empty top-left corner.
+    const tx = 28;
+    const ty = 58;
+    const arrows = [
+      ['x', 0.866, -0.5],
+      ['y', 0.866, 0.5],
+      ['z', 0, -1],
+    ];
+    g.strokeStyle = C.dim;
+    g.fillStyle = C.dim;
+    g.font = '10px "Avenir Next", "Segoe UI", system-ui, sans-serif';
+    for (const [label, dx, dy] of arrows) {
+      g.beginPath();
+      g.moveTo(tx, ty);
+      g.lineTo(tx + dx * 18, ty + dy * 18);
+      g.stroke();
+      g.fillText(label, tx + dx * 24, ty + dy * 24);
+    }
   }
 
   function shade(hex, amount) {

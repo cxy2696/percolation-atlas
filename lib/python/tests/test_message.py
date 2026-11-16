@@ -45,6 +45,11 @@ class MessagePassingTests(unittest.TestCase):
         for value in r["outside"]:
             self.assertEqual(value, 0.0)
 
+    def test_self_loop_is_not_a_giant_component(self):
+        r = message_passing_percolation(2, [0], [0], 0.5)
+        self.assertLess(r["S"], 1e-9)
+        self.assertTrue(r["converged"])
+
     def test_input_validation(self):
         with self.assertRaises(ValueError):
             message_passing_percolation(2, [0], [1], 1.5)
@@ -69,6 +74,11 @@ class SiteNewmanZiffTests(unittest.TestCase):
         self.assertEqual(r["p"][-1], 1.0)
         self.assertEqual(r["smax"][-1], lat.n)
         self.assertEqual(r["nclusters"][-1], 1)
+
+    def test_self_loop_is_not_a_giant_component(self):
+        r = message_passing_percolation(2, [0], [0], 0.5)
+        self.assertLess(r["S"], 1e-9)
+        self.assertTrue(r["converged"])
 
     def test_input_validation(self):
         lat = build_lattice("square", 4)

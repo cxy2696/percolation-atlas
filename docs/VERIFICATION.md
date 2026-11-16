@@ -19,6 +19,9 @@ python3 scripts/check_translations.py   # section numbers, equation tags, displa
 python3 scripts/verify_claims.py        # card, exponent, fixed-point, benchmark and audit checks
 python3 scripts/verify_references.py    # Crossref/HTTP bibliography audit (network)
 python3 scripts/check_consistency.py    # edition, chapter/lab/reference counts, generated-file drift
+node scripts/build_algorithms.mjs --check  # algorithm index and generated reader
+python3 scripts/check_algorithms.py     # source/test/doc coverage for the 13 routines
+python3 scripts/check_style.py          # generated-prose floor
 node --test tests/js/*.test.js
 PYTHONPATH=lib/python python3 -m unittest discover -s lib/python/tests -v
 make -C lib/cpp test
@@ -31,7 +34,7 @@ julia --startup-file=no --project=lib/julia lib/julia/test/runtests.jl
 |---|---|---|
 | Random stream | seed-42 vectors, 10 000-draw sum and FNV hash | `data/golden/rng-seed42.json` |
 | Core parity | crossing counts, NZ checkpoint, configuration model, coupled cascade, directed | `data/golden/parity.json`, C++ and Julia suites |
-| Algorithm parity | bootstrap, invasion, Leath, Achlioptas, labels, Bethe, configuration/SIR, site NZ, message passing | `data/golden/algorithms-v3.json`, all four suites |
+| Algorithm parity | bootstrap, invasion, Leath, Achlioptas, labels, Bethe, configuration/SIR, site NZ, message passing | `data/golden/algorithms-v3.json`; per-routine test map in `content/algorithms.json` |
 | Exact small-box counts | 2×2 = 3/4, 3×3 = 43/64, 4×4 = 82623/131072 | `scripts/verify_claims.py` (independent enumeration) |
 | Cardy formula | π(1), π(0.1), π(10), symmetry, high-precision reference values | `scripts/verify_claims.py`; all four suites |
 | 2D exponent set | β = 5/36, γ = 43/18, ν = 4/3, δ = 91/5, η = 5/24, d_f = 91/48 and all five scaling identities | `scripts/verify_claims.py` |
@@ -42,6 +45,8 @@ julia --startup-file=no --project=lib/julia lib/julia/test/runtests.jl
 | Bibliography | 142 entries, 140 verified, 2 notes, 0 unresolved | `content/reference_audit.json` |
 | Translation structure | 23 chapters × 3 editions agree on section numbers, tags and display blocks | `scripts/check_translations.py` |
 | Edition metadata | version and counts agree across `package.json`, README files, site JSON, service worker and docs | `scripts/check_consistency.py` |
+| Algorithm framework | 13 ids, groups, three-language prose, source paths, test paths and docs order | `scripts/build_algorithms.mjs --check`, `scripts/check_algorithms.py` |
+| Prose floor | a short list of generated-prose phrases is absent | `scripts/check_style.py` |
 
 ## Provenance rules
 
@@ -55,13 +60,13 @@ julia --startup-file=no --project=lib/julia lib/julia/test/runtests.jl
 4. **Corrections are public.** Chapter 14 lists the corrections made in each
    edition. A correction applied to one language edition and not the others is
    itself an error; `check_translations.py` exists because that happened.
-5. **Seeds and counts.** Benchmark rows store `n` and `hits`, not only a rate;
+5. **Seeds and counts.** Benchmark rows store `n` and `hits`, not a rate alone;
    parity probes compare integers and exact component sizes for a fixed seed.
 6. **Not a proof assistant.** The checks verify arithmetic, attribution and
    reproducibility. They do not verify a derivation's mathematics or a
    source's correctness. A Crossref success verifies identity, not a claim.
 
-## Current record (edition 4.4.0)
+## Current record (edition 4.5.0)
 
 ```text
 chapters: 23 (en, zh, de)

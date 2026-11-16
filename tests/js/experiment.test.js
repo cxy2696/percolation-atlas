@@ -36,7 +36,7 @@ test('run record is serialisable and keeps the provenance fields', () => {
     lab: 'lattice',
     title: 'Lattice percolation',
     route: '#/en/labs/lattice?p=0.5',
-    version: '4.4.0',
+    version: '4.5.0',
     commit: 'abc1234',
     seed: 1001,
     params: { p: 0.5, L: 64 },

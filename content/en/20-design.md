@@ -67,7 +67,7 @@ Invasion percolation is the right model when the displacement is controlled by t
 
 ## 20.7 Fire, sensors, images and tissue
 
-**Wildfire.** Fuel connectivity is the control parameter. A firebreak reduces the effective density; the percolation picture says the change in fire size per unit of treatment is largest near the threshold, so a treatment density that is “almost enough” is the worst place to be. The design question is where to place the treatment, not only how much: a barrier that does not close a spanning path buys little.
+**Wildfire.** Fuel connectivity is the control parameter. A firebreak reduces the effective density; the percolation picture says the change in fire size per unit of treatment is largest near the threshold, so a treatment density that is “almost enough” is the worst place to be. The design question is placement as much as amount: a barrier that does not close a spanning path buys little.
 
 **Sensor deployment.** Coverage and connectivity are different functionals. Coverage is the area fraction of the union of disks, $1-e^{-\lambda}$ for a Poisson deployment; connectivity is a spanning cluster with onset $\lambda_c\approx1.128$ in two dimensions (Mertens and Moore 2012). At $\lambda\approx0.7$ the field can be 50% covered and still disconnected. A deployment rule that equates the two overstates reliability.
 
@@ -107,7 +107,7 @@ A percolation design is a model-based decision, and the model has four error sou
 
 1. **Hold out a network or a batch.** Fit on one realisation, test on another. A design that only works on the graph used to tune it is overfitted.
 2. **Report the finite-size gap.** If the design is evaluated on $L=64$ but deployed at $L=10^6$, say so and estimate the direction of the bias.
-3. **Stress the tail.** Evaluate at the 5th and 95th percentiles of the uncertain parameters, not only at the mean.
+3. **Stress the tail.** Evaluate at the 5th and 95th percentiles of the uncertain parameters, not at the mean alone.
 4. **Compare with a trivial baseline.** Random allocation, uniform loading, no treatment. A complex optimisation that beats the baseline by less than its own uncertainty is not evidence.
 5. **State the failure mode.** Disconnection, cascade, slow drift, or a threshold that moves with temperature. The failure mode determines which metric matters.
 

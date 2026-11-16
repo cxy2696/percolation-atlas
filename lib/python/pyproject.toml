@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "percolation-atlas"
-version = "4.4.0"
+version = "4.5.0"
 description = "Reference percolation algorithms: Bernoulli, bond/site Newman-Ziff, Leath, bootstrap, invasion, Achlioptas, k-core, labelling, trees/epidemics and message passing"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Atlas Percolation contributors" }]
+authors = [{ name = "Xinyi (Anny)", email = "xinyicui0108@outlook.com" }]
 keywords = ["percolation", "statistical-physics", "networks", "monte-carlo", "bootstrap", "invasion-percolation"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -36,3 +36,6 @@ dev = ["build>=1.2"]
 
 [tool.setuptools]
 packages = ["percolation_atlas"]
+
+[tool.setuptools.package-data]
+percolation_atlas = ["algorithm_index.json"]

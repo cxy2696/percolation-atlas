@@ -13,41 +13,40 @@ The shared conventions are:
 - a parity test compares integers and exact component sizes, not statistical
   summaries.
 
+Every routine below has a JavaScript, Python, C++ and Julia implementation; the exact source and test paths for each one are in `content/algorithms.json` and are printed by `atlas-perc algorithms <id>`.
+
 ## 1. Bernoulli sampler
 
-`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py`
+`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
 
 The sampler walks sites (site mode) or edges (bond mode) in a fixed order and
 draws one uniform per element. Closed elements still consume a draw. That is
 why the stream position after `sample(p, rng)` is predictable and why the
 four implementations can agree bit for bit.
 
-The invariant is the obvious one, but it is worth stating: after the loop the
-occupancy/open arrays are independent Bernoulli variables, and the DSU holds
-the connected components of the occupied/open subgraph.
+After the loop the occupancy/open arrays are independent Bernoulli variables,
+and the DSU holds the connected components of the occupied/open subgraph.
 
-The usual mistakes are mixing the two modes, skipping draws for closed
-elements, and using the number of occupied sites as the denominator of a bond
-observable. Each changes the number while leaving the picture plausible.
+Common mistakes: mixing the two modes, skipping draws for closed elements, or
+using the number of occupied sites as the denominator of a bond observable.
+Each changes the number while leaving the picture plausible.
 
 ## 2. Union–find
 
-`lib/js/engine/dsu.js` · `lib/python/percolation_atlas/percolation.py` (`Dsu`)
+`lib/js/engine/dsu.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
 
-`find` walks to the root and halves the path. `union` attaches the smaller
+`find` walks to the root and compresses the path. `union` attaches the smaller
 root under the larger and updates `size`, `count` and `maxSize`. The depth is
-`O(log n)` from union by size alone; path halving adds the amortised
-inverse-Ackermann bound. Either optimisation without the other is weaker, and
-the code comments say so because it is a common claim in tutorials.
+`O(log n)` from union by size alone; full path compression adds the
+amortised inverse-Ackermann bound. Either optimisation alone is weaker.
 
-The DSU is not a cluster counter by itself: `count` and `maxSize` are
-maintained inside `union` because every observable in the atlas needs them.
-A separate pass over the roots is fine for a diagnostic, not for a hot loop.
+`count` and `maxSize` are maintained inside `union`, because every observable
+needs them. A separate pass over the roots is fine for a diagnostic, not for a
+hot loop.
 
 ## 3. Newman–Ziff
 
-`newmanZiff` in `lib/js/engine/percolation.js` · `newman_ziff` in
-`lib/python/percolation_atlas/percolation.py`
+`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
 
 Shuffle the edge indices once. Add them one at a time. After `k` edges the open
 set is a uniform `k`-subset, so it is a sample of bond percolation at
@@ -62,23 +61,33 @@ independent, so error bars need independent edge orders.
 Two details are easy to get wrong: record the observables *after* the union,
 and do not treat the `m` plotted points as `m` independent samples.
 
-## 4. Leath growth
+## 4. Site Newman–Ziff
 
-`leathCluster` in `lib/js/engine/algorithms.js` · `leath_cluster` in
-`lib/python/percolation_atlas/algorithms.py`
+`lib/js/engine/percolation.js` · `lib/python/percolation_atlas/percolation.py` · `lib/cpp/include/percolation_atlas/percolation.hpp` · `lib/julia/src/percolation.jl`
+
+The site sweep adds vertices rather than edges. Draw one random order of the
+`n` sites, occupy them one at a time, and union each new site with the
+neighbours that have already appeared. After `k` sites the occupied set is a
+uniform `k`-subset, so the state is a site-percolation sample at `p = k/n`.
+Edges are never sampled; the random stream depends on `n`, not on `m`. The
+reported `chi2` uses `M₂/n` so the curve is comparable with the bond sweep.
+
+## 5. Leath growth
+
+`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Start at a seed. Test each edge incident to a visited site exactly once. An open
 edge to an unvisited site is explored; a closed edge is perimeter. The visited
 set is exactly the cluster of the seed, conditional on the seed being occupied.
 
-The `tested` array is the guard that makes the cost proportional to the
-touched boundary instead of the box. The optional `maxSize` cutoff truncates
-the tail; it is a bias, not a neutral optimisation.
+The `tested` array is the guard that makes the exploration proportional to
+the touched boundary instead of the box, after a one-time O(n + m) CSR build.
+The optional `maxSize` cutoff is soft: it can overshoot by a frontier and
+truncates the tail. That is a bias, not a neutral optimisation.
 
-## 5. Bootstrap closure
+## 6. Bootstrap closure
 
-`bootstrapActivation` in `lib/js/engine/algorithms.js` ·
-`bootstrap_activation` in `lib/python/percolation_atlas/algorithms.py`
+`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 The update rule is monotone, so the final set is the least fixed point and is
 independent of the order in which sites are considered. The queue version
@@ -89,13 +98,12 @@ correctness argument.
 
 For `r = 2` on the square lattice the infinite-lattice threshold is zero; a
 finite box fills above a crossover that depends on `L`. For `r = 3` and `r = 4`
-the threshold is positive. The instrument states this rather than treating the
+the threshold is positive. The experiment states this rather than treating the
 finite-size onset as a material constant.
 
-## 6. Invasion percolation
+## 7. Invasion percolation
 
-`invasionCluster` in `lib/js/engine/algorithms.js` · `invasion_cluster` in
-`lib/python/percolation_atlas/algorithms.py`
+`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Each edge has an i.i.d. threshold. A min-heap holds the boundary. Popping the
 smallest key and accepting the edge when it reaches an unvisited site is the
@@ -108,11 +116,9 @@ doubles. The sequence of accepted thresholds is not monotone: a newly exposed
 edge can be cheaper than the last accepted one. This is ordinary invasion with
 loop rejection, not the trapping variant used for defending clusters.
 
-## 7. Achlioptas process
+## 8. Achlioptas process
 
-`explosiveRandomGraph` and `explosiveSweep` in
-`lib/js/engine/algorithms.js` · `explosive_random_graph` and
-`explosive_sweep` in `lib/python/percolation_atlas/algorithms.py`
+`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Two candidates are drawn; the product rule keeps the one whose endpoint
 component sizes have the smaller product (the sum rule is the weaker control).
@@ -120,16 +126,13 @@ The DSU state after each step is the component partition of the chosen edges,
 so the trajectory is a deterministic function of the candidate sequence.
 
 The visible jump is a finite-size effect. The product rule is continuous in
-the thermodynamic limit; the laboratory's scaling table is there to make that
-distinction visible, not to sell a discontinuity. Duplicate candidate pairs
-count as additions but do not merge components, and `q = steps / n` is the
-right horizontal axis for this sampling scheme.
+the thermodynamic limit; the laboratory's scaling table shows the difference.
+Duplicate candidate pairs count as additions but do not merge components, and
+`q = steps / n` is the right horizontal axis for this sampling scheme.
 
+## 9. k-core peeling
 
-## 8. k-core peeling
-
-`kcore` in `lib/js/engine/network.js` · `kcore` in
-`lib/python/percolation_atlas/network.py`
+`lib/js/engine/network.js` · `lib/python/percolation_atlas/network.py` · `lib/cpp/include/percolation_atlas/network.hpp` · `lib/julia/src/network.jl`
 
 The k-core is the largest induced subgraph with minimum degree at least k. It
 is obtained by repeatedly deleting vertices whose current degree is below k.
@@ -139,13 +142,11 @@ The degree array counts active neighbours, not all neighbours in the original
 graph. The queue must be a growable list: a vertex can be queued again after
 each of its neighbours is peeled. A fixed array of length `n` silently drops
 writes and leaves a non-k-core behind — that was a real regression in the
-first edition. The cost is `O(n + m)` time and `O(n)` memory.
+first edition. The cost is `O(n + m)` time; the queue can hold more than `n` entries, so worst-case auxiliary memory is `O(n + m)`.
 
-## 9. Hoshen–Kopelman labelling
+## 10. Hoshen–Kopelman labelling
 
-`labelClusters` in `lib/js/engine/algorithms.js` · `label_clusters` in
-`lib/python/percolation_atlas/algorithms.py` · `label_clusters` in the C++ and
-Julia editions.
+`lib/js/engine/algorithms.js` · `lib/python/percolation_atlas/algorithms.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 The scan visits the edge list once and unions an open edge whose two endpoints
 are present. Labels are compressed in a final pass: a vertex's label is its
@@ -157,10 +158,9 @@ The golden probe `labels_square6_p05_seed42` pins the full label array, not
 just the count, because two implementations can agree on the count and
 disagree on which vertices belong together.
 
-## 10. Bethe fixed point
+## 11. Bethe fixed point
 
-`bethePercolation` in `lib/js/engine/trees.js` · `bethe_percolation` in
-`lib/python/percolation_atlas/trees.py` (and C++/Julia).
+`lib/js/engine/trees.js` · `lib/python/percolation_atlas/trees.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 On the z-regular tree, `u = (1 - p + pu)^(z-1)` and
 `θ = 1 - (1 - p + pu)^z`. The physical solution is the smallest fixed point;
@@ -169,35 +169,21 @@ bisection on the first sign change selects it. The threshold is exactly
 infinite, so `chi` is reported as infinity rather than as a negative number
 from the subcritical formula.
 
-## 11. SIR final size
+## 12. SIR final size
 
-`sirFinalSize` in `lib/js/engine/trees.js` · `sir_final_size` in
-`lib/python/percolation_atlas/trees.py` (and C++/Julia).
+`lib/js/engine/trees.js` · `lib/python/percolation_atlas/trees.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 The final size is the configuration-model fixed point
-`S = 1 - G0(1 - T + Tu)`, `u = G1(1 - T + Tu)`. Start from `u = 0`; starting
-from `u = 1` stays at the trivial root and reports zero. The routine also
+`S = 1 - G0(1 - T + Tu)`, `u = G1(1 - T + Tu)`. The solver takes the smallest
+root; iterating from `u = 0` converges to it, while starting from `u = 1`
+stays at the trivial root and reports zero. The routine also
 returns `R0 = T(κ-1)`, `T_c = 1/(κ-1)` and the herd-immunity fraction
 `1 - 1/R0`. It is the same computation as the giant component, with the
 transmissibility interpretation of Chapter 23.
 
-## 12. Site Newman–Ziff
-
-`newmanZiffSite` in `lib/js/engine/percolation.js` · `newman_ziff_site` in
-`lib/python/percolation_atlas/percolation.py` (and C++/Julia).
-
-The site sweep adds vertices rather than edges. Draw one random order of the
-`n` sites, occupy them one at a time, and union each new site with the
-neighbours that have already appeared. After `k` sites the occupied set is a
-uniform `k`-subset, so the state is a site-percolation sample at `p = k/n`.
-Edges are never sampled; the random stream depends on `n`, not on `m`. The
-reported `chi2` uses `M₂/n` so the curve is comparable with the bond sweep.
-
 ## 13. Message passing
 
-`messagePassingPercolation` in `lib/js/engine/message.js` ·
-`message_passing_percolation` in
-`lib/python/percolation_atlas/message.py` (and C++/Julia).
+`lib/js/engine/message.js` · `lib/python/percolation_atlas/message.py` · `lib/cpp/include/percolation_atlas/algorithms.hpp` · `lib/julia/src/algorithms.jl`
 
 Cavity messages solve `u[i→j] = Π_{k≠j}(1 − T + T u[k→i])`. On a tree the
 factorisation is exact; on a graph with cycles it is the Bethe approximation,
@@ -213,7 +199,7 @@ mate reverses every message — the classic sign error.
 |---|---|
 | RNG stream | `data/golden/rng-seed42.json` |
 | core parity | `data/golden/parity.json`, `scripts/parity.py` |
-| algorithm zoo, v4 solvers, site sweep, message passing | `data/golden/algorithms-v3.json`, all four suites |
+| algorithm zoo, v4 solvers, site sweep, message passing | `data/golden/algorithms-v3.json`; the exact suite for each probe is listed in `content/algorithms.json` |
 | least fixed point | `tests/js/algorithms.test.js` (naive closure comparison) |
 | invasion tree | `tests/js/algorithms.test.js` (spanning-tree count) |
 | Leath extremes | `tests/js/algorithms.test.js` (`p = 0`, `p = 1`) |

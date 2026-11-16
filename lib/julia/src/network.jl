@@ -430,5 +430,6 @@ function molloy_reed(deg::AbstractVector{<:Integer})
     k2 = s2 / n
     kappa = k1 > 0 ? k2 / k1 : Inf
     pc = k2 > k1 ? k1 / (k2 - k1) : Inf
-    return (mean = k1, second = k2, kappa = kappa, pc = pc, fc = 1 - pc)
+    fc = isfinite(pc) ? max(0.0, 1.0 - pc) : 1.0
+    return (mean = k1, second = k2, kappa = kappa, pc = pc, fc = fc)
 end

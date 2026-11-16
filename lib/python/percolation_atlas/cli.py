@@ -1,6 +1,8 @@
 """Command-line entry point for the percolation-atlas algorithm package.
 
     atlas-perc info
+    atlas-perc algorithms
+    atlas-perc algorithms nz --json
     atlas-perc sample --lattice square --mode bond --L 128 --p 0.5 --seed 42
     atlas-perc sweep --lattice square --L 64 --seed 7
     atlas-perc bootstrap --L 64 --p 0.55 --r 3 --seed 11
@@ -52,16 +54,54 @@ def emit(obj: dict, as_json: bool) -> None:
             print(f"{key}: {value}")
 
 
+def algorithm_index() -> dict:
+    """Load the packaged index generated from content/algorithms.json."""
+    from importlib.resources import files
+
+    path = files("percolation_atlas").joinpath("algorithm_index.json")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def cmd_info(args) -> int:
+    idx = algorithm_index()
     emit(
         payload(
             command="info",
             thresholds=THRESHOLDS,
-            algorithms=["percolation", "newman-ziff", "leath", "bootstrap", "invasion", "explosive", "hoshen-kopelman", "bethe", "configuration-model", "sir-final-size"],
+            algorithms=idx["order"],
+            algorithm_count=len(idx["order"]),
             notes="Core engine, algorithm zoo and tree/epidemic solvers are implemented in C++, Julia, Python and JavaScript.",
         ),
         args.json,
     )
+    return 0
+
+
+def cmd_algorithms(args) -> int:
+    idx = algorithm_index()
+    if args.id:
+        if args.id not in idx["entries"]:
+            print(f"unknown algorithm: {args.id}", file=sys.stderr)
+            return 2
+        entry = {"id": args.id, **idx["entries"][args.id]}
+        if not args.json:
+            print(f"{entry['id']} — {entry['title']['en']}")
+            print(f"  tag: {entry['tag']['en']} · implementations: {entry['implementations']}")
+            for item in entry["code"]:
+                print(f"  code: {item['label']}: {item['path']}")
+            print("  tests: " + ", ".join(entry["tests"]))
+            return 0
+        emit(payload(command="algorithms", algorithm=entry), True)
+        return 0
+    if args.json:
+        emit(payload(command="algorithms", order=idx["order"], groups=idx["groups"], entries=idx["entries"]), True)
+        return 0
+    for ident in idx["order"]:
+        entry = idx["entries"][ident]
+        title = entry["title"]["en"]
+        impls = ", ".join(item["label"] for item in entry["code"])
+        print(f"{ident:<13} {title:<42} {impls}")
+    print(f"\n{len(idx['order'])} algorithms. Use `atlas-perc algorithms <id> --json` for source and test paths.")
     return 0
 
 
@@ -91,6 +131,10 @@ def cmd_sample(args) -> int:
 
 
 def cmd_sweep(args) -> int:
+    if args.checkpoints < 1:
+        raise ValueError("--checkpoints must be positive")
+    if args.points < 1:
+        raise ValueError("--points must be positive")
     lat = build_lattice(args.lattice, args.L)
     nz = newman_ziff(lat, Rng(args.seed), checkpoints=args.checkpoints)
     m = len(nz["p"])
@@ -151,6 +195,10 @@ def cmd_invasion(args) -> int:
 
 
 def cmd_explosive(args) -> int:
+    if args.n < 2:
+        raise ValueError("--n must be at least 2")
+    if args.steps is not None and args.steps < 1:
+        raise ValueError("--steps must be positive")
     res = explosive_random_graph(args.n, rule=args.rule, seed=args.seed, steps=args.steps)
     points = res.points
     q50 = None
@@ -190,6 +238,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("info", help="version, thresholds and available algorithms")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_info)
+
+    p = sub.add_parser("algorithms", help="list the thirteen routines, or inspect one")
+    p.add_argument("id", nargs="?")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_algorithms)
 
     p = sub.add_parser("sample", help="draw one configuration and report cluster statistics")
     p.add_argument("--lattice", choices=LATTICE_KINDS, default="square")

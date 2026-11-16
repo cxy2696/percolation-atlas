@@ -36,16 +36,18 @@ def _csr(n: int, eu, ev):
     mate = [0] * (2 * m)
     for e in range(m):
         a, b = eu[e], ev[e]
+        # Read and advance one endpoint at a time. For a self-loop a == b,
+        # the two half-edges must still get different slots.
         ha = pos[a]
+        pos[a] += 1
         hb = pos[b]
+        pos[b] += 1
         adj[ha] = b
         adj[hb] = a
         edge_of[ha] = e
         edge_of[hb] = e
         mate[ha] = hb
         mate[hb] = ha
-        pos[a] += 1
-        pos[b] += 1
     return start, adj, edge_of, mate, deg
 
 

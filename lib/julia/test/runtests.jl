@@ -405,8 +405,10 @@ close_to(a, b) = isapprox(a, b; atol = 1e-9, rtol = 1e-9)
     # A threshold above every degree never adds sites beyond the initial set.
     nb5 = neighbours_from_edges(25, build_lattice("square", 5).eu,
                                build_lattice("square", 5).ev)
-    tall = bootstrap_activation(25, nb5, ones(UInt8, 25), 5)
-    @test tall.active_count == 25
+    start5 = zeros(UInt8, 25)
+    start5[1] = 1
+    tall = bootstrap_activation(25, nb5, start5, 5)
+    @test tall.active_count == 1
     @test isempty(tall.rounds)
 
     # ---- invasion_2x2_thresholds
@@ -616,6 +618,12 @@ end
     @test none.S == 0.0 && isempty(none.outside) && none.converged
     isolated = message_passing_percolation(3, Int[], Int[], 0.5)
     @test isolated.S == 0.0 && isolated.outside == ones(3)
+
+    # A self-loop is not an infinite component. The two half-edges must still
+    # occupy distinct CSR slots; otherwise Python/Julia disagree with JS.
+    loop = message_passing_percolation(2, [0], [0], 0.5)
+    @test loop.S < 1e-9
+    @test loop.converged
 
     @test_throws ArgumentError message_passing_percolation(2, [0], [1], 1.5)
     @test_throws ArgumentError message_passing_percolation(2, [0], [1], -0.1)

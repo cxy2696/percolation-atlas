@@ -182,14 +182,14 @@ export function mount(root, ctx) {
     }
     drawPlot(document.getElementById('epi-curve'), {
       height: 250,
-      xLabel: 'R₀ = cT (effective)',
+      xLabel: 'R = cT',
       yLabel: 'R∞',
       xRange: [0, c],
       yRange: [0, 1],
       vlines: [{ x: 1, color: 'rgba(255,180,84,0.45)', label: 'R = 1' }],
       series: [
-        { x: xs, y: ys, color: PALETTE.cyan, width: 1.8 },
-        { x: [Reff], y: [s.finalSize], color: PALETTE.red, points: 4 },
+        { x: xs, y: ys, color: PALETTE.cyan, width: 1.8, label: 'final size' },
+        { x: [Reff], y: [s.finalSize], color: PALETTE.red, points: 4, label: 'current R_eff' },
       ],
     });
     const herd = R0 > 1 ? 1 - 1 / R0 : 0;
@@ -225,7 +225,7 @@ export function mount(root, ctx) {
     const canvas = document.getElementById('epi-hist');
     const wrap = canvas.parentElement;
     const W = Math.max(300, wrap.clientWidth - 2);
-    const H = 220;
+    const H = 230;
     const dpr = window.devicePixelRatio || 1;
     canvas.width = W * dpr;
     canvas.height = H * dpr;
@@ -236,16 +236,34 @@ export function mount(root, ctx) {
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.fillStyle = C.bg;
     g.fillRect(0, 0, W, H);
-    const m = { l: 46, r: 12, t: 28, b: 34 };
+    const m = { l: 52, r: 14, t: 42, b: 44 };
     const plotW = W - m.l - m.r;
     const plotH = H - m.t - m.b;
     const maxCount = Math.max(1, ...counts);
+
     g.fillStyle = C.ink;
-    g.font = '9px SFMono-Regular, Menlo, Consolas, monospace';
+    g.font = '11px "Avenir Next", "Segoe UI", system-ui, sans-serif';
     g.textAlign = 'left';
     g.textBaseline = 'top';
     g.fillText(L.hist, m.l, 6);
-    g.textBaseline = 'alphabetic';
+
+    // y axis: counts, with horizontal guides
+    g.font = '10px "Avenir Next", "Segoe UI", system-ui, sans-serif';
+    g.fillStyle = C.dim;
+    g.textAlign = 'right';
+    g.textBaseline = 'middle';
+    for (const frac of [0, 0.25, 0.5, 0.75, 1]) {
+      const y = m.t + plotH - frac * plotH;
+      const value = Math.round(frac * maxCount);
+      g.fillStyle = C.dim;
+      g.fillText(String(value), m.l - 8, y);
+      g.strokeStyle = frac === 0 ? C.grid : C.gridFaint;
+      g.beginPath();
+      g.moveTo(m.l, y + 0.5);
+      g.lineTo(m.l + plotW, y + 0.5);
+      g.stroke();
+    }
+
     for (let b = 0; b < bins; b++) {
       const x0 = m.l + (b / bins) * plotW;
       const bw = plotW / bins;
@@ -256,18 +274,38 @@ export function mount(root, ctx) {
     }
     g.strokeStyle = C.grid;
     g.strokeRect(m.l + 0.5, m.t + 0.5, plotW, plotH);
+
+    g.font = '10px "Avenir Next", "Segoe UI", system-ui, sans-serif';
     g.fillStyle = C.dim;
-    g.font = '9px SFMono-Regular, Menlo, Consolas, monospace';
     g.textAlign = 'center';
+    g.textBaseline = 'top';
     for (const v of [1, 10, 100, CAP]) {
       const x = m.l + (Math.log10(v) / logMax) * plotW;
-      g.fillText(String(v), x, H - 16);
+      g.fillText(v === CAP ? `≥${CAP}` : String(v), x, m.t + plotH + 8);
     }
-    g.textAlign = 'center';
-    g.fillText('outbreak size (log scale)', m.l + plotW / 2, H - 4);
+    g.fillText('outbreak size (log scale)', m.l + plotW / 2, H - 12);
+
+    // Legend above the plot, not over the bars.
     g.textAlign = 'left';
+    g.textBaseline = 'middle';
+    const lx = m.l;
+    const ly = 24;
+    g.fillStyle = withAlpha(C.cyan, 0.6);
+    g.fillRect(lx, ly - 5, 10, 10);
+    g.fillStyle = C.dim;
+    g.fillText('size < 100', lx + 15, ly);
+    g.fillStyle = withAlpha(C.amber, 0.75);
+    g.fillRect(lx + 100, ly - 5, 10, 10);
+    g.fillStyle = C.dim;
+    g.fillText('size ≥ 100', lx + 115, ly);
     g.fillStyle = C.cyan;
-    g.fillText(`R_eff = ${Reff.toFixed(2)}`, m.l + 4, m.t + 10);
+    g.textAlign = 'right';
+    g.fillText(`R_eff = ${Reff.toFixed(2)}`, W - m.r, ly);
+
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label',
+      `Histogram of ${TRIALS} simulated outbreak sizes at effective reproduction number ${Reff.toFixed(2)}; ` +
+      `${fmt(large / TRIALS, 3)} of runs reach at least 100 cases; mean size ${fmt(sum / TRIALS, 1)}.`);
   }
 
   document.getElementById('epi-resample').addEventListener('click', () => {

@@ -1,6 +1,6 @@
 {
- "generated": "code-18a01f1ff508ff73",
- "fingerprint": "18a01f1ff508ff73",
+ "generated": "code-9f29ad10da5be721",
+ "fingerprint": "9f29ad10da5be721",
  "languages": [
   {
    "id": "javascript",
@@ -10,7 +10,7 @@
      "path": "lib/js/engine/algorithms.js",
      "bucket": "core",
      "lines": 510,
-     "bytes": 16605
+     "bytes": 16549
     },
     {
      "path": "lib/js/engine/cardy.js",
@@ -34,7 +34,7 @@
      "path": "lib/js/engine/dsu.js",
      "bucket": "core",
      "lines": 61,
-     "bytes": 1270
+     "bytes": 1288
     },
     {
      "path": "lib/js/engine/lattice.js",
@@ -58,7 +58,7 @@
      "path": "lib/js/engine/network.js",
      "bucket": "core",
      "lines": 323,
-     "bytes": 9987
+     "bytes": 10026
     },
     {
      "path": "lib/js/engine/percolation.js",
@@ -91,10 +91,16 @@
      "bytes": 1355
     },
     {
+     "path": "tests/js/algorithm-guide.test.js",
+     "bucket": "tests",
+     "lines": 56,
+     "bytes": 2494
+    },
+    {
      "path": "tests/js/algorithms.test.js",
      "bucket": "tests",
-     "lines": 167,
-     "bytes": 6963
+     "lines": 183,
+     "bytes": 7543
     },
     {
      "path": "tests/js/engine.test.js",
@@ -123,8 +129,8 @@
     {
      "path": "tests/js/message.test.js",
      "bucket": "tests",
-     "lines": 49,
-     "bytes": 2063
+     "lines": 55,
+     "bytes": 2261
     },
     {
      "path": "tests/js/trees.test.js",
@@ -153,8 +159,8 @@
     {
      "path": "lib/python/percolation_atlas/algorithms.py",
      "bucket": "core",
-     "lines": 432,
-     "bytes": 13480
+     "lines": 434,
+     "bytes": 13600
     },
     {
      "path": "lib/python/percolation_atlas/api.py",
@@ -171,8 +177,8 @@
     {
      "path": "lib/python/percolation_atlas/cli.py",
      "bucket": "core",
-     "lines": 259,
-     "bytes": 9164
+     "lines": 312,
+     "bytes": 11224
     },
     {
      "path": "lib/python/percolation_atlas/continuum.py",
@@ -195,14 +201,14 @@
     {
      "path": "lib/python/percolation_atlas/message.py",
      "bucket": "core",
-     "lines": 112,
-     "bytes": 3796
+     "lines": 114,
+     "bytes": 3932
     },
     {
      "path": "lib/python/percolation_atlas/network.py",
      "bucket": "core",
-     "lines": 283,
-     "bytes": 8243
+     "lines": 284,
+     "bytes": 8354
     },
     {
      "path": "lib/python/percolation_atlas/percolation.py",
@@ -225,8 +231,8 @@
     {
      "path": "lib/python/tests/test_algorithms.py",
      "bucket": "core",
-     "lines": 165,
-     "bytes": 6280
+     "lines": 208,
+     "bytes": 8041
     },
     {
      "path": "lib/python/tests/test_engine.py",
@@ -237,8 +243,8 @@
     {
      "path": "lib/python/tests/test_message.py",
      "bucket": "core",
-     "lines": 80,
-     "bytes": 2771
+     "lines": 90,
+     "bytes": 3155
     },
     {
      "path": "lib/python/tests/test_trees.py",
@@ -255,8 +261,8 @@
     {
      "path": "lib/cpp/include/percolation_atlas/algorithms.hpp",
      "bucket": "core",
-     "lines": 1084,
-     "bytes": 42616
+     "lines": 1085,
+     "bytes": 42659
     },
     {
      "path": "lib/cpp/include/percolation_atlas/atlas.hpp",
@@ -291,8 +297,8 @@
     {
      "path": "lib/cpp/include/percolation_atlas/network.hpp",
      "bucket": "core",
-     "lines": 445,
-     "bytes": 15788
+     "lines": 447,
+     "bytes": 15921
     },
     {
      "path": "lib/cpp/include/percolation_atlas/percolation.hpp",
@@ -315,8 +321,8 @@
     {
      "path": "lib/cpp/tests/test_main.cpp",
      "bucket": "core",
-     "lines": 774,
-     "bytes": 28114
+     "lines": 785,
+     "bytes": 28606
     },
     {
      "path": "scripts/bench.cpp",
@@ -339,8 +345,8 @@
     {
      "path": "lib/julia/src/algorithms.jl",
      "bucket": "core",
-     "lines": 1087,
-     "bytes": 36410
+     "lines": 1089,
+     "bytes": 36530
     },
     {
      "path": "lib/julia/src/cardy.jl",
@@ -369,8 +375,8 @@
     {
      "path": "lib/julia/src/network.jl",
      "bucket": "core",
-     "lines": 434,
-     "bytes": 13643
+     "lines": 435,
+     "bytes": 13688
     },
     {
      "path": "lib/julia/src/percolation.jl",
@@ -387,8 +393,8 @@
     {
      "path": "lib/julia/test/runtests.jl",
      "bucket": "tests",
-     "lines": 627,
-     "bytes": 22031
+     "lines": 635,
+     "bytes": 22328
     }
    ]
   }

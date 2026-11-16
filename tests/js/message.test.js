@@ -30,6 +30,12 @@ test('message passing: T = 1 on a connected graph', () => {
   for (const x of r.outside) assert.equal(x, 0);
 });
 
+test('message passing: a self-loop alone is not a giant component', () => {
+  const r = messagePassingPercolation(2, [0], [0], 0.5);
+  assert.ok(r.S < 1e-9);
+  assert.equal(r.converged, true);
+});
+
 test('site Newman–Ziff: golden square 8', () => {
   const lat = buildLattice('square', 8);
   const r = newmanZiffSite(lat, new Rng(5), { checkpoints: 16 });

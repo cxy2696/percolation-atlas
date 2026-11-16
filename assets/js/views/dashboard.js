@@ -340,6 +340,7 @@ export async function render(root, ctx) {
     }
     drawPlot(el, {
       height: 66,
+      interactive: false,
       xRange: [0.36, 0.64],
       yRange: [0, 1],
       xTicks: [0.4, 0.5, 0.6],

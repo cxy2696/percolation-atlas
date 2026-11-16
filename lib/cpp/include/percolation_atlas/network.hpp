@@ -261,6 +261,7 @@ inline KCoreResult kcore(const Graph& graph, const std::vector<std::uint8_t>& ac
   if (static_cast<int>(active.size()) != graph.n) {
     throw std::invalid_argument("active vector must have graph.n entries");
   }
+  if (k < 0) throw std::invalid_argument("k must be non-negative");
   const int n = graph.n;
   std::vector<int> deg(static_cast<std::size_t>(n), 0);
   std::vector<std::uint8_t> alive(static_cast<std::size_t>(n), 0);
@@ -439,7 +440,8 @@ inline MolloyReed molloy_reed(const std::vector<int>& deg) {
   const double inf = std::numeric_limits<double>::infinity();
   const double kappa = k1 > 0.0 ? k2 / k1 : inf;
   const double pc = k2 > k1 ? k1 / (k2 - k1) : inf;
-  return MolloyReed{k1, k2, kappa, pc, 1.0 - pc};
+  const double fc = std::isfinite(pc) ? std::max(0.0, 1.0 - pc) : 1.0;
+  return MolloyReed{k1, k2, kappa, pc, fc};
 }
 
 }  // namespace atlas

@@ -185,7 +185,8 @@ export async function render(root, ctx) {
       <div><div class="kicker">${t(lang, 'labs_kicker')}</div><h2>${t(lang, 'labs_title')}</h2></div>
       <div class="meta">${LABS.length} ${t(lang, 'labs_badge').replace('<br>', ' · ')}</div>
     </div>
-    <p class="muted" style="max-width:780px;line-height:1.7;margin-top:-6px">${t(lang, 'labs_lead')}</p>` +
+    <p class="muted" style="max-width:780px;line-height:1.7;margin-top:-6px">${t(lang, 'labs_lead')}</p>
+    <p class="hint" style="max-width:780px;margin-top:-2px">${t(lang, 'labs_chart_hint')}</p>` +
     `<section class="recipe-band">
       <div class="section-head"><h3>${t(lang, 'recipes_title')}</h3><span class="mono small">${RECIPES.length} ${t(lang, 'recipes_badge')}</span></div>
       <div class="recipe-grid">` +

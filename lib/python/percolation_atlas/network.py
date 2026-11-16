@@ -170,8 +170,8 @@ def targeted_removal(graph: Graph, frac: float) -> list:
 
 
 def kcore(graph: Graph, active, k: int):
-    if k < 0:
-        raise ValueError("k must be non-negative")
+    if not isinstance(k, int) or isinstance(k, bool) or k < 0:
+        raise ValueError("k must be a non-negative integer")
     n = graph.n
     alive = [0] * n
     deg = [0] * n
@@ -279,5 +279,6 @@ def molloy_reed(deg: list) -> dict:
     if k1 <= 0:
         raise ValueError("mean degree must be positive")
     kappa = k2 / k1
-    pc = k1 / (k2 - k1) if k2 > k1 else 1.0
-    return {"mean": k1, "second": k2, "kappa": kappa, "pc": pc, "fc": max(0.0, 1.0 - pc)}
+    pc = k1 / (k2 - k1) if k2 > k1 else float("inf")
+    fc = max(0.0, 1.0 - pc) if pc != float("inf") else 1.0
+    return {"mean": k1, "second": k2, "kappa": kappa, "pc": pc, "fc": fc}
